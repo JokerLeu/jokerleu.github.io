@@ -1,0 +1,2340 @@
+
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="复制">
+      
+        <meta name="lang:clipboard.copied" content="已复制">
+      
+        <meta name="lang:search.language" content="jp">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="没有找到符合条件的结果">
+      
+        <meta name="lang:search.result.one" content="找到 1 个符合条件的结果">
+      
+        <meta name="lang:search.result.other" content="# 个符合条件的结果">
+      
+        <meta name="lang:search.tokenizer" content="[\uff0c\u3002]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.2">
+    
+    
+      
+        <title>01-k8s纯手工部署 - 雨下不停的知识库</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.982221ab.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#546e7a">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1f0bcf2b.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="blue-grey" data-md-color-accent="pink">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#kubernetes" tabindex="1" class="md-skip">
+        跳转至
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../.." title="雨下不停的知识库" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              雨下不停的知识库
+            </span>
+            <span class="md-header-nav__topic">
+              01-k8s纯手工部署
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            键入以开始搜索
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/JokerLeu/jokerleu.github.io.git/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    jokerleu
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../.." title="雨下不停的知识库" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    雨下不停的知识库
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/JokerLeu/jokerleu.github.io.git/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    jokerleu
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1" checked>
+    
+    <label class="md-nav__link" for="nav-1">
+      容器云技术
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        容器云技术
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-1-1" type="checkbox" id="nav-1-1">
+    
+    <label class="md-nav__link" for="nav-1-1">
+      Docker
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-1-1">
+        Docker
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-1-1-1" type="checkbox" id="nav-1-1-1">
+    
+    <label class="md-nav__link" for="nav-1-1-1">
+      Docker基础
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-1-1-1">
+        Docker基础
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../docker/01-Docker基础使用/01-Docker介绍/" title="01-Docker介绍" class="md-nav__link">
+      01-Docker介绍
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../docker/01-Docker基础使用/02-Docker数据存储和网络访问/" title="02-Docker网络和存储" class="md-nav__link">
+      02-Docker网络和存储
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../docker/01-Docker基础使用/03-手动构建镜像/" title="03-镜像的构建" class="md-nav__link">
+      03-镜像的构建
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../docker/01-Docker基础使用/04-DockerFile/" title="04-Dockerfle" class="md-nav__link">
+      04-Dockerfle
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-1-2" type="checkbox" id="nav-1-2" checked>
+    
+    <label class="md-nav__link" for="nav-1-2">
+      Kubernetes编排
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-1-2">
+        Kubernetes编排
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        01-k8s纯手工部署
+      </label>
+    
+    <a href="./" title="01-k8s纯手工部署" class="md-nav__link md-nav__link--active">
+      01-k8s纯手工部署
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ip" title="IP地址分配" class="md-nav__link">
+    IP地址分配
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="系统初始化" class="md-nav__link">
+    系统初始化
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ca" title="手动制作CA证书" class="md-nav__link">
+    手动制作CA证书
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cfssl" title="准备cfssl的二进制文件" class="md-nav__link">
+    准备cfssl的二进制文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfssl_1" title="初始化cfssl" class="md-nav__link">
+    初始化cfssl
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cajson" title="创建用来生成CA文件的JSON配置文件" class="md-nav__link">
+    创建用来生成CA文件的JSON配置文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cacsrjson" title="创建用来生成CA证书签名请求（CSR）的JSON配置文件" class="md-nav__link">
+    创建用来生成CA证书签名请求（CSR）的JSON配置文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cacapemca-keypem" title="生成CA证书（ca.pem）和密钥（ca-key.pem）" class="md-nav__link">
+    生成CA证书（ca.pem）和密钥（ca-key.pem）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="分发证书" class="md-nav__link">
+    分发证书
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etcd" title="ETCD集群部署" class="md-nav__link">
+    ETCD集群部署
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#etcd_1" title="准备ETCD的二进制软件" class="md-nav__link">
+    准备ETCD的二进制软件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etcd_2" title="创建ETCD证书签名请求" class="md-nav__link">
+    创建ETCD证书签名请求
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="生成证书和私钥" class="md-nav__link">
+    生成证书和私钥
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="分发证书和私钥" class="md-nav__link">
+    分发证书和私钥
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etcd_3" title="设置ETCD配置文件" class="md-nav__link">
+    设置ETCD配置文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etcd_4" title="创建ETCD的系统服务" class="md-nav__link">
+    创建ETCD的系统服务
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="重载系统服务" class="md-nav__link">
+    重载系统服务
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="验证集群" class="md-nav__link">
+    验证集群
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#k8s-master" title="K8S Master 节点部署" class="md-nav__link">
+    K8S Master 节点部署
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="准备软件包" class="md-nav__link">
+    准备软件包
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#csrjson" title="创建生成CSR的JSON配置文件" class="md-nav__link">
+    创建生成CSR的JSON配置文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kubernetes_1" title="生成Kubernetes的证书和私钥" class="md-nav__link">
+    生成Kubernetes的证书和私钥
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kube-apiservertoken" title="创建kube-apiserver使用的客户端token文件" class="md-nav__link">
+    创建kube-apiserver使用的客户端token文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="创建基础用户名/密码认证配置" class="md-nav__link">
+    创建基础用户名/密码认证配置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kube-apiserver" title="配置kube-apiserver的系统配置" class="md-nav__link">
+    配置kube-apiserver的系统配置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-server" title="启动api server" class="md-nav__link">
+    启动api server
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-server_1" title="为API Server做负载" class="md-nav__link">
+    为API Server做负载
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#controller-manager" title="准备controller-manager的服务配置文件" class="md-nav__link">
+    准备controller-manager的服务配置文件
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#controller-manager_1" title="启动Controller-Manager" class="md-nav__link">
+    启动Controller-Manager
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kube-scheduler" title="准备kube-scheduler的服务配置文件" class="md-nav__link">
+    准备kube-scheduler的服务配置文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kube-scheduler_1" title="启动kube-scheduler" class="md-nav__link">
+    启动kube-scheduler
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kubectl" title="部署kubectl" class="md-nav__link">
+    部署kubectl
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#node" title="Node节点部署" class="md-nav__link">
+    Node节点部署
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kube-proxy" title="部署kube-proxy" class="md-nav__link">
+    部署kube-proxy
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flannel" title="Flannel部署" class="md-nav__link">
+    Flannel部署
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" title="一些必备组件" class="md-nav__link">
+    一些必备组件
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#coredns" title="CoreDns" class="md-nav__link">
+    CoreDns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helm" title="Helm" class="md-nav__link">
+    Helm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dashboard" title="DashBoard" class="md-nav__link">
+    DashBoard
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Django学习笔记
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Django学习笔记
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-1" type="checkbox" id="nav-2-1">
+    
+    <label class="md-nav__link" for="nav-2-1">
+      Django DRF
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-1">
+        Django DRF
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../django/DRF/01-Restful/" title="01-Restful介绍" class="md-nav__link">
+      01-Restful介绍
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../django/DRF/02-Request的封装/" title="02-Request封装" class="md-nav__link">
+      02-Request封装
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../django/DRF/03-DRF的认证/" title="03-DRF的认证" class="md-nav__link">
+      03-DRF的认证
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../django/DRF/04-DRF权限/" title="04-DRF的权限" class="md-nav__link">
+      04-DRF的权限
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../django/DRF/05-DRF访问限制/" title="05-DRF访问限制" class="md-nav__link">
+      05-DRF访问限制
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../django/DRF/06-DRF版本&解析器/" title="06-DRF版本&解析器" class="md-nav__link">
+      06-DRF版本&解析器
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../django/DRF/07-DRF序列化/" title="07-DRF序列化" class="md-nav__link">
+      07-DRF序列化
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ip" title="IP地址分配" class="md-nav__link">
+    IP地址分配
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="系统初始化" class="md-nav__link">
+    系统初始化
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ca" title="手动制作CA证书" class="md-nav__link">
+    手动制作CA证书
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cfssl" title="准备cfssl的二进制文件" class="md-nav__link">
+    准备cfssl的二进制文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfssl_1" title="初始化cfssl" class="md-nav__link">
+    初始化cfssl
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cajson" title="创建用来生成CA文件的JSON配置文件" class="md-nav__link">
+    创建用来生成CA文件的JSON配置文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cacsrjson" title="创建用来生成CA证书签名请求（CSR）的JSON配置文件" class="md-nav__link">
+    创建用来生成CA证书签名请求（CSR）的JSON配置文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cacapemca-keypem" title="生成CA证书（ca.pem）和密钥（ca-key.pem）" class="md-nav__link">
+    生成CA证书（ca.pem）和密钥（ca-key.pem）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="分发证书" class="md-nav__link">
+    分发证书
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etcd" title="ETCD集群部署" class="md-nav__link">
+    ETCD集群部署
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#etcd_1" title="准备ETCD的二进制软件" class="md-nav__link">
+    准备ETCD的二进制软件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etcd_2" title="创建ETCD证书签名请求" class="md-nav__link">
+    创建ETCD证书签名请求
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="生成证书和私钥" class="md-nav__link">
+    生成证书和私钥
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="分发证书和私钥" class="md-nav__link">
+    分发证书和私钥
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etcd_3" title="设置ETCD配置文件" class="md-nav__link">
+    设置ETCD配置文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etcd_4" title="创建ETCD的系统服务" class="md-nav__link">
+    创建ETCD的系统服务
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="重载系统服务" class="md-nav__link">
+    重载系统服务
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="验证集群" class="md-nav__link">
+    验证集群
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#k8s-master" title="K8S Master 节点部署" class="md-nav__link">
+    K8S Master 节点部署
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="准备软件包" class="md-nav__link">
+    准备软件包
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#csrjson" title="创建生成CSR的JSON配置文件" class="md-nav__link">
+    创建生成CSR的JSON配置文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kubernetes_1" title="生成Kubernetes的证书和私钥" class="md-nav__link">
+    生成Kubernetes的证书和私钥
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kube-apiservertoken" title="创建kube-apiserver使用的客户端token文件" class="md-nav__link">
+    创建kube-apiserver使用的客户端token文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="创建基础用户名/密码认证配置" class="md-nav__link">
+    创建基础用户名/密码认证配置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kube-apiserver" title="配置kube-apiserver的系统配置" class="md-nav__link">
+    配置kube-apiserver的系统配置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-server" title="启动api server" class="md-nav__link">
+    启动api server
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-server_1" title="为API Server做负载" class="md-nav__link">
+    为API Server做负载
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#controller-manager" title="准备controller-manager的服务配置文件" class="md-nav__link">
+    准备controller-manager的服务配置文件
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#controller-manager_1" title="启动Controller-Manager" class="md-nav__link">
+    启动Controller-Manager
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kube-scheduler" title="准备kube-scheduler的服务配置文件" class="md-nav__link">
+    准备kube-scheduler的服务配置文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kube-scheduler_1" title="启动kube-scheduler" class="md-nav__link">
+    启动kube-scheduler
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kubectl" title="部署kubectl" class="md-nav__link">
+    部署kubectl
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#node" title="Node节点部署" class="md-nav__link">
+    Node节点部署
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kube-proxy" title="部署kube-proxy" class="md-nav__link">
+    部署kube-proxy
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flannel" title="Flannel部署" class="md-nav__link">
+    Flannel部署
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" title="一些必备组件" class="md-nav__link">
+    一些必备组件
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#coredns" title="CoreDns" class="md-nav__link">
+    CoreDns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helm" title="Helm" class="md-nav__link">
+    Helm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dashboard" title="DashBoard" class="md-nav__link">
+    DashBoard
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/JokerLeu/jokerleu.github.io.git/edit/master/docs/kubernetes/01-k8s纯手工部署.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="kubernetes">Kubernetes二进制部署<a class="headerlink" href="#kubernetes" title="Permanent link">&para;</a></h1>
+<blockquote>
+<ul>
+<li>
+<p>文档日期：2018年12月25日</p>
+</li>
+<li>
+<p>记录人员：lamber</p>
+</li>
+</ul>
+<p>环境说明：master节点*3，node节点*2，三台master节点做负载均衡，通过阿里云的内网SLB做负载，根据需要，node节点可以动态的进行添加。当前基本结构如下图：</p>
+</blockquote>
+<p><img alt="" src="http://tuku.dcgamer.top/18-12-25/86810633.jpg" /></p>
+<h2 id="ip">IP地址分配<a class="headerlink" href="#ip" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>IP</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kubernetes Master HA</td>
+<td>172.16.16.124（VIP）</td>
+<td>master HA地址</td>
+</tr>
+<tr>
+<td>Pro-k8s-master1</td>
+<td>172.16.16.119</td>
+<td>master-1</td>
+</tr>
+<tr>
+<td>Pro-k8s-master2</td>
+<td>172.16.16.120</td>
+<td>master-2</td>
+</tr>
+<tr>
+<td>Pro-k8s-master3</td>
+<td>172.16.16.121</td>
+<td>master-3</td>
+</tr>
+<tr>
+<td>Pro-k8s-node1</td>
+<td>172.16.16.122</td>
+<td>node-1</td>
+</tr>
+<tr>
+<td>Pro-k8s-node2</td>
+<td>172.16.16.123</td>
+<td>node-2</td>
+</tr>
+<tr>
+<td>ETCD_NODE1</td>
+<td>172.16.16.119</td>
+<td>etcd cluster</td>
+</tr>
+<tr>
+<td>ETCD_NODE2</td>
+<td>172.16.16.120</td>
+<td>etcd cluster</td>
+</tr>
+<tr>
+<td>ETCD_NODE3</td>
+<td>172.16.16.121</td>
+<td>etcd cluster</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="_1">系统初始化<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>安装部署Docker<code>指定版本为18.06.0-ce</code>，并修改Docker的数据存放位置为<code>/alidata/docker/</code>。（略）</p>
+</li>
+<li>
+<p>准备Kubernetes的1.12.3的相关二进制文件，具体可参考<a href="https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.12.md#v1123">CHANGELOG-1.12</a>。（略）</p>
+</li>
+<li>
+<p>系统主机名初始化，主机SSH授信免密登录。（略）</p>
+</li>
+<li>
+<p>关闭selinux，关闭iptables（firewalld）。</p>
+</li>
+<li>
+<p>准备部署目录，并把/alidata/kubernetes/bin加入到环境变量PATH中。</p>
+</li>
+</ul>
+<div class="codehilite"><pre><span></span> mkdir -p /alidata/kubernetes/<span class="o">{</span>cfg,bin,ssl,log<span class="o">}</span>
+</pre></div>
+
+<h2 id="ca">手动制作CA证书<a class="headerlink" href="#ca" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>本次生成证书的工具采用CFSSL，CFSSL是CloudFlare开源的一款PKI/TLS工具。 CFSSL 包含一个命令行工具和一个用于签名的工具，验证并且捆绑TLS证书的 HTTP API 服务。 使用Go语言编写。我们可以使用json去定义证书相关内容，看起来更加直观。</p>
+<p>CFSSL包括：</p>
+<ul>
+<li>一组用于生成自定义 TLS PKI 的工具</li>
+<li><code>cfssl</code>程序，是CFSSL的命令行工具</li>
+<li><code>multirootca</code>程序是可以使用多个签名密钥的证书颁发机构服务器</li>
+<li><code>mkbundle</code>程序用于构建证书池</li>
+<li><code>cfssljson</code>程序，从<code>cfssl</code>和<code>multirootca</code>程序获取JSON输出，并将证书，密钥，CSR和bundle写入磁盘</li>
+</ul>
+</blockquote>
+<h3 id="cfssl">准备cfssl的二进制文件<a class="headerlink" href="#cfssl" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="c1"># 下载cfssl二进制文件</span>
+wget https://pkg.cfssl.org/R1.2/cfssl_linux-amd64
+wget https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64
+wget https://pkg.cfssl.org/R1.2/cfssl-certinfo_linux-amd64
+chmod +x cfssl*
+mv cfssl-certinfo_linux-amd64 /alidata/kubernetes/bin/cfssl-certinfo
+mv cfssljson_linux-amd64  /alidata/kubernetes/bin/cfssljson
+mv cfssl_linux-amd64  /alidata/kubernetes/bin/cfssl
+
+<span class="c1"># 分发到所有的k8s节点，因为设置了免密因此无需输入密码，其余几个节点的分发省略，只写一个。</span>
+scp /alidata/kubernetes/bin/cfssl* root@172.16.16.120:/alidata/kubernetes/bin/
+</pre></div>
+
+<h3 id="cfssl_1">初始化cfssl<a class="headerlink" href="#cfssl_1" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>mkdir /alidata/src <span class="o">&amp;&amp;</span> <span class="nb">cd</span> /alidata/src
+cfssl print-defaults config &gt; config.json
+cfssl print-defaults csr &gt; csr.json
+</pre></div>
+
+<h3 id="cajson">创建用来生成CA文件的JSON配置文件<a class="headerlink" href="#cajson" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="err">#</span> <span class="err">证书有效期约为</span><span class="mi">10</span><span class="err">年</span>
+<span class="p">[</span><span class="err">root@Pro-k</span><span class="mi">8</span><span class="err">s-master</span><span class="mi">1</span> <span class="err">/alidata/src/ssl</span><span class="p">]</span><span class="err">#</span> <span class="err">cat</span> <span class="err">ca-config.json</span> 
+<span class="p">{</span>
+     <span class="nt">&quot;signing&quot;</span><span class="p">:</span> <span class="p">{</span>
+       <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;expiry&quot;</span><span class="p">:</span> <span class="s2">&quot;87600h&quot;</span>
+           <span class="p">},</span>
+       <span class="nt">&quot;profiles&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;kubernetes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;usages&quot;</span><span class="p">:</span> <span class="p">[</span>
+              <span class="s2">&quot;signing&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;key encipherment&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;server auth&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;client auth&quot;</span>
+             <span class="p">],</span>
+           <span class="nt">&quot;expiry&quot;</span><span class="p">:</span> <span class="s2">&quot;87600h&quot;</span>
+            <span class="p">}</span>
+         <span class="p">}</span>
+     <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<h3 id="cacsrjson">创建用来生成CA证书签名请求（CSR）的JSON配置文件<a class="headerlink" href="#cacsrjson" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="p">[</span><span class="err">root@Pro-k</span><span class="mi">8</span><span class="err">s-master</span><span class="mi">1</span> <span class="err">/alidata/src/ssl</span><span class="p">]</span><span class="err">#</span> <span class="err">cat</span> <span class="err">ca-csr.json</span> 
+<span class="p">{</span>
+  <span class="nt">&quot;CN&quot;</span><span class="p">:</span> <span class="s2">&quot;kubernetes&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;key&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;algo&quot;</span><span class="p">:</span> <span class="s2">&quot;rsa&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">2048</span>
+   <span class="p">},</span>
+  <span class="nt">&quot;names&quot;</span><span class="p">:</span> <span class="p">[</span>
+   <span class="p">{</span>
+     <span class="nt">&quot;C&quot;</span><span class="p">:</span> <span class="s2">&quot;CN&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;ST&quot;</span><span class="p">:</span> <span class="s2">&quot;BeiJing&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;L&quot;</span><span class="p">:</span> <span class="s2">&quot;BeiJing&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;O&quot;</span><span class="p">:</span> <span class="s2">&quot;k8s&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;OU&quot;</span><span class="p">:</span> <span class="s2">&quot;System&quot;</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+
+<h3 id="cacapemca-keypem">生成CA证书（ca.pem）和密钥（ca-key.pem）<a class="headerlink" href="#cacapemca-keypem" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>cfssl gencert -initca ca-csr.json <span class="p">|</span> cfssljson -bare ca
+</pre></div>
+
+<h3 id="_2">分发证书<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>cp ca.csr ca.pem ca-key.pem ca-config.json /alidata/kubernetes/ssl
+
+<span class="c1"># 分发到其他的节点</span>
+scp -P <span class="m">5203</span> ca.csr ca.pem ca-key.pem ca-config.json <span class="m">172</span>.16.16.120:/alidata/kubernetes/ssl 
+</pre></div>
+
+<h2 id="etcd">ETCD集群部署<a class="headerlink" href="#etcd" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>本次etcd集群主要部署在三个master节点，同时为了方便扩展因此在制作证书的时候就把集群所有的ip都做进去，然后分发实现证书可以通用。</p>
+</blockquote>
+<h4 id="etcd_1">准备ETCD的二进制软件<a class="headerlink" href="#etcd_1" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="c1"># etcd版本为3.2.18，</span>
+wget https://github.com/coreos/etcd/releases/download/v3.2.18/etcd-v3.2.18-linux-amd64.tar.gz
+tar zxf etcd-v3.2.18-linux-amd64.tar.gz
+<span class="nb">cd</span> etcd-v3.2.18-linux-amd64
+
+<span class="c1"># 分发软件</span>
+chmod +x etcd*
+cp etcd etcdctl /alidata/kubernetes/bin/ 
+scp -P <span class="m">5203</span> etcd etcdctl <span class="m">172</span>.16.16.120:/alidata/kubernetes/bin/
+scp -P <span class="m">5203</span> etcd etcdctl <span class="m">172</span>.16.16.121:/alidata/kubernetes/bin/
+</pre></div>
+
+<h3 id="etcd_2">创建ETCD证书签名请求<a class="headerlink" href="#etcd_2" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="o">[</span>root@Pro-k8s-master1 /alidata/src/ssl<span class="o">]</span><span class="c1"># cat etcd-csr.json </span>
+<span class="o">{</span>
+  <span class="s2">&quot;CN&quot;</span>: <span class="s2">&quot;etcd&quot;</span>,
+  <span class="s2">&quot;hosts&quot;</span>: <span class="o">[</span>
+    <span class="s2">&quot;127.0.0.1&quot;</span>,
+    <span class="s2">&quot;172.16.16.119&quot;</span>,
+    <span class="s2">&quot;172.16.16.120&quot;</span>,
+    <span class="s2">&quot;172.16.16.121&quot;</span>,
+    <span class="s2">&quot;172.16.16.122&quot;</span>,
+    <span class="s2">&quot;172.16.16.123&quot;</span>,
+    <span class="s2">&quot;172.16.16.124&quot;</span>
+    <span class="o">]</span>,
+  <span class="s2">&quot;key&quot;</span>: <span class="o">{</span>
+    <span class="s2">&quot;algo&quot;</span>: <span class="s2">&quot;rsa&quot;</span>,
+    <span class="s2">&quot;size&quot;</span>: <span class="m">2048</span>
+    <span class="o">}</span>,
+  <span class="s2">&quot;names&quot;</span>: <span class="o">[</span>
+    <span class="o">{</span>
+     <span class="s2">&quot;C&quot;</span>: <span class="s2">&quot;CN&quot;</span>,
+     <span class="s2">&quot;ST&quot;</span>: <span class="s2">&quot;BeiJing&quot;</span>,
+     <span class="s2">&quot;L&quot;</span>: <span class="s2">&quot;BeiJing&quot;</span>,
+     <span class="s2">&quot;O&quot;</span>: <span class="s2">&quot;k8s&quot;</span>,
+     <span class="s2">&quot;OU&quot;</span>: <span class="s2">&quot;System&quot;</span>
+     <span class="o">}</span>
+  <span class="o">]</span>
+<span class="o">}</span>
+</pre></div>
+
+<h4 id="_3">生成证书和私钥<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span>cfssl gencert -ca<span class="o">=</span>/alidata/kubernetes/ssl/ca.pem <span class="se">\</span>
+  -ca-key<span class="o">=</span>/alidata/kubernetes/ssl/ca-key.pem <span class="se">\</span>
+  -config<span class="o">=</span>/alidata/kubernetes/ssl/ca-config.json <span class="se">\</span>
+  -profile<span class="o">=</span>kubernetes etcd-csr.json <span class="p">|</span> cfssljson -bare etcd
+</pre></div>
+
+<h3 id="_4">分发证书和私钥<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>cp etcd*.pem /alidata/kubernetes/ssl
+scp -P <span class="m">5203</span> etcd*.pem <span class="m">172</span>.16.16.120:/alidata/kubernetes/ssl
+scp -P <span class="m">5203</span> etcd*.pem <span class="m">172</span>.16.16.121:/alidata/kubernetes/ssl
+</pre></div>
+
+<h3 id="etcd_3">设置ETCD配置文件<a class="headerlink" href="#etcd_3" title="Permanent link">&para;</a></h3>
+<p>etcd集群中的每一个节点都要有，记得要改etcd的name，以及监听的地址。</p>
+<div class="codehilite"><pre><span></span><span class="o">[</span>root@Pro-k8s-master1 /alidata/src/ssl<span class="o">]</span><span class="c1"># cat /alidata/kubernetes/cfg/etcd.conf</span>
+<span class="c1">#[member]</span>
+<span class="nv">ETCD_NAME</span><span class="o">=</span><span class="s2">&quot;etcd-node1&quot;</span>
+<span class="nv">ETCD_DATA_DIR</span><span class="o">=</span><span class="s2">&quot;/var/lib/etcd/default.etcd&quot;</span>
+<span class="c1">#ETCD_SNAPSHOT_COUNTER=&quot;10000&quot;</span>
+<span class="c1">#ETCD_HEARTBEAT_INTERVAL=&quot;100&quot;</span>
+<span class="c1">#ETCD_ELECTION_TIMEOUT=&quot;1000&quot;</span>
+<span class="nv">ETCD_LISTEN_PEER_URLS</span><span class="o">=</span><span class="s2">&quot;https://172.16.16.119:2380&quot;</span>
+<span class="nv">ETCD_LISTEN_CLIENT_URLS</span><span class="o">=</span><span class="s2">&quot;https://172.16.16.119:2379,https://127.0.0.1:2379&quot;</span>
+<span class="c1">#ETCD_MAX_SNAPSHOTS=&quot;5&quot;</span>
+<span class="c1">#ETCD_MAX_WALS=&quot;5&quot;</span>
+<span class="c1">#ETCD_CORS=&quot;&quot;</span>
+<span class="c1">#[cluster]</span>
+<span class="nv">ETCD_INITIAL_ADVERTISE_PEER_URLS</span><span class="o">=</span><span class="s2">&quot;https://172.16.16.119:2380&quot;</span>
+<span class="c1"># if you use different ETCD_NAME (e.g. test),</span>
+<span class="c1"># set ETCD_INITIAL_CLUSTER value for this name, i.e. &quot;test=http://...&quot;</span>
+<span class="nv">ETCD_INITIAL_CLUSTER</span><span class="o">=</span><span class="s2">&quot;etcd-node1=https://172.16.16.119:2380,etcd-node2=https://172.16.16.120:2380,etcd-node3=https://172.16.16.121:2380&quot;</span>
+<span class="nv">ETCD_INITIAL_CLUSTER_STATE</span><span class="o">=</span><span class="s2">&quot;new&quot;</span>
+<span class="nv">ETCD_INITIAL_CLUSTER_TOKEN</span><span class="o">=</span><span class="s2">&quot;k8s-etcd-cluster&quot;</span>
+<span class="nv">ETCD_ADVERTISE_CLIENT_URLS</span><span class="o">=</span><span class="s2">&quot;https://172.16.16.119:2379&quot;</span>
+<span class="c1">#[security]</span>
+<span class="nv">CLIENT_CERT_AUTH</span><span class="o">=</span><span class="s2">&quot;true&quot;</span>
+<span class="nv">ETCD_CA_FILE</span><span class="o">=</span><span class="s2">&quot;/alidata/kubernetes/ssl/ca.pem&quot;</span>
+<span class="nv">ETCD_CERT_FILE</span><span class="o">=</span><span class="s2">&quot;/alidata/kubernetes/ssl/etcd.pem&quot;</span>
+<span class="nv">ETCD_KEY_FILE</span><span class="o">=</span><span class="s2">&quot;/alidata/kubernetes/ssl/etcd-key.pem&quot;</span>
+<span class="nv">PEER_CLIENT_CERT_AUTH</span><span class="o">=</span><span class="s2">&quot;true&quot;</span>
+<span class="nv">ETCD_PEER_CA_FILE</span><span class="o">=</span><span class="s2">&quot;/alidata/kubernetes/ssl/ca.pem&quot;</span>
+<span class="nv">ETCD_PEER_CERT_FILE</span><span class="o">=</span><span class="s2">&quot;/alidata/kubernetes/ssl/etcd.pem&quot;</span>
+<span class="nv">ETCD_PEER_KEY_FILE</span><span class="o">=</span><span class="s2">&quot;/alidata/kubernetes/ssl/etcd-key.pem&quot;</span>
+</pre></div>
+
+<h3 id="etcd_4">创建ETCD的系统服务<a class="headerlink" href="#etcd_4" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="o">[</span>root@Pro-k8s-master1 /alidata/src/ssl<span class="o">]</span><span class="c1"># cat /etc/systemd/system/etcd.service    </span>
+<span class="o">[</span>Unit<span class="o">]</span>
+<span class="nv">Description</span><span class="o">=</span>Etcd Server
+<span class="nv">After</span><span class="o">=</span>network.target
+
+<span class="o">[</span>Service<span class="o">]</span>
+<span class="nv">Type</span><span class="o">=</span>simple
+<span class="nv">WorkingDirectory</span><span class="o">=</span>/var/lib/etcd
+<span class="nv">EnvironmentFile</span><span class="o">=</span>-/alidata/kubernetes/cfg/etcd.conf
+<span class="c1"># set GOMAXPROCS to number of processors</span>
+<span class="nv">ExecStart</span><span class="o">=</span>/bin/bash -c <span class="s2">&quot;GOMAXPROCS=</span><span class="k">$(</span>nproc<span class="k">)</span><span class="s2"> /alidata/kubernetes/bin/etcd&quot;</span>
+<span class="nv">Type</span><span class="o">=</span>notify
+
+<span class="o">[</span>Install<span class="o">]</span>
+<span class="nv">WantedBy</span><span class="o">=</span>multi-user.target
+</pre></div>
+
+<h3 id="_5">重载系统服务<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>systemctl daemon-reload
+systemctl <span class="nb">enable</span> etcd
+
+<span class="c1"># 分发配置文件，分发后在另外两台机器重载配置文件</span>
+scp -P <span class="m">5203</span> /etc/systemd/system/etcd.service <span class="m">172</span>.16.16.120:/etc/systemd/system/
+scp -P <span class="m">5203</span> /etc/systemd/system/etcd.service <span class="m">172</span>.16.16.121:/etc/systemd/system/
+
+<span class="c1"># 同步启动所有的etcd节点</span>
+mkdir /var/lib/etcd
+systemctl start etcd
+systemctl status etcd
+</pre></div>
+
+<h3 id="_6">验证集群<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="o">[</span>root@Pro-k8s-master1 ~<span class="o">]</span><span class="c1"># etcdctl --endpoints=https://172.16.16.119:2379 \</span>
+   --ca-file<span class="o">=</span>/alidata/kubernetes/ssl/ca.pem <span class="se">\</span>
+   --cert-file<span class="o">=</span>/alidata/kubernetes/ssl/etcd.pem <span class="se">\</span>
+   --key-file<span class="o">=</span>/alidata/kubernetes/ssl/etcd-key.pem cluster-health
+member 140dd484abeb416a is healthy: got healthy result from https://172.16.16.119:2379
+member 97de764ba7fa74f2 is healthy: got healthy result from https://172.16.16.121:2379
+member f2ab1be129de49b0 is healthy: got healthy result from https://172.16.16.120:2379
+cluster is healthy
+</pre></div>
+
+<h2 id="k8s-master">K8S Master 节点部署<a class="headerlink" href="#k8s-master" title="Permanent link">&para;</a></h2>
+<h3 id="_7">准备软件包<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>准备下载好的1.12.3版本的软件包，解压后将kube-apiserver，kube-controller-manager，kube-scheduler拷贝到所有的master节点的<code>/alidata/kubernetes/bin</code>目录下。</p>
+<h3 id="csrjson">创建生成CSR的JSON配置文件<a class="headerlink" href="#csrjson" title="Permanent link">&para;</a></h3>
+<p>这里我除了把k8s集群中的所有节点都加进去了，以及kubernetes的ip 10.1.0.1和阿里云的私网负载均衡的地址我也加进去了，避免后续controller和scheduler访问异常。</p>
+<div class="codehilite"><pre><span></span><span class="o">[</span>root@Pro-k8s-master1 /alidata/src/ssl<span class="o">]</span><span class="c1"># cat kubernetes-csr.json </span>
+<span class="o">{</span>
+  <span class="s2">&quot;CN&quot;</span>: <span class="s2">&quot;kubernetes&quot;</span>,
+  <span class="s2">&quot;hosts&quot;</span>: <span class="o">[</span>
+    <span class="s2">&quot;127.0.0.1&quot;</span>,
+    <span class="s2">&quot;172.16.16.119&quot;</span>,
+    <span class="s2">&quot;172.16.16.120&quot;</span>,
+    <span class="s2">&quot;172.16.16.121&quot;</span>,
+    <span class="s2">&quot;172.16.16.122&quot;</span>,
+    <span class="s2">&quot;172.16.16.123&quot;</span>,
+    <span class="s2">&quot;172.16.16.124&quot;</span>,
+    <span class="s2">&quot;10.1.0.1&quot;</span>,
+    <span class="s2">&quot;kubernetes&quot;</span>,
+    <span class="s2">&quot;kubernetes.default&quot;</span>,
+    <span class="s2">&quot;kubernetes.default.svc&quot;</span>,
+    <span class="s2">&quot;kubernetes.default.svc.cluster&quot;</span>,
+    <span class="s2">&quot;kubernetes.default.svc.cluster.local&quot;</span>
+    <span class="o">]</span>,
+  <span class="s2">&quot;key&quot;</span>: <span class="o">{</span>
+    <span class="s2">&quot;algo&quot;</span>: <span class="s2">&quot;rsa&quot;</span>,
+    <span class="s2">&quot;size&quot;</span>: <span class="m">2048</span>
+   <span class="o">}</span>,
+  <span class="s2">&quot;names&quot;</span>: <span class="o">[</span>
+    <span class="o">{</span>
+     <span class="s2">&quot;C&quot;</span>: <span class="s2">&quot;CN&quot;</span>,
+     <span class="s2">&quot;ST&quot;</span>: <span class="s2">&quot;BeiJing&quot;</span>,
+     <span class="s2">&quot;L&quot;</span>: <span class="s2">&quot;BeiJing&quot;</span>,
+     <span class="s2">&quot;O&quot;</span>: <span class="s2">&quot;k8s&quot;</span>,
+     <span class="s2">&quot;OU&quot;</span>: <span class="s2">&quot;System&quot;</span>
+    <span class="o">}</span>
+  <span class="o">]</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3 id="kubernetes_1">生成Kubernetes的证书和私钥<a class="headerlink" href="#kubernetes_1" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>cfssl gencert -ca<span class="o">=</span>/alidata/kubernetes/ssl/ca.pem <span class="se">\</span>
+   -ca-key<span class="o">=</span>/alidata/kubernetes/ssl/ca-key.pem <span class="se">\</span>
+   -config<span class="o">=</span>/alidata/kubernetes/ssl/ca-config.json <span class="se">\</span>
+   -profile<span class="o">=</span>kubernetes kubernetes-csr.json <span class="p">|</span> cfssljson -bare kubernetes
+
+<span class="c1"># 分发证书</span>
+cp kubernetes*.pem /alidata/kubernetes/ssl/
+<span class="c1"># 注意分发到所有节点，其他节点略</span>
+scp -P <span class="m">5203</span> kubernetes*.pem <span class="m">172</span>.16.16.120:/alidata/kubernetes/ssl/ 
+</pre></div>
+
+<h3 id="kube-apiservertoken">创建kube-apiserver使用的客户端token文件<a class="headerlink" href="#kube-apiservertoken" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="o">[</span>root@Pro-k8s-master1 /alidata/src/ssl<span class="o">]</span><span class="c1"># head -c 16 /dev/urandom | od -An -t x | tr -d &#39; &#39;</span>
+ad6d5bb607a186796d8861557df0d17f
+
+<span class="c1"># master节点分发</span>
+<span class="o">[</span>root@Pro-k8s-master1 /alidata/src/ssl<span class="o">]</span><span class="c1"># cat /alidata/kubernetes/ssl/bootstrap-token.csv</span>
+ad6d5bb607a186796d8861557df0d17f,kubelet-bootstrap,10001,<span class="s2">&quot;system:kubelet-bootstrap&quot;</span>
+
+scp -P <span class="m">5203</span> /alidata/kubernetes/ssl/bootstrap-token.csv <span class="m">172</span>.16.16.120:/alidata/kubernetes/ssl/
+scp -P <span class="m">5203</span> /alidata/kubernetes/ssl/bootstrap-token.csv <span class="m">172</span>.16.16.121:/alidata/kubernetes/ssl/
+</pre></div>
+
+<h3 id="_8">创建基础用户名/密码认证配置<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="o">[</span>root@Pro-k8s-master1 /alidata/src/ssl<span class="o">]</span><span class="c1"># cat /alidata/kubernetes/ssl/basic-auth.csv </span>
+admin,admin,1
+readonly,readonly,2
+
+<span class="c1"># master节点分发</span>
+scp -P <span class="m">5203</span> /alidata/kubernetes/ssl/basic-auth.csv <span class="m">172</span>.16.16.120:/alidata/kubernetes/ssl/
+scp -P <span class="m">5203</span> /alidata/kubernetes/ssl/basic-auth.csv <span class="m">172</span>.16.16.121:/alidata/kubernetes/ssl/
+</pre></div>
+
+<h3 id="kube-apiserver">配置kube-apiserver的系统配置<a class="headerlink" href="#kube-apiserver" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="o">[</span>root@Pro-k8s-master1 /alidata/src/ssl<span class="o">]</span><span class="c1"># cat /usr/lib/systemd/system/kube-apiserver.service </span>
+<span class="o">[</span>Unit<span class="o">]</span>
+<span class="nv">Description</span><span class="o">=</span>Kubernetes API Server
+<span class="nv">Documentation</span><span class="o">=</span>https://github.com/GoogleCloudPlatform/kubernetes
+<span class="nv">After</span><span class="o">=</span>network.target
+
+<span class="o">[</span>Service<span class="o">]</span>
+<span class="nv">ExecStart</span><span class="o">=</span>/alidata/kubernetes/bin/kube-apiserver <span class="se">\</span>
+  --admission-control<span class="o">=</span>NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,ResourceQuota,NodeRestriction <span class="se">\</span>
+  --bind-address<span class="o">=</span><span class="m">0</span>.0.0.0 <span class="se">\</span>
+  --insecure-bind-address<span class="o">=</span><span class="m">0</span>.0.0.0 <span class="se">\</span>
+  --authorization-mode<span class="o">=</span>Node,RBAC <span class="se">\</span>
+  --runtime-config<span class="o">=</span>rbac.authorization.k8s.io/v1 <span class="se">\</span>
+  --kubelet-https<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+  --anonymous-auth<span class="o">=</span><span class="nb">false</span> <span class="se">\</span>
+  --basic-auth-file<span class="o">=</span>/alidata/kubernetes/ssl/basic-auth.csv <span class="se">\</span>
+  --enable-bootstrap-token-auth <span class="se">\</span>
+  --token-auth-file<span class="o">=</span>/alidata/kubernetes/ssl/bootstrap-token.csv <span class="se">\</span>
+  --service-cluster-ip-range<span class="o">=</span><span class="m">10</span>.1.0.0/16 <span class="se">\</span>
+  --service-node-port-range<span class="o">=</span><span class="m">20000</span>-40000 <span class="se">\</span>
+  --tls-cert-file<span class="o">=</span>/alidata/kubernetes/ssl/kubernetes.pem <span class="se">\</span>
+  --tls-private-key-file<span class="o">=</span>/alidata/kubernetes/ssl/kubernetes-key.pem <span class="se">\</span>
+  --client-ca-file<span class="o">=</span>/alidata/kubernetes/ssl/ca.pem <span class="se">\</span>
+  --service-account-key-file<span class="o">=</span>/alidata/kubernetes/ssl/ca-key.pem <span class="se">\</span>
+  --etcd-cafile<span class="o">=</span>/alidata/kubernetes/ssl/ca.pem <span class="se">\</span>
+  --etcd-certfile<span class="o">=</span>/alidata/kubernetes/ssl/kubernetes.pem <span class="se">\</span>
+  --etcd-keyfile<span class="o">=</span>/alidata/kubernetes/ssl/kubernetes-key.pem <span class="se">\</span>
+  --etcd-servers<span class="o">=</span>https://172.16.16.119:2379,https://172.16.16.120:2379,https://172.16.16.121:2379 <span class="se">\</span>
+  --enable-swagger-ui<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+  --allow-privileged<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+  --audit-log-maxage<span class="o">=</span><span class="m">30</span> <span class="se">\</span>
+  --audit-log-maxbackup<span class="o">=</span><span class="m">3</span> <span class="se">\</span>
+  --audit-log-maxsize<span class="o">=</span><span class="m">100</span> <span class="se">\</span>
+  --audit-log-path<span class="o">=</span>/alidata/kubernetes/log/api-audit.log <span class="se">\</span>
+  --event-ttl<span class="o">=</span>1h <span class="se">\</span>
+  --v<span class="o">=</span><span class="m">2</span> <span class="se">\</span>
+  --logtostderr<span class="o">=</span><span class="nb">false</span> <span class="se">\</span>
+  --log-dir<span class="o">=</span>/alidata/kubernetes/log
+<span class="nv">Restart</span><span class="o">=</span>on-failure
+<span class="nv">RestartSec</span><span class="o">=</span><span class="m">5</span>
+<span class="nv">Type</span><span class="o">=</span>notify
+<span class="nv">LimitNOFILE</span><span class="o">=</span><span class="m">65536</span>
+
+<span class="o">[</span>Install<span class="o">]</span>
+<span class="nv">WantedBy</span><span class="o">=</span>multi-user.target
+</pre></div>
+
+<h3 id="api-server">启动api server<a class="headerlink" href="#api-server" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>systemctl daemon-reload
+systemctl <span class="nb">enable</span> kube-apiserver
+systemctl start kube-apiserver
+systemctl status kube-apiserver
+</pre></div>
+
+<h3 id="api-server_1">为API Server做负载<a class="headerlink" href="#api-server_1" title="Permanent link">&para;</a></h3>
+<p>因为使用的是阿里云的ECS，因此直接购买了一个阿里云的内网SLB实现负载分发的功能为apiserver做ha，注意购买时选择的网络类型要和现有的机器是一致的，否则无法添加后端节点。</p>
+<p><img alt="" src="http://tuku.dcgamer.top/18-12-7/97104972.jpg" /></p>
+<p>在选择转发的时候用于提供https的6443端口转发到后端的8080，http的8080转发到后端的8080，注意https这里要添加证书内容。</p>
+<p><img alt="" src="http://tuku.dcgamer.top/18-12-7/82554621.jpg" /></p>
+<p>图内证书内容为阿里云提供的证书样例内容，需要将我们自己生成的kubernetes.pem和kubernetes-key.pem的内容手动填写到这里，并且将证书应用才可以。</p>
+<h4 id="controller-manager">准备controller-manager的服务配置文件<a class="headerlink" href="#controller-manager" title="Permanent link">&para;</a></h4>
+<p>注意这里指定的master已经是SLB的IP了，配置完成以后将配置文件分发到所有的master</p>
+<div class="codehilite"><pre><span></span><span class="c1"># 在高可用状态下要开启leader-elect=true</span>
+<span class="o">[</span>root@Pro-k8s-master1 /alidata/src/ssl<span class="o">]</span><span class="c1"># cat /usr/lib/systemd/system/kube-controller-manager.service</span>
+<span class="o">[</span>Unit<span class="o">]</span>
+<span class="nv">Description</span><span class="o">=</span>Kubernetes Controller Manager
+<span class="nv">Documentation</span><span class="o">=</span>https://github.com/GoogleCloudPlatform/kubernetes
+
+<span class="o">[</span>Service<span class="o">]</span>
+<span class="nv">ExecStart</span><span class="o">=</span>/alidata/kubernetes/bin/kube-controller-manager <span class="se">\</span>
+  --address<span class="o">=</span><span class="m">0</span>.0.0.0 <span class="se">\</span>
+  --master<span class="o">=</span>http://172.16.16.124:8080 <span class="se">\</span>
+  --allocate-node-cidrs<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+  --service-cluster-ip-range<span class="o">=</span><span class="m">10</span>.1.0.0/16 <span class="se">\</span>
+  --cluster-cidr<span class="o">=</span><span class="m">10</span>.2.0.0/16 <span class="se">\</span>
+  --cluster-name<span class="o">=</span>kubernetes <span class="se">\</span>
+  --cluster-signing-cert-file<span class="o">=</span>/alidata/kubernetes/ssl/ca.pem <span class="se">\</span>
+  --cluster-signing-key-file<span class="o">=</span>/alidata/kubernetes/ssl/ca-key.pem <span class="se">\</span>
+  --service-account-private-key-file<span class="o">=</span>/alidata/kubernetes/ssl/ca-key.pem <span class="se">\</span>
+  --root-ca-file<span class="o">=</span>/alidata/kubernetes/ssl/ca.pem <span class="se">\</span>
+  --leader-elect<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+  --v<span class="o">=</span><span class="m">2</span> <span class="se">\</span>
+  --logtostderr<span class="o">=</span><span class="nb">false</span> <span class="se">\</span>
+  --log-dir<span class="o">=</span>/alidata/kubernetes/log
+
+<span class="nv">Restart</span><span class="o">=</span>on-failure
+<span class="nv">RestartSec</span><span class="o">=</span><span class="m">5</span>
+
+<span class="o">[</span>Install<span class="o">]</span>
+<span class="nv">WantedBy</span><span class="o">=</span>multi-user.target
+</pre></div>
+
+<h3 id="controller-manager_1">启动Controller-Manager<a class="headerlink" href="#controller-manager_1" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>systemctl daemon-reload
+systemctl <span class="nb">enable</span> kube-controller-manager
+systemctl start kube-controller-manager
+systemctl status kube-controller-manager
+</pre></div>
+
+<h3 id="kube-scheduler">准备kube-scheduler的服务配置文件<a class="headerlink" href="#kube-scheduler" title="Permanent link">&para;</a></h3>
+<p>这里指定的master同样是SLB的VIP地址，配置完成以后分发到所有的master节点。</p>
+<div class="codehilite"><pre><span></span><span class="o">[</span>root@Pro-k8s-master1 /alidata/src/ssl<span class="o">]</span><span class="c1"># cat /usr/lib/systemd/system/kube-scheduler.service </span>
+<span class="o">[</span>Unit<span class="o">]</span>
+<span class="nv">Description</span><span class="o">=</span>Kubernetes Scheduler
+<span class="nv">Documentation</span><span class="o">=</span>https://github.com/GoogleCloudPlatform/kubernetes
+
+<span class="o">[</span>Service<span class="o">]</span>
+<span class="nv">ExecStart</span><span class="o">=</span>/alidata/kubernetes/bin/kube-scheduler <span class="se">\</span>
+  --address<span class="o">=</span><span class="m">0</span>.0.0.0 <span class="se">\</span>
+  --master<span class="o">=</span>http://172.16.16.124:8080 <span class="se">\</span>
+  --leader-elect<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+  --v<span class="o">=</span><span class="m">2</span> <span class="se">\</span>
+  --logtostderr<span class="o">=</span><span class="nb">false</span> <span class="se">\</span>
+  --log-dir<span class="o">=</span>/alidata/kubernetes/log
+
+<span class="nv">Restart</span><span class="o">=</span>on-failure
+<span class="nv">RestartSec</span><span class="o">=</span><span class="m">5</span>
+
+<span class="o">[</span>Install<span class="o">]</span>
+<span class="nv">WantedBy</span><span class="o">=</span>multi-user.target
+</pre></div>
+
+<h3 id="kube-scheduler_1">启动kube-scheduler<a class="headerlink" href="#kube-scheduler_1" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>systemctl daemon-reload
+systemctl <span class="nb">enable</span> kube-scheduler
+systemctl start kube-scheduler
+systemctl status kube-scheduler
+</pre></div>
+
+<h3 id="kubectl">部署kubectl<a class="headerlink" href="#kubectl" title="Permanent link">&para;</a></h3>
+<p>首先准备好kubectl的二进制文件分发到所有的master节点，然后创建admin的证书签名请求</p>
+<div class="codehilite"><pre><span></span><span class="o">[</span>root@Pro-k8s-master1 /alidata/src/ssl<span class="o">]</span><span class="c1"># cat admin-csr.json </span>
+<span class="o">{</span>
+  <span class="s2">&quot;CN&quot;</span>: <span class="s2">&quot;admin&quot;</span>,
+  <span class="s2">&quot;hosts&quot;</span>: <span class="o">[]</span>,
+  <span class="s2">&quot;key&quot;</span>: <span class="o">{</span>
+    <span class="s2">&quot;algo&quot;</span>: <span class="s2">&quot;rsa&quot;</span>,
+    <span class="s2">&quot;size&quot;</span>: <span class="m">2048</span>
+   <span class="o">}</span>,
+  <span class="s2">&quot;names&quot;</span>: <span class="o">[</span>
+     <span class="o">{</span>
+       <span class="s2">&quot;C&quot;</span>: <span class="s2">&quot;CN&quot;</span>,
+       <span class="s2">&quot;ST&quot;</span>: <span class="s2">&quot;BeiJing&quot;</span>,
+       <span class="s2">&quot;L&quot;</span>: <span class="s2">&quot;BeiJing&quot;</span>,
+       <span class="s2">&quot;O&quot;</span>: <span class="s2">&quot;system:masters&quot;</span>,
+       <span class="s2">&quot;OU&quot;</span>: <span class="s2">&quot;System&quot;</span>
+      <span class="o">}</span>
+  <span class="o">]</span>
+<span class="o">}</span>
+</pre></div>
+
+<p>生成admin证书和私钥</p>
+<div class="codehilite"><pre><span></span>cfssl gencert -ca<span class="o">=</span>/alidata/kubernetes/ssl/ca.pem <span class="se">\</span>
+   -ca-key<span class="o">=</span>/alidata/kubernetes/ssl/ca-key.pem <span class="se">\</span>
+   -config<span class="o">=</span>/alidata/kubernetes/ssl/ca-config.json <span class="se">\</span>
+   -profile<span class="o">=</span>kubernetes admin-csr.json <span class="p">|</span> cfssljson -bare admin
+</pre></div>
+
+<p>设置集群参数，注意master的ip为vip，证书以嵌入的形式生成config文件。</p>
+<div class="codehilite"><pre><span></span>kubectl config set-cluster kubernetes <span class="se">\</span>
+   --certificate-authority<span class="o">=</span>/alidata/kubernetes/ssl/ca.pem <span class="se">\</span>
+   --embed-certs<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+   --server<span class="o">=</span>https://172.16.16.124:6443
+</pre></div>
+
+<p>设置客户端认证参数</p>
+<div class="codehilite"><pre><span></span>kubectl config set-credentials admin <span class="se">\</span>
+   --client-certificate<span class="o">=</span>/alidata/kubernetes/ssl/admin.pem <span class="se">\</span>
+   --embed-certs<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+   --client-key<span class="o">=</span>/alidata/kubernetes/ssl/admin-key.pem
+</pre></div>
+
+<p>设置上下文参数</p>
+<div class="codehilite"><pre><span></span>kubectl config set-context kubernetes <span class="se">\</span>
+   --cluster<span class="o">=</span>kubernetes <span class="se">\</span>
+   --user<span class="o">=</span>admin
+</pre></div>
+
+<p>设置默认上下文</p>
+<div class="codehilite"><pre><span></span>kubectl config use-context kubernetes
+</pre></div>
+
+<p>查看当前config</p>
+<div class="codehilite"><pre><span></span><span class="c1"># 查看的这个文件在/root/.kube目录下，名称为config，上述操作需要在所有master节点操作</span>
+<span class="o">[</span>root@Pro-k8s-master1 /alidata/src/ssl<span class="o">]</span><span class="c1"># kubectl config view</span>
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: DATA+OMITTED
+    server: https://172.16.16.124:6443
+  name: kubernetes
+contexts:
+- context:
+    cluster: kubernetes
+    user: admin
+  name: kubernetes
+current-context: kubernetes
+kind: Config
+preferences: <span class="o">{}</span>
+users:
+- name: admin
+  user:
+    client-certificate-data: REDACTED
+    client-key-data: REDACTED
+</pre></div>
+
+<p>使用kubectl工具</p>
+<div class="codehilite"><pre><span></span><span class="o">[</span>root@Pro-k8s-master1 /alidata/src/ssl<span class="o">]</span><span class="c1"># kubectl get cs</span>
+NAME                 STATUS    MESSAGE              ERROR
+controller-manager   Healthy   ok                   
+scheduler            Healthy   ok                   
+etcd-1               Healthy   <span class="o">{</span><span class="s2">&quot;health&quot;</span>: <span class="s2">&quot;true&quot;</span><span class="o">}</span>   
+etcd-0               Healthy   <span class="o">{</span><span class="s2">&quot;health&quot;</span>: <span class="s2">&quot;true&quot;</span><span class="o">}</span>   
+etcd-2               Healthy   <span class="o">{</span><span class="s2">&quot;health&quot;</span>: <span class="s2">&quot;true&quot;</span><span class="o">}</span> 
+</pre></div>
+
+<h2 id="node">Node节点部署<a class="headerlink" href="#node" title="Permanent link">&para;</a></h2>
+<p>准备node节点二进制包，将kubelet，kube-proxy分发到所有node节点的/alidata/kubernetes/bin下。</p>
+<p>创建角色绑定</p>
+<div class="codehilite"><pre><span></span>kubectl create clusterrolebinding kubelet-bootstrap --clusterrole<span class="o">=</span>system:node-bootstrapper --user<span class="o">=</span>kubelet-bootstrap
+</pre></div>
+
+<p>创建 kubelet bootstrapping kubeconfig 文件 设置集群参数</p>
+<div class="codehilite"><pre><span></span>kubectl config set-cluster kubernetes <span class="se">\</span>
+   --certificate-authority<span class="o">=</span>/alidata/kubernetes/ssl/ca.pem <span class="se">\</span>
+   --embed-certs<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+   --server<span class="o">=</span>https://172.16.16.124:6443 <span class="se">\</span>
+   --kubeconfig<span class="o">=</span>bootstrap.kubeconfig
+</pre></div>
+
+<p>设置客户端认证参数</p>
+<div class="codehilite"><pre><span></span><span class="c1"># 注意这token是kube-apiserver使用的客户端token文件中的token，填写在这里。</span>
+kubectl config set-credentials kubelet-bootstrap <span class="se">\</span>
+   --token<span class="o">=</span>ad6d5bb607a186796d8861557df0d17f  <span class="se">\</span>
+   --kubeconfig<span class="o">=</span>bootstrap.kubeconfig 
+</pre></div>
+
+<p>设置上下文参数</p>
+<div class="codehilite"><pre><span></span>kubectl config set-context default <span class="se">\</span>
+   --cluster<span class="o">=</span>kubernetes <span class="se">\</span>
+   --user<span class="o">=</span>kubelet-bootstrap <span class="se">\</span>
+   --kubeconfig<span class="o">=</span>bootstrap.kubeconfig
+</pre></div>
+
+<p>选择默认上下文</p>
+<div class="codehilite"><pre><span></span>kubectl config use-context default --kubeconfig<span class="o">=</span>bootstrap.kubeconfig
+</pre></div>
+
+<p>因为指定了<code>--kubeconfig</code>，因此会在当前路径下生成一个bootstarp.kubeconfig文件，我们需要将这个kubeconfig文件分发到其他节点，因为目前只有master上有kubectl命令，因此在master上操作玩了以后把这个文件分发就可以</p>
+<div class="codehilite"><pre><span></span>cp bootstrap.kubeconfig /alidata/kubernetes/cfg
+
+<span class="c1"># 只有node节点需要</span>
+scp -P <span class="m">5203</span> bootstrap.kubeconfig <span class="m">172</span>.16.16.122:/alidata/kubernetes/cfg
+scp -P <span class="m">5203</span> bootstrap.kubeconfig <span class="m">172</span>.16.16.123:/alidata/kubernetes/cfg
+</pre></div>
+
+<p>设置CNI的支持</p>
+<div class="codehilite"><pre><span></span>mkdir -p /etc/cni/net.d
+<span class="o">[</span>root@Pro-k8s-node1 ~<span class="o">]</span><span class="c1"># vim /etc/cni/net.d/10-default.conf</span>
+<span class="o">{</span>
+  <span class="s2">&quot;name&quot;</span>: <span class="s2">&quot;flannel&quot;</span>,
+  <span class="s2">&quot;type&quot;</span>: <span class="s2">&quot;flannel&quot;</span>,
+  <span class="s2">&quot;delegate&quot;</span>: <span class="o">{</span>
+    <span class="s2">&quot;bridge&quot;</span>: <span class="s2">&quot;docker0&quot;</span>,
+    <span class="s2">&quot;isDefaultGateway&quot;</span>: true,
+    <span class="s2">&quot;mtu&quot;</span>: <span class="m">1400</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+<p>创建kubelet目录</p>
+<div class="codehilite"><pre><span></span>mkdir /var/lib/kubelet
+</pre></div>
+
+<p>准备kubelet的服务配置文件</p>
+<div class="codehilite"><pre><span></span><span class="o">[</span>root@Pro-k8s-node1 ~<span class="o">]</span><span class="c1"># cat /usr/lib/systemd/system/kubelet.service</span>
+<span class="o">[</span>Unit<span class="o">]</span>
+<span class="nv">Description</span><span class="o">=</span>Kubernetes Kubelet
+<span class="nv">Documentation</span><span class="o">=</span>https://github.com/GoogleCloudPlatform/kubernetes
+<span class="nv">After</span><span class="o">=</span>docker.service
+<span class="nv">Requires</span><span class="o">=</span>docker.service
+
+<span class="o">[</span>Service<span class="o">]</span>
+<span class="nv">WorkingDirectory</span><span class="o">=</span>/var/lib/kubelet
+<span class="nv">ExecStart</span><span class="o">=</span>/alidata/kubernetes/bin/kubelet <span class="se">\</span>
+  --address<span class="o">=</span><span class="m">172</span>.16.16.122 <span class="se">\</span>
+  --hostname-override<span class="o">=</span><span class="m">172</span>.16.16.122 <span class="se">\</span>
+  --pod-infra-container-image<span class="o">=</span>mirrorgooglecontainers/pause-amd64:3.0 <span class="se">\</span>
+  --experimental-bootstrap-kubeconfig<span class="o">=</span>/alidata/kubernetes/cfg/bootstrap.kubeconfig <span class="se">\</span>
+  --kubeconfig<span class="o">=</span>/alidata/kubernetes/cfg/kubelet.kubeconfig <span class="se">\</span>
+  --cert-dir<span class="o">=</span>/alidata/kubernetes/ssl <span class="se">\</span>
+  --network-plugin<span class="o">=</span>cni <span class="se">\</span>
+  --cni-conf-dir<span class="o">=</span>/etc/cni/net.d <span class="se">\</span>
+  --cni-bin-dir<span class="o">=</span>/alidata/kubernetes/bin/cni <span class="se">\</span>
+  --cluster-dns<span class="o">=</span><span class="m">10</span>.1.0.2 <span class="se">\</span>
+  --cluster-domain<span class="o">=</span>cluster.local. <span class="se">\</span>
+  --hairpin-mode hairpin-veth <span class="se">\</span>
+  --allow-privileged<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+  --fail-swap-on<span class="o">=</span><span class="nb">false</span> <span class="se">\</span>
+  --logtostderr<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+  --v<span class="o">=</span><span class="m">2</span> <span class="se">\</span>
+  --logtostderr<span class="o">=</span><span class="nb">false</span> <span class="se">\</span>
+  --log-dir<span class="o">=</span>/alidata/kubernetes/log
+<span class="nv">Restart</span><span class="o">=</span>on-failure
+<span class="nv">RestartSec</span><span class="o">=</span><span class="m">5</span>
+</pre></div>
+
+<p>启动kubelet</p>
+<div class="codehilite"><pre><span></span>systemctl daemon-reload
+systemctl <span class="nb">enable</span> kubelet
+systemctl start kubelet
+systemctl status kubelet
+</pre></div>
+
+<p>查看这个时候kubelet是否启动正常，如果node节点的kubelet启动是正常的话那么就可以在master节点查看到请求了，回到master上查看。</p>
+<div class="codehilite"><pre><span></span><span class="c1"># master节点</span>
+kubectl get csr
+</pre></div>
+
+<p>默认看到的CONDITION内容应该是<code>Pending</code>状态的，此时需要批准kubelet的TLS认证请求。</p>
+<div class="codehilite"><pre><span></span>kubectl get csr<span class="p">|</span>grep <span class="s1">&#39;Pending&#39;</span> <span class="p">|</span> awk <span class="s1">&#39;NR&gt;0{print $1}&#39;</span><span class="p">|</span> xargs kubectl certificate approve
+</pre></div>
+
+<p>执行完毕后，查看节点状态已经是Ready的状态了</p>
+<div class="codehilite"><pre><span></span><span class="o">[</span>root@Pro-k8s-master1 /alidata/src/ssl<span class="o">]</span><span class="c1"># kubectl get node</span>
+NAME            STATUS   ROLES    AGE    VERSION
+<span class="m">172</span>.16.16.122   Ready    &lt;none&gt;   5h1m   v1.12.3
+<span class="m">172</span>.16.16.123   Ready    &lt;none&gt;   5h1m   v1.12.3
+</pre></div>
+
+<h3 id="kube-proxy">部署kube-proxy<a class="headerlink" href="#kube-proxy" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>kube-proxy同样还是只部署在node节点上</p>
+</blockquote>
+<p>在之前的操作中，已经将kube-proxy的二进制文件分发到node节点了，因此这里开始准备证书的json文件。</p>
+<div class="codehilite"><pre><span></span><span class="p">[</span><span class="err">root@Pro-k</span><span class="mi">8</span><span class="err">s-master</span><span class="mi">1</span> <span class="err">/alidata/src/ssl</span><span class="p">]</span><span class="err">#</span> <span class="err">cat</span> <span class="err">kube-proxy-csr.json</span> 
+<span class="p">{</span>
+  <span class="nt">&quot;CN&quot;</span><span class="p">:</span> <span class="s2">&quot;system:kube-proxy&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;hosts&quot;</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="nt">&quot;key&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;algo&quot;</span><span class="p">:</span> <span class="s2">&quot;rsa&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">2048</span>
+    <span class="p">},</span>
+  <span class="nt">&quot;names&quot;</span><span class="p">:</span> <span class="p">[</span>
+     <span class="p">{</span>
+       <span class="nt">&quot;C&quot;</span><span class="p">:</span> <span class="s2">&quot;CN&quot;</span><span class="p">,</span>
+       <span class="nt">&quot;ST&quot;</span><span class="p">:</span> <span class="s2">&quot;BeiJing&quot;</span><span class="p">,</span>
+       <span class="nt">&quot;L&quot;</span><span class="p">:</span> <span class="s2">&quot;BeiJing&quot;</span><span class="p">,</span>
+       <span class="nt">&quot;O&quot;</span><span class="p">:</span> <span class="s2">&quot;k8s&quot;</span><span class="p">,</span>
+       <span class="nt">&quot;OU&quot;</span><span class="p">:</span> <span class="s2">&quot;System&quot;</span>
+     <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>生成证书</p>
+<div class="codehilite"><pre><span></span>cfssl gencert -ca<span class="o">=</span>/alidata/kubernetes/ssl/ca.pem <span class="se">\</span>
+   -ca-key<span class="o">=</span>/alidata/kubernetes/ssl/ca-key.pem <span class="se">\</span>
+   -config<span class="o">=</span>/alidata/kubernetes/ssl/ca-config.json <span class="se">\</span>
+   -profile<span class="o">=</span>kubernetes  kube-proxy-csr.json <span class="p">|</span> cfssljson -bare kube-proxy
+</pre></div>
+
+<p>分发证书到所有的(Node)节点</p>
+<div class="codehilite"><pre><span></span>cp kube-proxy*.pem /alidata/kubernetes/ssl/
+scp -P <span class="m">5203</span> kube-proxy*.pem <span class="m">172</span>.16.16.122:/alidata/kubernetes/ssl/
+scp -P <span class="m">5203</span> kube-proxy*.pem <span class="m">172</span>.16.16.123:/alidata/kubernetes/ssl/
+</pre></div>
+
+<p>创建kube-proxy的kubeconfig配置文件</p>
+<div class="codehilite"><pre><span></span>kubectl config set-cluster kubernetes <span class="se">\</span>
+   --certificate-authority<span class="o">=</span>/alidata/kubernetes/ssl/ca.pem <span class="se">\</span>
+   --embed-certs<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+   --server<span class="o">=</span>https://172.16.16.124:6443 <span class="se">\</span>
+   --kubeconfig<span class="o">=</span>kube-proxy.kubeconfig
+
+
+kubectl config set-credentials kube-proxy <span class="se">\</span>
+   --client-certificate<span class="o">=</span>/alidata/kubernetes/ssl/kube-proxy.pem <span class="se">\</span>
+   --client-key<span class="o">=</span>/alidata/kubernetes/ssl/kube-proxy-key.pem <span class="se">\</span>
+   --embed-certs<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+   --kubeconfig<span class="o">=</span>kube-proxy.kubeconfig
+
+kubectl config set-context default <span class="se">\</span>
+   --cluster<span class="o">=</span>kubernetes <span class="se">\</span>
+   --user<span class="o">=</span>kube-proxy <span class="se">\</span>
+   --kubeconfig<span class="o">=</span>kube-proxy.kubeconfig
+
+kubectl config use-context default --kubeconfig<span class="o">=</span>kube-proxy.kubeconfig
+</pre></div>
+
+<p>和kubelet一样，把这个kube-config文件分发到所有的node节点</p>
+<div class="codehilite"><pre><span></span>cp kube-proxy.kubeconfig /alidata/kubernetes/cfg/
+scp -P <span class="m">5203</span> kube-proxy.kubeconfig <span class="m">172</span>.16.16.122:/alidata/kubernetes/cfg/
+scp -P <span class="m">5203</span> kube-proxy.kubeconfig <span class="m">172</span>.16.16.123:/alidata/kubernetes/cfg/
+</pre></div>
+
+<p>创建kubeproxy的服务配置文件</p>
+<div class="codehilite"><pre><span></span>mkdir /var/lib/kube-proxy
+
+<span class="o">[</span>root@Pro-k8s-node2 ~<span class="o">]</span><span class="c1"># cat /usr/lib/systemd/system/kube-proxy.service</span>
+<span class="o">[</span>Unit<span class="o">]</span>
+<span class="nv">Description</span><span class="o">=</span>Kubernetes Kube-Proxy Server
+<span class="nv">Documentation</span><span class="o">=</span>https://github.com/GoogleCloudPlatform/kubernetes
+<span class="nv">After</span><span class="o">=</span>network.target
+
+<span class="o">[</span>Service<span class="o">]</span>
+<span class="nv">WorkingDirectory</span><span class="o">=</span>/var/lib/kube-proxy
+<span class="nv">ExecStart</span><span class="o">=</span>/alidata/kubernetes/bin/kube-proxy <span class="se">\</span>
+  --bind-address<span class="o">=</span><span class="m">172</span>.16.16.123 <span class="se">\</span>
+  --hostname-override<span class="o">=</span><span class="m">172</span>.16.16.123 <span class="se">\</span>
+  --kubeconfig<span class="o">=</span>/alidata/kubernetes/cfg/kube-proxy.kubeconfig <span class="se">\</span>
+  --masquerade-all <span class="se">\</span>
+  --feature-gates<span class="o">=</span><span class="nv">SupportIPVSProxyMode</span><span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+  --proxy-mode<span class="o">=</span>ipvs <span class="se">\</span>
+  --ipvs-min-sync-period<span class="o">=</span>5s <span class="se">\</span>
+  --ipvs-sync-period<span class="o">=</span>5s <span class="se">\</span>
+  --ipvs-scheduler<span class="o">=</span>rr <span class="se">\</span>
+  --logtostderr<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+  --v<span class="o">=</span><span class="m">2</span> <span class="se">\</span>
+  --logtostderr<span class="o">=</span><span class="nb">false</span> <span class="se">\</span>
+  --log-dir<span class="o">=</span>/alidata/kubernetes/log
+
+<span class="nv">Restart</span><span class="o">=</span>on-failure
+<span class="nv">RestartSec</span><span class="o">=</span><span class="m">5</span>
+<span class="nv">LimitNOFILE</span><span class="o">=</span><span class="m">65536</span>
+
+<span class="o">[</span>Install<span class="o">]</span>
+<span class="nv">WantedBy</span><span class="o">=</span>multi-user.target
+</pre></div>
+
+<p>安装kube-proxy使用lvs的依赖。</p>
+<div class="codehilite"><pre><span></span>yum install -y ipvsadm ipset conntrack
+</pre></div>
+
+<p>启动kube-proxy</p>
+<div class="codehilite"><pre><span></span>systemctl daemon-reload
+systemctl <span class="nb">enable</span> kube-proxy
+systemctl start kube-proxy
+systemctl status kube-proxy
+</pre></div>
+
+<p>在node节点检查kube-proxy的服务状态</p>
+<div class="codehilite"><pre><span></span>ipvsadm -L -n
+</pre></div>
+
+<h2 id="flannel">Flannel部署<a class="headerlink" href="#flannel" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>考虑到阿里云的网络暂时并不支持BGP，因此无法使用calico-BGP，而calico-ipip和flannel-vxlan在性能上相差无几，但是calico的维护难度相较于flannel要高很多，因此这里采用flannel作为网络组件。</p>
+</blockquote>
+<p>创建flannel的证书json文件</p>
+<div class="codehilite"><pre><span></span><span class="o">[</span>root@Pro-k8s-master1 /alidata/src/ssl<span class="o">]</span><span class="c1"># cat flanneld-csr.json </span>
+<span class="o">{</span>
+  <span class="s2">&quot;CN&quot;</span>: <span class="s2">&quot;flanneld&quot;</span>,
+  <span class="s2">&quot;hosts&quot;</span>: <span class="o">[]</span>,
+  <span class="s2">&quot;key&quot;</span>: <span class="o">{</span>
+    <span class="s2">&quot;algo&quot;</span>: <span class="s2">&quot;rsa&quot;</span>,
+    <span class="s2">&quot;size&quot;</span>: <span class="m">2048</span>
+    <span class="o">}</span>,
+  <span class="s2">&quot;names&quot;</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">&quot;C&quot;</span>: <span class="s2">&quot;CN&quot;</span>,
+      <span class="s2">&quot;ST&quot;</span>: <span class="s2">&quot;BeiJing&quot;</span>,
+      <span class="s2">&quot;L&quot;</span>: <span class="s2">&quot;BeiJing&quot;</span>,
+      <span class="s2">&quot;O&quot;</span>: <span class="s2">&quot;k8s&quot;</span>,
+      <span class="s2">&quot;OU&quot;</span>: <span class="s2">&quot;System&quot;</span>
+     <span class="o">}</span>
+  <span class="o">]</span>
+<span class="o">}</span>
+</pre></div>
+
+<p>生成证书并分发证书</p>
+<div class="codehilite"><pre><span></span>cfssl gencert -ca<span class="o">=</span>/alidata/kubernetes/ssl/ca.pem <span class="se">\</span>
+   -ca-key<span class="o">=</span>/alidata/kubernetes/ssl/ca-key.pem <span class="se">\</span>
+   -config<span class="o">=</span>/alidata/kubernetes/ssl/ca-config.json <span class="se">\</span>
+   -profile<span class="o">=</span>kubernetes flanneld-csr.json <span class="p">|</span> cfssljson -bare flanneld
+
+<span class="c1"># 注意这个是分发到集群里的每一个节点</span>
+cp flanneld*.pem /alidata/kubernetes/ssl/
+scp -P <span class="m">5203</span> flanneld*.pem <span class="m">172</span>.16.16.120:/alidata/kubernetes/ssl/
+</pre></div>
+
+<p>准备flannel的二进制文件</p>
+<div class="codehilite"><pre><span></span>cp flanneld mk-docker-opts.sh remove-docker0.sh /alidata/kubernetes/bin/
+
+<span class="c1"># 分发到其他的节点，此处只列出一个。</span>
+scp -P <span class="m">5203</span> flanneld mk-docker-opts.sh remove-docker0.sh <span class="m">172</span>.16.16.120:/alidata/kubernetes/bin/
+</pre></div>
+
+<p>配置flannel，配置完成以后进行分发，保证每一个节点都有一个这个配置文件供flannel使用。</p>
+<div class="codehilite"><pre><span></span><span class="o">[</span>root@Pro-k8s-master1 /alidata/src/ssl<span class="o">]</span><span class="c1"># cat /alidata/kubernetes/cfg/flannel</span>
+<span class="nv">FLANNEL_ETCD</span><span class="o">=</span><span class="s2">&quot;-etcd-endpoints=https://172.16.16.119:2379,https://172.16.16.120:2379,https://172.16.16.121:2379&quot;</span>
+<span class="nv">FLANNEL_ETCD_KEY</span><span class="o">=</span><span class="s2">&quot;-etcd-prefix=/kubernetes/network&quot;</span>
+<span class="nv">FLANNEL_ETCD_CAFILE</span><span class="o">=</span><span class="s2">&quot;--etcd-cafile=/alidata/kubernetes/ssl/ca.pem&quot;</span>
+<span class="nv">FLANNEL_ETCD_CERTFILE</span><span class="o">=</span><span class="s2">&quot;--etcd-certfile=/alidata/kubernetes/ssl/flanneld.pem&quot;</span>
+<span class="nv">FLANNEL_ETCD_KEYFILE</span><span class="o">=</span><span class="s2">&quot;--etcd-keyfile=/alidata/kubernetes/ssl/flanneld-key.pem&quot;</span>
+</pre></div>
+
+<p>设置flannel的系统服务配置</p>
+<div class="codehilite"><pre><span></span><span class="o">[</span>root@Pro-k8s-master1 /alidata/src/ssl<span class="o">]</span><span class="c1"># cat /usr/lib/systemd/system/flannel.service</span>
+<span class="o">[</span>Unit<span class="o">]</span>
+<span class="nv">Description</span><span class="o">=</span>Flanneld overlay address etcd agent
+<span class="nv">After</span><span class="o">=</span>network.target
+<span class="nv">Before</span><span class="o">=</span>docker.service
+
+<span class="o">[</span>Service<span class="o">]</span>
+<span class="nv">EnvironmentFile</span><span class="o">=</span>-/alidata/kubernetes/cfg/flannel
+<span class="nv">ExecStartPre</span><span class="o">=</span>/alidata/kubernetes/bin/remove-docker0.sh
+<span class="nv">ExecStart</span><span class="o">=</span>/alidata/kubernetes/bin/flanneld <span class="si">${</span><span class="nv">FLANNEL_ETCD</span><span class="si">}</span> <span class="si">${</span><span class="nv">FLANNEL_ETCD_KEY</span><span class="si">}</span> <span class="si">${</span><span class="nv">FLANNEL_ETCD_CAFILE</span><span class="si">}</span> <span class="si">${</span><span class="nv">FLANNEL_ETCD_CERTFILE</span><span class="si">}</span> <span class="si">${</span><span class="nv">FLANNEL_ETCD_KEYFILE</span><span class="si">}</span>
+<span class="nv">ExecStartPost</span><span class="o">=</span>/alidata/kubernetes/bin/mk-docker-opts.sh -d /run/flannel/docker
+
+<span class="nv">Type</span><span class="o">=</span>notify
+
+<span class="o">[</span>Install<span class="o">]</span>
+<span class="nv">WantedBy</span><span class="o">=</span>multi-user.target
+<span class="nv">RequiredBy</span><span class="o">=</span>docker.service
+</pre></div>
+
+<p>flannel集成CNI</p>
+<div class="codehilite"><pre><span></span><span class="c1"># https://github.com/containernetworking/plugins/releases</span>
+wget https://github.com/containernetworking/plugins/releases/download/v0.7.1/cni-plugins-amd64-v0.7.1.tgz
+
+<span class="c1"># 同样将cni组件分发到每一个节点上一份</span>
+mkdir /alidata/kubernetes/bin/cni
+tar zxf cni-plugins-amd64-v0.7.1.tgz -C /alidata/kubernetes/bin/cni
+chmod +x /alidata/kubernetes/bin/*
+scp -P <span class="m">5203</span> -r /alidata/kubernetes/bin/cni/* <span class="m">172</span>.16.16.120:/alidata/kubernetes/bin/cni/
+</pre></div>
+
+<p>设置etcd的key</p>
+<div class="codehilite"><pre><span></span>/alidata/kubernetes/bin/etcdctl --ca-file /alidata/kubernetes/ssl/ca.pem --cert-file /alidata/kubernetes/ssl/flanneld.pem --key-file /alidata/kubernetes/ssl/flanneld-key.pem <span class="se">\</span>
+      --no-sync -C https://172.16.16.119:2379,https://172.16.16.120:2379,https://172.16.16.121:2379 <span class="se">\</span>
+mk /kubernetes/network/config <span class="s1">&#39;{ &quot;Network&quot;: &quot;10.2.0.0/16&quot;, &quot;Backend&quot;: { &quot;Type&quot;: &quot;vxlan&quot;, &quot;VNI&quot;: 1 }}&#39;</span> &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+</pre></div>
+
+<p>查看这个key是否设置成功，只在一个节点操作就可以，因为这个etcd是一个集群。</p>
+<div class="codehilite"><pre><span></span><span class="o">[</span>root@Pro-k8s-master1 /alidata/src/ssl<span class="o">]</span><span class="c1"># etcdctl --endpoints=https://172.16.16.119:2379 \</span>
+   --ca-file<span class="o">=</span>/alidata/kubernetes/ssl/ca.pem <span class="se">\</span>
+   --cert-file<span class="o">=</span>/alidata/kubernetes/ssl/etcd.pem <span class="se">\</span>
+   --key-file<span class="o">=</span>/alidata/kubernetes/ssl/etcd-key.pem get /kubernetes/network/config
+<span class="o">{</span> <span class="s2">&quot;Network&quot;</span>: <span class="s2">&quot;10.2.0.0/16&quot;</span>, <span class="s2">&quot;Backend&quot;</span>: <span class="o">{</span> <span class="s2">&quot;Type&quot;</span>: <span class="s2">&quot;vxlan&quot;</span>, <span class="s2">&quot;VNI&quot;</span>: <span class="m">1</span> <span class="o">}}</span>
+</pre></div>
+
+<p>配置Docker使用flannel</p>
+<div class="codehilite"><pre><span></span><span class="o">[</span>root@Pro-k8s-master1 /alidata/src/ssl<span class="o">]</span><span class="c1"># cat /etc/systemd/system/docker.service</span>
+<span class="o">[</span>Unit<span class="o">]</span>
+<span class="nv">Description</span><span class="o">=</span>Docker Application Container Engine
+<span class="nv">Documentation</span><span class="o">=</span>http://docs.docker.io
+<span class="nv">After</span><span class="o">=</span>network-online.target firewalld.service flannel.service
+<span class="nv">Wants</span><span class="o">=</span>network-online.target
+<span class="nv">Requires</span><span class="o">=</span>flannel.service
+
+<span class="o">[</span>Service<span class="o">]</span>
+<span class="nv">Environment</span><span class="o">=</span><span class="s2">&quot;PATH=/usr/local/docker/bin:/bin:/sbin:/usr/bin:/usr/sbin&quot;</span>
+<span class="nv">EnvironmentFile</span><span class="o">=</span>-/run/flannel/docker
+<span class="c1">#ExecStart=/usr/local/docker/bin/dockerd --log-level=error $DOCKER_NETWORK_OPTIONS</span>
+<span class="nv">ExecStart</span><span class="o">=</span>/usr/local/docker/bin/dockerd <span class="nv">$DOCKER_OPTS</span>
+<span class="nv">ExecReload</span><span class="o">=</span>/bin/kill -s HUP <span class="nv">$MAINPID</span>
+<span class="nv">Restart</span><span class="o">=</span>on-failure
+<span class="nv">RestartSec</span><span class="o">=</span><span class="m">5</span>
+<span class="nv">LimitNOFILE</span><span class="o">=</span>infinity
+<span class="nv">LimitNPROC</span><span class="o">=</span>infinity
+<span class="nv">LimitCORE</span><span class="o">=</span>infinity
+<span class="nv">Delegate</span><span class="o">=</span>yes
+<span class="nv">KillMode</span><span class="o">=</span>process
+
+<span class="o">[</span>Install<span class="o">]</span>
+<span class="nv">WantedBy</span><span class="o">=</span>multi-user.target
+</pre></div>
+
+<p>主要有几个点，一个是After添加flannel.server，Requires要添加flannel.service，如果网络起不来的话，那么docker就不起来。同时在Service段添加EnvironmentFile=-/run/flannel/docker，这个文件是由flannel启动的时候通过mk-docker-opts.sh生成的，可以看一下这个文件的内容，通过—bip来划分网段。</p>
+<div class="codehilite"><pre><span></span><span class="o">[</span>root@Pro-k8s-master1 /alidata/src/ssl<span class="o">]</span><span class="c1"># cat /run/flannel/docker </span>
+<span class="nv">DOCKER_OPT_BIP</span><span class="o">=</span><span class="s2">&quot;--bip=10.2.26.1/24&quot;</span>
+<span class="nv">DOCKER_OPT_IPMASQ</span><span class="o">=</span><span class="s2">&quot;--ip-masq=true&quot;</span>
+<span class="nv">DOCKER_OPT_MTU</span><span class="o">=</span><span class="s2">&quot;--mtu=1450&quot;</span>
+<span class="nv">DOCKER_OPTS</span><span class="o">=</span><span class="s2">&quot; --bip=10.2.26.1/24 --ip-masq=true --mtu=1450&quot;</span>
+</pre></div>
+
+<p>重启docker</p>
+<div class="codehilite"><pre><span></span>systemctl daemon-reload
+systemctl restart docker
+</pre></div>
+
+<p>观察网卡信息</p>
+<div class="codehilite"><pre><span></span><span class="o">[</span>root@Pro-k8s-master1 /alidata/src/ssl<span class="o">]</span><span class="c1"># ifconfig</span>
+docker0: <span class="nv">flags</span><span class="o">=</span><span class="m">4099</span>&lt;UP,BROADCAST,MULTICAST&gt;  mtu <span class="m">1500</span>
+        inet <span class="m">10</span>.2.26.1  netmask <span class="m">255</span>.255.255.0  broadcast <span class="m">10</span>.2.26.255
+        ether <span class="m">02</span>:42:97:b9:64:bd  txqueuelen <span class="m">0</span>  <span class="o">(</span>Ethernet<span class="o">)</span>
+        RX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span><span class="m">0</span>.0 B<span class="o">)</span>
+        RX errors <span class="m">0</span>  dropped <span class="m">0</span>  overruns <span class="m">0</span>  frame <span class="m">0</span>
+        TX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span><span class="m">0</span>.0 B<span class="o">)</span>
+        TX errors <span class="m">0</span>  dropped <span class="m">0</span> overruns <span class="m">0</span>  carrier <span class="m">0</span>  collisions <span class="m">0</span>
+
+eth0: <span class="nv">flags</span><span class="o">=</span><span class="m">4163</span>&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu <span class="m">1500</span>
+        inet <span class="m">172</span>.16.16.119  netmask <span class="m">255</span>.255.255.0  broadcast <span class="m">172</span>.16.16.255
+        ether <span class="m">00</span>:16:3e:08:1b:46  txqueuelen <span class="m">1000</span>  <span class="o">(</span>Ethernet<span class="o">)</span>
+        RX packets <span class="m">8365198</span>  bytes <span class="m">1280511623</span> <span class="o">(</span><span class="m">1</span>.1 GiB<span class="o">)</span>
+        RX errors <span class="m">0</span>  dropped <span class="m">0</span>  overruns <span class="m">0</span>  frame <span class="m">0</span>
+        TX packets <span class="m">8723511</span>  bytes <span class="m">1741235760</span> <span class="o">(</span><span class="m">1</span>.6 GiB<span class="o">)</span>
+        TX errors <span class="m">0</span>  dropped <span class="m">0</span> overruns <span class="m">0</span>  carrier <span class="m">0</span>  collisions <span class="m">0</span>
+
+flannel.1: <span class="nv">flags</span><span class="o">=</span><span class="m">4163</span>&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu <span class="m">1450</span>
+        inet <span class="m">10</span>.2.26.0  netmask <span class="m">255</span>.255.255.255  broadcast <span class="m">0</span>.0.0.0
+        ether <span class="m">92</span>:d2:90:73:57:5c  txqueuelen <span class="m">0</span>  <span class="o">(</span>Ethernet<span class="o">)</span>
+        RX packets <span class="m">2678</span>  bytes <span class="m">1052685</span> <span class="o">(</span><span class="m">1</span>.0 MiB<span class="o">)</span>
+        RX errors <span class="m">0</span>  dropped <span class="m">0</span>  overruns <span class="m">0</span>  frame <span class="m">0</span>
+        TX packets <span class="m">2100</span>  bytes <span class="m">297679</span> <span class="o">(</span><span class="m">290</span>.7 KiB<span class="o">)</span>
+        TX errors <span class="m">0</span>  dropped <span class="m">0</span> overruns <span class="m">0</span>  carrier <span class="m">0</span>  collisions <span class="m">0</span>
+
+lo: <span class="nv">flags</span><span class="o">=</span><span class="m">73</span>&lt;UP,LOOPBACK,RUNNING&gt;  mtu <span class="m">65536</span>
+        inet <span class="m">127</span>.0.0.1  netmask <span class="m">255</span>.0.0.0
+        loop  txqueuelen <span class="m">1</span>  <span class="o">(</span>Local Loopback<span class="o">)</span>
+        RX packets <span class="m">3848161</span>  bytes <span class="m">647614198</span> <span class="o">(</span><span class="m">617</span>.6 MiB<span class="o">)</span>
+        RX errors <span class="m">0</span>  dropped <span class="m">0</span>  overruns <span class="m">0</span>  frame <span class="m">0</span>
+        TX packets <span class="m">3848161</span>  bytes <span class="m">647614198</span> <span class="o">(</span><span class="m">617</span>.6 MiB<span class="o">)</span>
+        TX errors <span class="m">0</span>  dropped <span class="m">0</span> overruns <span class="m">0</span>  carrier <span class="m">0</span>  collisions <span class="m">0</span>
+</pre></div>
+
+<p>可以看到docker0和flannel1.1的地址是一段的，每个节点分到的网段是不一样的。flannel部署完成</p>
+<h2 id="_9">一些必备组件<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<h3 id="coredns">CoreDns<a class="headerlink" href="#coredns" title="Permanent link">&para;</a></h3>
+<p>略</p>
+<h3 id="helm">Helm<a class="headerlink" href="#helm" title="Permanent link">&para;</a></h3>
+<p>略</p>
+<h3 id="dashboard">DashBoard<a class="headerlink" href="#dashboard" title="Permanent link">&para;</a></h3>
+<p>略</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../../docker/01-Docker基础使用/04-DockerFile/" title="04-Dockerfle" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  后退
+                </span>
+                04-Dockerfle
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../../django/DRF/01-Restful/" title="01-Restful介绍" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  前进
+                </span>
+                01-Restful介绍
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.d9aa80ab.js"></script>
+      
+        
+        
+          
+          <script src="../../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
+          
+            
+              
+                <script src="../../assets/javascripts/lunr/tinyseg.js"></script>
+              
+              
+                <script src="../../assets/javascripts/lunr/lunr.jp.js"></script>
+              
+            
+          
+          
+        
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+        <script src="../../js/extra.js"></script>
+      
+        <script src="../../js/baidu-tongji.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+    
+  </body>
+</html>
