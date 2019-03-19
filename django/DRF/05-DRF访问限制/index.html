@@ -1,0 +1,1634 @@
+
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+        <meta name="author" content="jokerleu">
+      
+      
+        <meta name="lang:clipboard.copy" content="复制">
+      
+        <meta name="lang:clipboard.copied" content="已复制">
+      
+        <meta name="lang:search.language" content="jp">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="没有找到符合条件的结果">
+      
+        <meta name="lang:search.result.one" content="找到 1 个符合条件的结果">
+      
+        <meta name="lang:search.result.other" content="# 个符合条件的结果">
+      
+        <meta name="lang:search.tokenizer" content="[\uff0c\u3002]+">
+      
+      <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.2">
+    
+    
+      
+        <title>05-DRF访问限制 - 知识与技能图景</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/application.982221ab.css">
+      
+        <link rel="stylesheet" href="../../../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="">
+      
+    
+    
+      <script src="../../../assets/javascripts/modernizr.1f0bcf2b.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../../assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="white" data-md-color-accent="blue">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#drf" tabindex="1" class="md-skip">
+        跳转至
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../../.." title="知识与技能图景" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              知识与技能图景
+            </span>
+            <span class="md-header-nav__topic">
+              05-DRF访问限制
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            键入以开始搜索
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/jokerleu/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    jokerleu
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../../.." title="知识与技能图景" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    知识与技能图景
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/jokerleu/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    jokerleu
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1">
+    
+    <label class="md-nav__link" for="nav-1">
+      容器云技术
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        容器云技术
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-1-1" type="checkbox" id="nav-1-1">
+    
+    <label class="md-nav__link" for="nav-1-1">
+      Docker
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-1-1">
+        Docker
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-1-1-1" type="checkbox" id="nav-1-1-1">
+    
+    <label class="md-nav__link" for="nav-1-1-1">
+      Docker基础
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-1-1-1">
+        Docker基础
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../docker/01-Docker基础使用/01-Docker介绍/" title="01-Docker介绍" class="md-nav__link">
+      01-Docker介绍
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../docker/01-Docker基础使用/02-Docker数据存储和网络访问/" title="02-Docker网络和存储" class="md-nav__link">
+      02-Docker网络和存储
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../docker/01-Docker基础使用/03-手动构建镜像/" title="03-镜像的构建" class="md-nav__link">
+      03-镜像的构建
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../docker/01-Docker基础使用/04-DockerFile/" title="04-Dockerfle" class="md-nav__link">
+      04-Dockerfle
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-1-2" type="checkbox" id="nav-1-2">
+    
+    <label class="md-nav__link" for="nav-1-2">
+      Kubernetes编排
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-1-2">
+        Kubernetes编排
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../kubernetes/01-k8s纯手工部署/" title="01-k8s纯手工部署" class="md-nav__link">
+      01-k8s纯手工部署
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      Django学习笔记
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Django学习笔记
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-1" type="checkbox" id="nav-2-1" checked>
+    
+    <label class="md-nav__link" for="nav-2-1">
+      Django DRF
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-1">
+        Django DRF
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../01-Restful/" title="01-Restful介绍" class="md-nav__link">
+      01-Restful介绍
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../02-Request的封装/" title="02-Request封装" class="md-nav__link">
+      02-Request封装
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../03-DRF的认证/" title="03-DRF的认证" class="md-nav__link">
+      03-DRF的认证
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../04-DRF权限/" title="04-DRF的权限" class="md-nav__link">
+      04-DRF的权限
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        05-DRF访问限制
+      </label>
+    
+    <a href="./" title="05-DRF访问限制" class="md-nav__link md-nav__link--active">
+      05-DRF访问限制
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="控制访问频率" class="md-nav__link">
+    控制访问频率
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="源码流程" class="md-nav__link">
+    源码流程
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="内置的节流类" class="md-nav__link">
+    内置的节流类
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" title="小结" class="md-nav__link">
+    小结
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../06-DRF版本&解析器/" title="06-DRF版本&解析器" class="md-nav__link">
+      06-DRF版本&解析器
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../07-DRF序列化/" title="07-DRF序列化" class="md-nav__link">
+      07-DRF序列化
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      未分类页面
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        未分类页面
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../linux内核.md" title="Linux内核" class="md-nav__link">
+      Linux内核
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      计算机
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        计算机
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-1" type="checkbox" id="nav-4-1">
+    
+    <label class="md-nav__link" for="nav-4-1">
+      操作系统
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-1">
+        操作系统
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../docker/01-Docker基础使用/01-Docker介绍/" title="01-Docker介绍" class="md-nav__link">
+      01-Docker介绍
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-2" type="checkbox" id="nav-4-2">
+    
+    <label class="md-nav__link" for="nav-4-2">
+      编程语言
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-2">
+        编程语言
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../docker/01-Docker基础使用/01-Docker介绍/" title="01-Docker介绍" class="md-nav__link">
+      01-Docker介绍
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-3" type="checkbox" id="nav-4-3">
+    
+    <label class="md-nav__link" for="nav-4-3">
+      网络
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-3">
+        网络
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../docker/01-Docker基础使用/01-Docker介绍/" title="01-Docker介绍" class="md-nav__link">
+      01-Docker介绍
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-4" type="checkbox" id="nav-4-4">
+    
+    <label class="md-nav__link" for="nav-4-4">
+      安全
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-4">
+        安全
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../docker/01-Docker基础使用/01-Docker介绍/" title="01-Docker介绍" class="md-nav__link">
+      01-Docker介绍
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-5" type="checkbox" id="nav-4-5">
+    
+    <label class="md-nav__link" for="nav-4-5">
+      弱电
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-5">
+        弱电
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../docker/01-Docker基础使用/01-Docker介绍/" title="01-Docker介绍" class="md-nav__link">
+      01-Docker介绍
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-6" type="checkbox" id="nav-4-6">
+    
+    <label class="md-nav__link" for="nav-4-6">
+      运维
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-6">
+        运维
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../docker/01-Docker基础使用/01-Docker介绍/" title="01-Docker介绍" class="md-nav__link">
+      01-Docker介绍
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-7" type="checkbox" id="nav-4-7">
+    
+    <label class="md-nav__link" for="nav-4-7">
+      IoT物联网
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-7">
+        IoT物联网
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../docker/01-Docker基础使用/01-Docker介绍/" title="01-Docker介绍" class="md-nav__link">
+      01-Docker介绍
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-8" type="checkbox" id="nav-4-8">
+    
+    <label class="md-nav__link" for="nav-4-8">
+      工作未分类
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-8">
+        工作未分类
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../docker/01-Docker基础使用/01-Docker介绍/" title="01-Docker介绍" class="md-nav__link">
+      01-Docker介绍
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-9" type="checkbox" id="nav-4-9">
+    
+    <label class="md-nav__link" for="nav-4-9">
+      网站收藏
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-9">
+        网站收藏
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/测试用/" title="测试页面" class="md-nav__link">
+      测试页面
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="控制访问频率" class="md-nav__link">
+    控制访问频率
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="源码流程" class="md-nav__link">
+    源码流程
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="内置的节流类" class="md-nav__link">
+    内置的节流类
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" title="小结" class="md-nav__link">
+    小结
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/jokerleu/edit/master/docs/django/DRF/05-DRF访问限制.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="drf">DRF访问限制<a class="headerlink" href="#drf" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>接口需要有访问的限制，而不是随意的无限制的访问，DRF提供了访问限制方面的内容。</p>
+</blockquote>
+<h2 id="_1">控制访问频率<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>首先来看针对匿名用户的访问限制的设计思路，首先说访问限制不是绝对的，针对非登录的匿名用户来讲，IP可以说是用户唯一的标识，那么我们可以针对访问的源IP来做限制，但是用户的IP是可以换的，比如用户更换代理，那么可能的IP就是无限多个，但是访问人是同一个，因此没有办法做到绝对的限制。</p>
+<p>同样的，针对登录用户也是不能做到绝对的完全的限制，现在基本每个账号都会绑定手机号，但是你拦不住用户直接去某宝买手机号，代理注册，所以说这些限制在应用层面上来讲，只能说是一定程度做了限制。</p>
+</blockquote>
+<p>匿名用户访问频率的设计思路：</p>
+<ul>
+<li>
+<p>首先捕获用户的IP地址，这个ip地址可以在request的META信息中去取到，remote_addr或者是x_forward_for</p>
+</li>
+<li>
+<p>准备一个字典，这个字典可以是一个全局级别的变量，或者是数据库亦或是redis。</p>
+</li>
+<li>
+<p>捕获到的IP作为key，而value为一个列表去存储用户的访问记录</p>
+</li>
+</ul>
+<p><div class="codehilite"><pre><span></span><span class="o">-</span> <span class="err">访问记录的实体为一个时间戳，用户每访问一次向</span><span class="n">value列表中的首部添加一个</span>
+<span class="o">-</span> <span class="err">当用户来访问的时候首先来看这个全局字典中有没有对应的</span><span class="n">IP的key</span><span class="err">，如果没有的话那么就添加，并向列表中追加当前的时间戳。</span>
+<span class="o">-</span> <span class="err">如果有当前的</span><span class="n">key证明这个ip的匿名用户之前有访问过</span><span class="err">，那么就从后往前逐个对比时间差值是否超过设置的时间间隔，如果有超过的就</span><span class="n">POP掉</span><span class="err">，这就是为啥记录时间戳的时候要记录在前面，因为在清理过期访问记录的时候可以使用</span><span class="n">pop方便的去删除记录</span><span class="err">。</span>
+<span class="o">-</span> <span class="err">去除掉过期记录以后去排查当前列表的长度，比如一分钟内只让访问</span><span class="mi">10</span><span class="err">次，那么假如当前的列表长度只有小于</span><span class="mi">10</span><span class="err">的时候才允许你进行下一次访问。</span>
+</pre></div>
+那么具体的代码实现逻辑可以看下面的简单代码
+<div class="codehilite"><pre><span></span><span class="sd">&quot;&quot;&quot;所有导入的包都省略了&quot;&quot;&quot;</span>
+
+<span class="k">def</span> <span class="nf">md5</span><span class="p">(</span><span class="n">user</span><span class="p">):</span>
+
+    <span class="n">ctime</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">))</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ctime</span><span class="p">),</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+
+
+<span class="c1"># 全局变量可以，数据库可以，redis也可以</span>
+<span class="n">VISIT_RECORD</span> <span class="o">=</span> <span class="p">{}</span>
+
+
+<span class="k">class</span> <span class="nc">VisitThrottle</span><span class="p">(</span><span class="n">BaseThrottle</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">history</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">allow_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        如果return true表示可以继续访问，如果返回false，表示访问频率太高，被限制访问</span>
+<span class="sd">        :param request:</span>
+<span class="sd">        :param view:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># 1、获取用户IP，我们知道说这里的request是已经被封装过的</span>
+        <span class="c1"># 之前看封装的request的时候，里面有一个getattr方法，当我们调用META的时候，封装的</span>
+        <span class="c1"># request中并不存在这个属性，因此会去原生的request去找，因此仍然可以直接调用。</span>
+        <span class="c1"># 因此这里可以省略_request，直接调用META</span>
+        <span class="n">remote_addr</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">META</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;REMOTE_ADDR&#39;</span><span class="p">)</span>
+        <span class="n">current_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+        <span class="c1"># 如果捕获到的IP地址没有再这个访问记录的字典里的话，那么就增加一下。</span>
+        <span class="k">if</span> <span class="n">remote_addr</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">VISIT_RECORD</span><span class="p">:</span>
+            <span class="n">VISIT_RECORD</span><span class="p">[</span><span class="n">remote_addr</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">current_time</span><span class="p">,</span> <span class="p">]</span>
+            <span class="k">return</span> <span class="bp">True</span>
+
+        <span class="c1"># 如果说有访问记录，那么就把访问记录的列表赋值给self.history</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">history</span> <span class="o">=</span> <span class="n">VISIT_RECORD</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">remote_addr</span><span class="p">)</span>
+
+        <span class="c1"># 清理过期的访问记录，比如我现在允许你一分钟你访问10次，也就是60s内访问10次</span>
+        <span class="c1"># 那么新的一次访问进来以后，首先比对新的时间戳和最老的时间戳，如果差值大于60s</span>
+        <span class="c1"># 那么证明这个访问记录可能已经很久远了，就可以删掉了，以此类推，依次对比。</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">history</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">current_time</span> <span class="o">-</span> <span class="mi">10</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+
+        <span class="c1"># 将老旧的信息删掉以后，然后看看列表的长度，一分钟内10次的话那么列表长度就应该小于等于10</span>
+        <span class="c1"># 当10的时候此时就已经达到访问上限了，因此只有当列表长度小于10的才允许继续访问插值。</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="c1"># 时间越近的塞到列表的首部</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">current_time</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">True</span>
+
+    <span class="k">def</span> <span class="nf">wait</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;提示你距离访问还需要多久&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="k">class</span> <span class="nc">AuthView</span><span class="p">(</span><span class="n">APIView</span><span class="p">):</span>
+
+    <span class="n">authentication_classes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">permission_classes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">throttle_classes</span> <span class="o">=</span> <span class="p">[</span><span class="n">VisitThrottle</span><span class="p">,</span> <span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">ret</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;errmsg&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span> <span class="s1">&#39;errcode&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">)</span>
+            <span class="n">pwd</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">)</span>
+
+            <span class="n">user_obj</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">UserInfo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">user</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="n">pwd</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">user_obj</span><span class="p">:</span>
+                <span class="n">ret</span><span class="p">[</span><span class="s1">&#39;errcode&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1000</span>
+                <span class="n">ret</span><span class="p">[</span><span class="s1">&#39;errmsg&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;用户名或密码错误&#39;</span>
+                <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span>
+
+            <span class="n">token</span> <span class="o">=</span> <span class="n">md5</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+            <span class="n">models</span><span class="o">.</span><span class="n">UserToken</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">update_or_create</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">user_obj</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;token&#39;</span><span class="p">:</span> <span class="n">token</span> <span class="p">})</span>
+            <span class="n">ret</span><span class="p">[</span><span class="s1">&#39;token&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">token</span>
+            <span class="n">ret</span><span class="p">[</span><span class="s1">&#39;errmsg&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;ok&#39;</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">ret</span><span class="p">[</span><span class="s1">&#39;errcode&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1002</span>
+            <span class="n">ret</span><span class="p">[</span><span class="s1">&#39;errmsg&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;请求异常&#39;</span>
+            <span class="n">ret</span><span class="p">[</span><span class="s1">&#39;token&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+        <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span>
+</pre></div></p>
+<p>经过这样一个流程就可以实现我们的访问频次的限制了，接下来看一下这部分源码流程是如何实现的。</p>
+<h2 id="_2">源码流程<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>其实仔细观察可以发现这一块的逻辑和认证以及权限的逻辑是非常相像的，入口依然是dispatch。</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">initial</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;此处省略很多代码&quot;&quot;&quot;</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">perform_authentication</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">check_permissions</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+    <span class="c1"># 找到这里，节流的相关设置</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">check_throttles</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+</pre></div>
+
+<p>看一下check_throttles都干了什么</p>
+<div class="codehilite"><pre><span></span><span class="c1"># get_throttles的逻辑和前面的认证和权限的管理都是一个套路，这里不多做赘述了</span>
+<span class="c1"># 这里依然是返回了self中的throtle_classes的类的对象的列表，如果没有的话</span>
+<span class="c1"># 会找到父类APIView中的如下这一段内容，如果要全局化直接写到settings中即可。</span>
+<span class="c1"># throttle_classes = api_settings.DEFAULT_THROTTLE_CLASSES</span>
+<span class="k">def</span> <span class="nf">get_throttles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Instantiates and returns the list of throttles that this view uses.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">throttle</span><span class="p">()</span> <span class="k">for</span> <span class="n">throttle</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">throttle_classes</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">check_throttles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Check if request should be throttled.</span>
+<span class="sd">    Raises an appropriate exception if the request is throttled.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">throttle</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_throttles</span><span class="p">():</span>
+        <span class="c1"># 调用对象的allow_request方法，如果返回true表明可以继续访问，如果不反回或者返回False</span>
+        <span class="c1"># 表示不能够继续访问。当不能够继续访问的时候会进入到下面的条件中，指定throttled方法</span>
+        <span class="c1"># 调用throttled方法的同时还调用了throttle的wait方法，也就是我们自定义的wait方法</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">throttle</span><span class="o">.</span><span class="n">allow_request</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">throttled</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">throttle</span><span class="o">.</span><span class="n">wait</span><span class="p">())</span>
+</pre></div>
+
+<p>throttled方法直接抛出了异常，这里接收的wait就是我们返回的秒数。</p>
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">throttled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">wait</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    If request is throttled, determine what kind of exception to raise.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">Throttled</span><span class="p">(</span><span class="n">wait</span><span class="p">)</span>
+
+<span class="c1"># 看一下这个异常类的调用</span>
+<span class="k">class</span> <span class="nc">Throttled</span><span class="p">(</span><span class="n">APIException</span><span class="p">):</span>
+    <span class="n">status_code</span> <span class="o">=</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_429_TOO_MANY_REQUESTS</span>
+    <span class="n">default_detail</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;Request was throttled.&#39;</span><span class="p">)</span>
+    <span class="n">extra_detail_singular</span> <span class="o">=</span> <span class="s1">&#39;Expected available in {wait} second.&#39;</span>
+    <span class="n">extra_detail_plural</span> <span class="o">=</span> <span class="s1">&#39;Expected available in {wait} seconds.&#39;</span>
+    <span class="n">default_code</span> <span class="o">=</span> <span class="s1">&#39;throttled&#39;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wait</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">detail</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">detail</span> <span class="o">=</span> <span class="n">force_text</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">default_detail</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">wait</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">wait</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">wait</span><span class="p">)</span>
+            <span class="n">detail</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span>
+                <span class="n">detail</span><span class="p">,</span>
+                <span class="n">force_text</span><span class="p">(</span><span class="n">ungettext</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">extra_detail_singular</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="n">wait</span><span class="p">),</span>
+                                     <span class="bp">self</span><span class="o">.</span><span class="n">extra_detail_plural</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="n">wait</span><span class="p">),</span>
+                                     <span class="n">wait</span><span class="p">))))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wait</span> <span class="o">=</span> <span class="n">wait</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Throttled</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">detail</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span>
+</pre></div>
+
+<h2 id="_3">内置的节流类<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>其实上面这一堆操作内置的节流类就已经帮我们实现了</p>
+</blockquote>
+<p>首先我们自己定义的节流类都应该继承BaseThrottle。</p>
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">BaseThrottle</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Rate throttling of requests.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">allow_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return `True` if the request should be allowed, `False` otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;.allow_request() must be overridden&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_ident</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Identify the machine making the request by parsing HTTP_X_FORWARDED_FOR</span>
+<span class="sd">        if present and number of proxies is &gt; 0. If not use all of</span>
+<span class="sd">        HTTP_X_FORWARDED_FOR if it is available, if not use REMOTE_ADDR.</span>
+<span class="sd">        注意这里已经帮我们实现了获取IP的逻辑，因此我们不需要自己从META中去取了，直接调用</span>
+<span class="sd">        self.get_indent就可以拿到匿名用户的地址标识了。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">xff</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">META</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;HTTP_X_FORWARDED_FOR&#39;</span><span class="p">)</span>
+        <span class="n">remote_addr</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">META</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;REMOTE_ADDR&#39;</span><span class="p">)</span>
+        <span class="n">num_proxies</span> <span class="o">=</span> <span class="n">api_settings</span><span class="o">.</span><span class="n">NUM_PROXIES</span>
+
+        <span class="k">if</span> <span class="n">num_proxies</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">num_proxies</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">xff</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">remote_addr</span>
+            <span class="n">addrs</span> <span class="o">=</span> <span class="n">xff</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+            <span class="n">client_addr</span> <span class="o">=</span> <span class="n">addrs</span><span class="p">[</span><span class="o">-</span><span class="nb">min</span><span class="p">(</span><span class="n">num_proxies</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">addrs</span><span class="p">))]</span>
+            <span class="k">return</span> <span class="n">client_addr</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">xff</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="k">if</span> <span class="n">xff</span> <span class="k">else</span> <span class="n">remote_addr</span>
+
+    <span class="k">def</span> <span class="nf">wait</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Optionally, return a recommended number of seconds to wait before</span>
+<span class="sd">        the next request.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">None</span>
+</pre></div>
+
+<p>我们上面写到了一定时间内限制用户的访问频次，其实DRF内部已经以一个简单的限流类帮我们写好了，具体内容的实现如下：</p>
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">SimpleRateThrottle</span><span class="p">(</span><span class="n">BaseThrottle</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A simple cache implementation, that only requires `.get_cache_key()`</span>
+<span class="sd">    to be overridden.</span>
+
+<span class="sd">    The rate (requests / seconds) is set by a `rate` attribute on the View</span>
+<span class="sd">    class.  The attribute is a string of the form &#39;number_of_requests/period&#39;.</span>
+
+<span class="sd">    Period should be one of: (&#39;s&#39;, &#39;sec&#39;, &#39;m&#39;, &#39;min&#39;, &#39;h&#39;, &#39;hour&#39;, &#39;d&#39;, &#39;day&#39;)</span>
+
+<span class="sd">    Previous request information used for throttling is stored in the cache.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cache</span> <span class="o">=</span> <span class="n">default_cache</span>
+    <span class="n">timer</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span>
+    <span class="n">cache_format</span> <span class="o">=</span> <span class="s1">&#39;throttle_</span><span class="si">%(scope)s</span><span class="s1">_</span><span class="si">%(ident)s</span><span class="s1">&#39;</span>
+    <span class="n">scope</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="c1"># 4、从这里可以知道这个key是从settings中取，因此我们需要在REST_FRAMEWORK中配置这个key</span>
+    <span class="c1"># 对应的value是一个字典，对应的有一个scope的key，比如我在我自己定义的类里配置scope为test_throttle</span>
+    <span class="c1"># 那么它就会去配置文件里找key为scope的内容，所以说我们定义的这个scope其实就是配置文件里对应的key</span>
+    <span class="c1"># 那么这个key对应的value应该填写什么呢？应该填写类似于3/m这样类似的内容，其中m代表分钟，s秒，h小时</span>
+    <span class="c1"># d代表day，3/m就表示每分钟3次的意思，其他的类推。那么最后我们拿到的这个THROTTLE_RATES其实就是3/m</span>
+    <span class="n">THROTTLE_RATES</span> <span class="o">=</span> <span class="n">api_settings</span><span class="o">.</span><span class="n">DEFAULT_THROTTLE_RATES</span>
+
+    <span class="c1"># 1、实现构造方法，在对象内部找rate这个属性，如果rate属性不存在这回调用self.get_rate</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;rate&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">):</span>
+            <span class="c1"># 5、回到这里，selt.rate其实就是3/m了。</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_rate</span><span class="p">()</span>
+        <span class="c1"># 6、调用parse_rate对我们的3/m进行数据处理，接收到请求数和秒数。</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_requests</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_rate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rate</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_cache_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Should return a unique cache-key which can be used for throttling.</span>
+<span class="sd">        Must be overridden.</span>
+
+<span class="sd">        May return `None` if the request should not be throttled.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;.get_cache_key() must be overridden&#39;</span><span class="p">)</span>
+
+    <span class="c1"># 2、当rate不存在的时候调用当前方法，方法内部去调用scope属性，当没有设置scope的时候会抛出异常</span>
+    <span class="k">def</span> <span class="nf">get_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Determine the string representation of the allowed request rate.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;scope&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;You must set either `.scope` or `.rate` for &#39;</span><span class="si">%s</span><span class="s2">&#39; throttle&quot;</span> <span class="o">%</span>
+                   <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">ImproperlyConfigured</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># 3、如果设置了scope那么就会去self.THROTTLE_RATES中找对应的key，这个值是一个字典</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">THROTTLE_RATES</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;No default throttle rate set for &#39;</span><span class="si">%s</span><span class="s2">&#39; scope&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span>
+            <span class="k">raise</span> <span class="n">ImproperlyConfigured</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="c1"># 7、对self.rate进行数据处理</span>
+    <span class="k">def</span> <span class="nf">parse_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rate</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Given the request rate string, return a two tuple of:</span>
+<span class="sd">        &lt;allowed number of requests&gt;, &lt;period of time in seconds&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">rate</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="c1"># 8、我们的模式都是x/x的形式，所以这里直接用/给隔开了，获取到的num就是次数，period就是间隔。</span>
+        <span class="n">num</span><span class="p">,</span> <span class="n">period</span> <span class="o">=</span> <span class="n">rate</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+        <span class="c1"># 9、int转换成整形</span>
+        <span class="n">num_requests</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+        <span class="c1"># 10、将对应的日期转换成秒，period可能为s，m，h，d，取第一个，所以你写day，hour，minute，second</span>
+        <span class="c1"># 其实也没有什么关系，因为都是取的首字母，下面的操作相当于取对应的字典的key得到对应的秒数</span>
+        <span class="n">duration</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;s&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span> <span class="s1">&#39;h&#39;</span><span class="p">:</span> <span class="mi">3600</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="mi">86400</span><span class="p">}[</span><span class="n">period</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+        <span class="c1"># 11、返回请求数和秒数</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">num_requests</span><span class="p">,</span> <span class="n">duration</span><span class="p">)</span>
+
+    <span class="c1"># 12、请求进来以后在源码流程中会调用allow_request方法。</span>
+    <span class="k">def</span> <span class="nf">allow_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Implement the check to see if the request should be throttled.</span>
+
+<span class="sd">        On success calls `throttle_success`.</span>
+<span class="sd">        On failure calls `throttle_failure`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rate</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+
+        <span class="c1"># 13、这里直接调用self.get_cache_key，如果仔细看上面的源码的话会发现调用原生的会直接抛异常</span>
+        <span class="c1"># 报错信息告知我们必须自己重写去覆盖原来的方法，其实原来的方法就是个框子。</span>
+        <span class="c1"># 我们最上面针对匿名用户是以匿名用户的ip作为key的，所以这里我们直接在我们的限流类里调用</span>
+        <span class="c1"># self.get_ident返回ip赋值给self.key。</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cache_key</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+
+        <span class="c1"># 14、从缓存中拿到所有的记录，就相当于之前的VISIT_RECORD，这个缓存是Django内置的缓存</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">history</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="c1"># 15、获取当前时间</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">now</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="p">()</span>
+
+        <span class="c1"># 16、这一块的逻辑基本就和我们之前写的是一样的了。</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">history</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">now</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_requests</span><span class="p">:</span>
+            <span class="c1"># 17、如果说列表长度大于等于请求数那么证明已经到了访问上线了，直接return False</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">throttle_failure</span><span class="p">()</span>
+        <span class="c1"># 18、否则调用throttle_success插入时间戳到列表头部，并返回True表示不限流。</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">throttle_success</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">throttle_success</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Inserts the current request&#39;s timestamp along with the key</span>
+<span class="sd">        into the cache.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">now</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">True</span>
+
+    <span class="k">def</span> <span class="nf">throttle_failure</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Called when a request to the API has failed due to throttling.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">False</span>
+
+    <span class="k">def</span> <span class="nf">wait</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the recommended next request time in seconds.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="p">:</span>
+            <span class="n">remaining_duration</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">now</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">remaining_duration</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration</span>
+
+        <span class="n">available_requests</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_requests</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">available_requests</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+
+        <span class="k">return</span> <span class="n">remaining_duration</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">available_requests</span><span class="p">)</span>
+</pre></div>
+
+<p>那么我们自己的限流类其实相对来讲就简单很多了，只需要继承如上面这个类再做简单的配置即可：</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">rest_framework.throttling</span> <span class="kn">import</span> <span class="n">SimpleRateThrottle</span>
+
+<span class="c1"># 最后我们需要做的内容就简简单单的这一点就可以了。</span>
+<span class="k">class</span> <span class="nc">VisitThrottle</span><span class="p">(</span><span class="n">SimpleRateThrottle</span><span class="p">):</span>
+
+    <span class="n">scope</span> <span class="o">=</span> <span class="s1">&#39;test_throttle&#39;</span>
+
+    <span class="k">def</span> <span class="nf">get_cache_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
+        <span class="c1"># 如果是针对登录用户我们可以返回用户的唯一登录名，或者用户的pk(id)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_ident</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+</pre></div>
+
+<p>对应的settings配置如下:</p>
+<div class="codehilite"><pre><span></span><span class="n">REST_FRAMEWORK</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;DEFAULT_AUTHENTICATION_CLASSES&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;api.utils.auth.Authtication&#39;</span><span class="p">,</span> <span class="p">],</span>
+    <span class="s1">&#39;UNAUTHENTICATED_USER&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="s1">&#39;UNAUTHENTICATED_TOKEN&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="s1">&#39;DEFAULT_PERMISSION_CLASSES&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;api.utils.permission.MyPermission&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;DEFAULT_THROTTLE_CLASSES&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;DEFAULT_THROTTLE_RATES&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;test_throttle&#39;</span><span class="p">:</span> <span class="s1">&#39;10/m&#39;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>其他的提供内置限流类如下以供参考：</p>
+<div class="codehilite"><pre><span></span><span class="c1"># 限制匿名用户</span>
+<span class="k">class</span> <span class="nc">AnonRateThrottle</span><span class="p">(</span><span class="n">SimpleRateThrottle</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Limits the rate of API calls that may be made by a anonymous users.</span>
+
+<span class="sd">    The IP address of the request will be used as the unique cache key.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">scope</span> <span class="o">=</span> <span class="s1">&#39;anon&#39;</span>
+
+    <span class="k">def</span> <span class="nf">get_cache_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_authenticated</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>  <span class="c1"># Only throttle unauthenticated requests.</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache_format</span> <span class="o">%</span> <span class="p">{</span>
+            <span class="s1">&#39;scope&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="p">,</span>
+            <span class="s1">&#39;ident&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_ident</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="p">}</span>
+
+
+<span class="c1"># 限制登录用户的</span>
+<span class="k">class</span> <span class="nc">UserRateThrottle</span><span class="p">(</span><span class="n">SimpleRateThrottle</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Limits the rate of API calls that may be made by a given user.</span>
+
+<span class="sd">    The user id will be used as a unique cache key if the user is</span>
+<span class="sd">    authenticated.  For anonymous requests, the IP address of the request will</span>
+<span class="sd">    be used.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">scope</span> <span class="o">=</span> <span class="s1">&#39;user&#39;</span>
+
+    <span class="k">def</span> <span class="nf">get_cache_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_authenticated</span><span class="p">:</span>
+            <span class="n">ident</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">pk</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ident</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_ident</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache_format</span> <span class="o">%</span> <span class="p">{</span>
+            <span class="s1">&#39;scope&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="p">,</span>
+            <span class="s1">&#39;ident&#39;</span><span class="p">:</span> <span class="n">ident</span>
+        <span class="p">}</span>
+
+
+<span class="c1"># 这个是应用在局部视图上的，但是我们应用到局部视图直接在对应的视图类写throttle_classes就可以了</span>
+<span class="c1"># 因此这个基本用不到。</span>
+<span class="k">class</span> <span class="nc">ScopedRateThrottle</span><span class="p">(</span><span class="n">SimpleRateThrottle</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Limits the rate of API calls by different amounts for various parts of</span>
+<span class="sd">    the API.  Any view that has the `throttle_scope` property set will be</span>
+<span class="sd">    throttled.  The unique cache key will be generated by concatenating the</span>
+<span class="sd">    user id of the request, and the scope of the view being accessed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">scope_attr</span> <span class="o">=</span> <span class="s1">&#39;throttle_scope&#39;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Override the usual SimpleRateThrottle, because we can&#39;t determine</span>
+        <span class="c1"># the rate until called by the view.</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">allow_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
+        <span class="c1"># We can only determine the scope once we&#39;re called by the view.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scope</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope_attr</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+
+        <span class="c1"># If a view does not have a `throttle_scope` always allow the request</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+
+        <span class="c1"># Determine the allowed request rate as we normally would during</span>
+        <span class="c1"># the `__init__` call.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_rate</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_requests</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_rate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rate</span><span class="p">)</span>
+
+        <span class="c1"># We can now proceed as normal.</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">ScopedRateThrottle</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">allow_request</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_cache_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        If `view.throttle_scope` is not set, don&#39;t apply this throttle.</span>
+
+<span class="sd">        Otherwise generate the unique cache key by concatenating the user id</span>
+<span class="sd">        with the &#39;.throttle_scope` property of the view.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_authenticated</span><span class="p">:</span>
+            <span class="n">ident</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">pk</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ident</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_ident</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache_format</span> <span class="o">%</span> <span class="p">{</span>
+            <span class="s1">&#39;scope&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="p">,</span>
+            <span class="s1">&#39;ident&#39;</span><span class="p">:</span> <span class="n">ident</span>
+        <span class="p">}</span>
+</pre></div>
+
+<h2 id="_4">小结<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>依然需要注意，配置文件配置的节流类是全局的，是给所有的人用的，如果说单独需要其他的方案的需要单独处理，直接在对应的视图CBV中写<code>throttle_classes = []</code>单独处理就可以了。</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../04-DRF权限/" title="04-DRF的权限" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  后退
+                </span>
+                04-DRF的权限
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../06-DRF版本&解析器/" title="06-DRF版本&解析器" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  前进
+                </span>
+                06-DRF版本&解析器
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../../assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/jokerleu" class="md-footer-social__link fa fa-github"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/application.d9aa80ab.js"></script>
+      
+        
+        
+          
+          <script src="../../../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
+          
+            
+              
+                <script src="../../../assets/javascripts/lunr/tinyseg.js"></script>
+              
+              
+                <script src="../../../assets/javascripts/lunr/lunr.jp.js"></script>
+              
+            
+          
+          
+        
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../../.."}})</script>
+      
+        <script src="../../../js/extra.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+    
+  </body>
+</html>

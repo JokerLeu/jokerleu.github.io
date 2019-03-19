@@ -1,0 +1,1669 @@
+
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+        <meta name="author" content="jokerleu">
+      
+      
+        <meta name="lang:clipboard.copy" content="复制">
+      
+        <meta name="lang:clipboard.copied" content="已复制">
+      
+        <meta name="lang:search.language" content="jp">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="没有找到符合条件的结果">
+      
+        <meta name="lang:search.result.one" content="找到 1 个符合条件的结果">
+      
+        <meta name="lang:search.result.other" content="# 个符合条件的结果">
+      
+        <meta name="lang:search.tokenizer" content="[\uff0c\u3002]+">
+      
+      <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.2">
+    
+    
+      
+        <title>06-DRF版本&解析器 - 知识与技能图景</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/application.982221ab.css">
+      
+        <link rel="stylesheet" href="../../../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="">
+      
+    
+    
+      <script src="../../../assets/javascripts/modernizr.1f0bcf2b.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../../assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="white" data-md-color-accent="blue">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#drf" tabindex="1" class="md-skip">
+        跳转至
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../../.." title="知识与技能图景" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              知识与技能图景
+            </span>
+            <span class="md-header-nav__topic">
+              06-DRF版本&解析器
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            键入以开始搜索
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/jokerleu/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    jokerleu
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../../.." title="知识与技能图景" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    知识与技能图景
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/jokerleu/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    jokerleu
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1">
+    
+    <label class="md-nav__link" for="nav-1">
+      容器云技术
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        容器云技术
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-1-1" type="checkbox" id="nav-1-1">
+    
+    <label class="md-nav__link" for="nav-1-1">
+      Docker
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-1-1">
+        Docker
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-1-1-1" type="checkbox" id="nav-1-1-1">
+    
+    <label class="md-nav__link" for="nav-1-1-1">
+      Docker基础
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-1-1-1">
+        Docker基础
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../docker/01-Docker基础使用/01-Docker介绍/" title="01-Docker介绍" class="md-nav__link">
+      01-Docker介绍
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../docker/01-Docker基础使用/02-Docker数据存储和网络访问/" title="02-Docker网络和存储" class="md-nav__link">
+      02-Docker网络和存储
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../docker/01-Docker基础使用/03-手动构建镜像/" title="03-镜像的构建" class="md-nav__link">
+      03-镜像的构建
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../docker/01-Docker基础使用/04-DockerFile/" title="04-Dockerfle" class="md-nav__link">
+      04-Dockerfle
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-1-2" type="checkbox" id="nav-1-2">
+    
+    <label class="md-nav__link" for="nav-1-2">
+      Kubernetes编排
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-1-2">
+        Kubernetes编排
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../kubernetes/01-k8s纯手工部署/" title="01-k8s纯手工部署" class="md-nav__link">
+      01-k8s纯手工部署
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      Django学习笔记
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Django学习笔记
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-1" type="checkbox" id="nav-2-1" checked>
+    
+    <label class="md-nav__link" for="nav-2-1">
+      Django DRF
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-1">
+        Django DRF
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../01-Restful/" title="01-Restful介绍" class="md-nav__link">
+      01-Restful介绍
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../02-Request的封装/" title="02-Request封装" class="md-nav__link">
+      02-Request封装
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../03-DRF的认证/" title="03-DRF的认证" class="md-nav__link">
+      03-DRF的认证
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../04-DRF权限/" title="04-DRF的权限" class="md-nav__link">
+      04-DRF的权限
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../05-DRF访问限制/" title="05-DRF访问限制" class="md-nav__link">
+      05-DRF访问限制
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        06-DRF版本&解析器
+      </label>
+    
+    <a href="./" title="06-DRF版本&解析器" class="md-nav__link md-nav__link--active">
+      06-DRF版本&解析器
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#drf_1" title="DRF版本" class="md-nav__link">
+    DRF版本
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" title="以参数形式获取" class="md-nav__link">
+    以参数形式获取
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="在路径中体现" class="md-nav__link">
+    在路径中体现
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#drf_2" title="DRF解析器" class="md-nav__link">
+    DRF解析器
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../07-DRF序列化/" title="07-DRF序列化" class="md-nav__link">
+      07-DRF序列化
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      未分类页面
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        未分类页面
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../linux内核.md" title="Linux内核" class="md-nav__link">
+      Linux内核
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      计算机
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        计算机
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-1" type="checkbox" id="nav-4-1">
+    
+    <label class="md-nav__link" for="nav-4-1">
+      操作系统
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-1">
+        操作系统
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../docker/01-Docker基础使用/01-Docker介绍/" title="01-Docker介绍" class="md-nav__link">
+      01-Docker介绍
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-2" type="checkbox" id="nav-4-2">
+    
+    <label class="md-nav__link" for="nav-4-2">
+      编程语言
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-2">
+        编程语言
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../docker/01-Docker基础使用/01-Docker介绍/" title="01-Docker介绍" class="md-nav__link">
+      01-Docker介绍
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-3" type="checkbox" id="nav-4-3">
+    
+    <label class="md-nav__link" for="nav-4-3">
+      网络
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-3">
+        网络
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../docker/01-Docker基础使用/01-Docker介绍/" title="01-Docker介绍" class="md-nav__link">
+      01-Docker介绍
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-4" type="checkbox" id="nav-4-4">
+    
+    <label class="md-nav__link" for="nav-4-4">
+      安全
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-4">
+        安全
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../docker/01-Docker基础使用/01-Docker介绍/" title="01-Docker介绍" class="md-nav__link">
+      01-Docker介绍
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-5" type="checkbox" id="nav-4-5">
+    
+    <label class="md-nav__link" for="nav-4-5">
+      弱电
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-5">
+        弱电
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../docker/01-Docker基础使用/01-Docker介绍/" title="01-Docker介绍" class="md-nav__link">
+      01-Docker介绍
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-6" type="checkbox" id="nav-4-6">
+    
+    <label class="md-nav__link" for="nav-4-6">
+      运维
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-6">
+        运维
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../docker/01-Docker基础使用/01-Docker介绍/" title="01-Docker介绍" class="md-nav__link">
+      01-Docker介绍
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-7" type="checkbox" id="nav-4-7">
+    
+    <label class="md-nav__link" for="nav-4-7">
+      IoT物联网
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-7">
+        IoT物联网
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../docker/01-Docker基础使用/01-Docker介绍/" title="01-Docker介绍" class="md-nav__link">
+      01-Docker介绍
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-8" type="checkbox" id="nav-4-8">
+    
+    <label class="md-nav__link" for="nav-4-8">
+      工作未分类
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-8">
+        工作未分类
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../docker/01-Docker基础使用/01-Docker介绍/" title="01-Docker介绍" class="md-nav__link">
+      01-Docker介绍
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-9" type="checkbox" id="nav-4-9">
+    
+    <label class="md-nav__link" for="nav-4-9">
+      网站收藏
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-9">
+        网站收藏
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/测试用/" title="测试页面" class="md-nav__link">
+      测试页面
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#drf_1" title="DRF版本" class="md-nav__link">
+    DRF版本
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" title="以参数形式获取" class="md-nav__link">
+    以参数形式获取
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="在路径中体现" class="md-nav__link">
+    在路径中体现
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#drf_2" title="DRF解析器" class="md-nav__link">
+    DRF解析器
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/jokerleu/edit/master/docs/django/DRF/06-DRF版本&解析器.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="drf">DRF版本&amp;解析器<a class="headerlink" href="#drf" title="Permanent link">&para;</a></h1>
+<blockquote>
+<ul>
+<li>编辑日期：2019-2-13</li>
+</ul>
+<p>思考一个问题：restframework你都继承过哪些类</p>
+</blockquote>
+<h2 id="drf_1">DRF版本<a class="headerlink" href="#drf_1" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>版本可以放在URL里，也可以放在请求头，只要是可以获取到就行。</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">initial</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Runs anything that needs to occur prior to calling the method handler.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">format_kwarg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_format_suffix</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="n">neg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">perform_content_negotiation</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="n">request</span><span class="o">.</span><span class="n">accepted_renderer</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">accepted_media_type</span> <span class="o">=</span> <span class="n">neg</span>
+
+    <span class="c1"># Determine the API version, if versioning is in use.</span>
+    <span class="c1"># 调用self.determine_version方法，会收到两个返回值</span>
+    <span class="c1"># 两个返回值分别对应的第一个是determine_version的返回值，另外一个就是这个version类对象。</span>
+    <span class="n">version</span><span class="p">,</span> <span class="n">scheme</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">determine_version</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="c1"># 对应的版本号和version类对象会被赋值给request.version和request.versioning_scheme</span>
+    <span class="n">request</span><span class="o">.</span><span class="n">version</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">versioning_scheme</span> <span class="o">=</span> <span class="n">version</span><span class="p">,</span> <span class="n">scheme</span>
+
+    <span class="c1"># Ensure that the incoming request is permitted</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">perform_authentication</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">check_permissions</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">check_throttles</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">determine_version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    If versioning is being used, then determine any API version for the</span>
+<span class="sd">    incoming request. Returns a two-tuple of (version, versioning_scheme)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">versioning_class</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="c1"># 如果没有设置的话也就是说根本不用，那就返回None，None的元组</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+    <span class="c1"># versioning_class = api_settings.DEFAULT_VERSIONING_CLASS</span>
+    <span class="n">scheme</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">versioning_class</span><span class="p">()</span>
+    <span class="c1"># 返回这个类的对象。调用对象的determine_version方法</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">scheme</span><span class="o">.</span><span class="n">determine_version</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">),</span> <span class="n">scheme</span><span class="p">)</span>
+</pre></div>
+
+<p>注意这个在类中声明的时候，这个可不是类列表，class后面没有es，这个就是单独的一个类。</p>
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">UserView</span><span class="p">(</span><span class="n">APIView</span><span class="p">):</span>
+
+    <span class="n">authentication_classes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">permission_classes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">throttle_classes</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">versioning_class</span> <span class="o">=</span> <span class="n">ParamVersion</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s1">&#39;userlist&#39;</span><span class="p">)</span>
+</pre></div>
+
+<h3 id="_1">以参数形式获取<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p>不过在版本这一块，不用自己写，drf中已经提供了这一块的内容。</p>
+<div class="codehilite"><pre><span></span><span class="c1"># 直接调用内置的QueryParameterVersioning就可以了。</span>
+<span class="kn">from</span> <span class="nn">rest_framework.versioning</span> <span class="kn">import</span> <span class="n">QueryParameterVersioning</span>
+
+<span class="k">class</span> <span class="nc">UserView</span><span class="p">(</span><span class="n">APIView</span><span class="p">):</span>
+
+    <span class="n">authentication_classes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">permission_classes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">throttle_classes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">versioning_class</span> <span class="o">=</span> <span class="p">[</span><span class="n">QueryParameterVersioning</span><span class="p">,</span> <span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s1">&#39;当前的版本为： &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="n">request</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
+</pre></div>
+
+<p>来看一下这个版本类的实现：</p>
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">QueryParameterVersioning</span><span class="p">(</span><span class="n">BaseVersioning</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    GET /something/?version=0.1 HTTP/1.1</span>
+<span class="sd">    Host: example.com</span>
+<span class="sd">    Accept: application/json</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">invalid_version_message</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;Invalid version in query parameter.&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">determine_version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># 而且这里如果获取不到配置的VERSION_PARAM还有一个默认的version配置：DEFAULT_VERSION</span>
+        <span class="c1"># version_param就是你传递的那个version的key是什么，后面的就是你不传默认是什么</span>
+        <span class="c1"># 这些都需要在配置文件中去体现。</span>
+        <span class="n">version</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">query_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">version_param</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_version</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_allowed_version</span><span class="p">(</span><span class="n">version</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">NotFound</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">invalid_version_message</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">version</span>
+
+    <span class="c1"># reverse用来反向生成url，viewname就是我们的那个name，而且version我们不用加</span>
+    <span class="c1"># 因为request.version携带在request里面了，因此我们可以省略这个参数。</span>
+    <span class="k">def</span> <span class="nf">reverse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewname</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">extra</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">QueryParameterVersioning</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">reverse</span><span class="p">(</span>
+            <span class="n">viewname</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">format</span><span class="p">,</span> <span class="o">**</span><span class="n">extra</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">version</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">replace_query_param</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">version_param</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">url</span>
+
+<span class="c1"># 设置都允许哪些version</span>
+<span class="c1"># allowed_versions = api_settings.ALLOWED_VERSIONS</span>
+<span class="k">def</span> <span class="nf">is_allowed_version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">allowed_versions</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">True</span>
+    <span class="k">return</span> <span class="p">((</span><span class="n">version</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">version</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_version</span><span class="p">)</span> <span class="ow">or</span>
+            <span class="p">(</span><span class="n">version</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">allowed_versions</span><span class="p">))</span>
+</pre></div>
+
+<h3 id="_2">在路径中体现<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>上面的version参数传递是以参数的形式传递的，但是实际情况下这种使用的其实并不多，更多的其实是将version包含在路径中，比如xxx.xxx.com/api/v1这样的形式。当然DRF关于这种情况也给你写好了。</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">URLPathVersioning</span><span class="p">(</span><span class="n">BaseVersioning</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    To the client this is the same style as `NamespaceVersioning`.</span>
+<span class="sd">    The difference is in the backend - this implementation uses</span>
+<span class="sd">    Django&#39;s URL keyword arguments to determine the version.</span>
+
+<span class="sd">    An example URL conf for two views that accept two different versions.</span>
+
+<span class="sd">    urlpatterns = [</span>
+<span class="sd">        url(r&#39;^(?P&lt;version&gt;[v1|v2]+)/users/$&#39;, users_list, name=&#39;users-list&#39;),</span>
+<span class="sd">        url(r&#39;^(?P&lt;version&gt;[v1|v2]+)/users/(?P&lt;pk&gt;[0-9]+)/$&#39;, users_detail, name=&#39;users-detail&#39;)</span>
+<span class="sd">    ]</span>
+
+<span class="sd">    GET /1.0/something/ HTTP/1.1</span>
+<span class="sd">    Host: example.com</span>
+<span class="sd">    Accept: application/json</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">invalid_version_message</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;Invalid version in URL path.&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">determine_version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">version</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">version_param</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_version</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">version</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_version</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_allowed_version</span><span class="p">(</span><span class="n">version</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">NotFound</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">invalid_version_message</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">version</span>
+
+    <span class="k">def</span> <span class="nf">reverse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewname</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">extra</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">version</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span> <span class="k">if</span> <span class="p">(</span><span class="n">kwargs</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">)</span> <span class="k">else</span> <span class="n">kwargs</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">version_param</span><span class="p">]</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">version</span>
+
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">URLPathVersioning</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">reverse</span><span class="p">(</span>
+            <span class="n">viewname</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">format</span><span class="p">,</span> <span class="o">**</span><span class="n">extra</span>
+        <span class="p">)</span>
+</pre></div>
+
+<p>更推荐使用这种配置，其他的内置方案仅供参考：</p>
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">NamespaceVersioning</span><span class="p">(</span><span class="n">BaseVersioning</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    To the client this is the same style as `URLPathVersioning`.</span>
+<span class="sd">    The difference is in the backend - this implementation uses</span>
+<span class="sd">    Django&#39;s URL namespaces to determine the version.</span>
+
+<span class="sd">    An example URL conf that is namespaced into two separate versions</span>
+
+<span class="sd">    # users/urls.py</span>
+<span class="sd">    urlpatterns = [</span>
+<span class="sd">        url(r&#39;^/users/$&#39;, users_list, name=&#39;users-list&#39;),</span>
+<span class="sd">        url(r&#39;^/users/(?P&lt;pk&gt;[0-9]+)/$&#39;, users_detail, name=&#39;users-detail&#39;)</span>
+<span class="sd">    ]</span>
+
+<span class="sd">    # urls.py</span>
+<span class="sd">    urlpatterns = [</span>
+<span class="sd">        url(r&#39;^v1/&#39;, include(&#39;users.urls&#39;, namespace=&#39;v1&#39;)),</span>
+<span class="sd">        url(r&#39;^v2/&#39;, include(&#39;users.urls&#39;, namespace=&#39;v2&#39;))</span>
+<span class="sd">    ]</span>
+
+<span class="sd">    GET /1.0/something/ HTTP/1.1</span>
+<span class="sd">    Host: example.com</span>
+<span class="sd">    Accept: application/json</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">invalid_version_message</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;Invalid version in URL path. Does not match any version namespace.&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">determine_version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">resolver_match</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;resolver_match&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">resolver_match</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">resolver_match</span><span class="o">.</span><span class="n">namespace</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_version</span>
+
+        <span class="c1"># Allow for possibly nested namespaces.</span>
+        <span class="n">possible_versions</span> <span class="o">=</span> <span class="n">resolver_match</span><span class="o">.</span><span class="n">namespace</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">version</span> <span class="ow">in</span> <span class="n">possible_versions</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_allowed_version</span><span class="p">(</span><span class="n">version</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">version</span>
+        <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">NotFound</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">invalid_version_message</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">reverse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewname</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">extra</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">version</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">viewname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_versioned_viewname</span><span class="p">(</span><span class="n">viewname</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">NamespaceVersioning</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">reverse</span><span class="p">(</span>
+            <span class="n">viewname</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">format</span><span class="p">,</span> <span class="o">**</span><span class="n">extra</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_versioned_viewname</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewname</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">version</span> <span class="o">+</span> <span class="s1">&#39;:&#39;</span> <span class="o">+</span> <span class="n">viewname</span>
+
+
+<span class="k">class</span> <span class="nc">HostNameVersioning</span><span class="p">(</span><span class="n">BaseVersioning</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    GET /something/ HTTP/1.1</span>
+<span class="sd">    Host: v1.example.com</span>
+<span class="sd">    Accept: application/json</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">hostname_regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^([a-zA-Z0-9]+)\.[a-zA-Z0-9]+\.[a-zA-Z0-9]+$&#39;</span><span class="p">)</span>
+    <span class="n">invalid_version_message</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;Invalid version in hostname.&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">determine_version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">hostname</span><span class="p">,</span> <span class="n">separator</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_host</span><span class="p">()</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+        <span class="n">match</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hostname_regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">hostname</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">match</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_version</span>
+        <span class="n">version</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_allowed_version</span><span class="p">(</span><span class="n">version</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">NotFound</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">invalid_version_message</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">version</span>
+
+    <span class="c1"># We don&#39;t need to implement `reverse`, as the hostname will already be</span>
+    <span class="c1"># preserved as part of the REST framework `reverse` implementation.</span>
+
+
+<span class="k">class</span> <span class="nc">AcceptHeaderVersioning</span><span class="p">(</span><span class="n">BaseVersioning</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    GET /something/ HTTP/1.1</span>
+<span class="sd">    Host: example.com</span>
+<span class="sd">    Accept: application/json; version=1.0</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">invalid_version_message</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;Invalid version in &quot;Accept&quot; header.&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">determine_version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">media_type</span> <span class="o">=</span> <span class="n">_MediaType</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">accepted_media_type</span><span class="p">)</span>
+        <span class="n">version</span> <span class="o">=</span> <span class="n">media_type</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">version_param</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_version</span><span class="p">)</span>
+        <span class="n">version</span> <span class="o">=</span> <span class="n">unicode_http_header</span><span class="p">(</span><span class="n">version</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_allowed_version</span><span class="p">(</span><span class="n">version</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">NotAcceptable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">invalid_version_message</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">version</span>
+
+    <span class="c1"># We don&#39;t need to implement `reverse`, as the versioning is based</span>
+    <span class="c1"># on the `Accept` header, not on the request URL.</span>
+</pre></div>
+
+<h2 id="drf_2">DRF解析器<a class="headerlink" href="#drf_2" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">_load_post_and_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Populate self._post and self._files if the content-type is a form type&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="o">!=</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_post</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_files</span> <span class="o">=</span> <span class="n">QueryDict</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_encoding</span><span class="p">),</span> <span class="n">MultiValueDict</span><span class="p">()</span>
+        <span class="k">return</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_read_started</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_body&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mark_post_parse_error</span><span class="p">()</span>
+        <span class="k">return</span>
+
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">content_type</span> <span class="o">==</span> <span class="s1">&#39;multipart/form-data&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_body&#39;</span><span class="p">):</span>
+            <span class="c1"># Use already read data</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_body</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_post</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_files</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_file_upload</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">META</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">MultiPartParserError</span><span class="p">:</span>
+            <span class="c1"># An error occurred while parsing POST data. Since when</span>
+            <span class="c1"># formatting the error the request handler might access</span>
+            <span class="c1"># self.POST, set self._post and self._file to prevent</span>
+            <span class="c1"># attempts to parse POST data again.</span>
+            <span class="c1"># Mark that an error occurred. This allows self.__repr__ to</span>
+            <span class="c1"># be explicit about it instead of simply representing an</span>
+            <span class="c1"># empty POST</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_mark_post_parse_error</span><span class="p">()</span>
+            <span class="k">raise</span>
+    <span class="c1"># 如果是这个头才去request.body中去解析数据，不仅如此，还对数据格式有要求</span>
+    <span class="c1"># 数据格式要求必须是a=1&amp;b=2&amp;c=3这种的。form表单的提交默认就是这个头，数据格式默认也是这样的</span>
+    <span class="c1"># 当然Ajax也是可以提交的，虽然你data写的是字典，不过内部也会给你转成上面的数据格式，而且ajax还可以</span>
+    <span class="c1"># 定制请求头headers。</span>
+    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">content_type</span> <span class="o">==</span> <span class="s1">&#39;application/x-www-form-urlencoded&#39;</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_post</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_files</span> <span class="o">=</span> <span class="n">QueryDict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_encoding</span><span class="p">),</span> <span class="n">MultiValueDict</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_post</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_files</span> <span class="o">=</span> <span class="n">QueryDict</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_encoding</span><span class="p">),</span> <span class="n">MultiValueDict</span><span class="p">()</span>
+</pre></div>
+
+<p>还有一种情况也是request.body有值，但是request.post没有值</p>
+<div class="codehilite"><pre><span></span><span class="err">#</span> <span class="nx">这个时候不仅头不满足</span><span class="err">，</span><span class="nx">数据格式也不满足</span><span class="err">，</span><span class="nx">都不满足</span><span class="err">。</span><span class="nx">所有request</span><span class="p">.</span><span class="nx">post依然没有值</span><span class="err">。</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+    <span class="nx">url</span><span class="o">:</span> <span class="nx">xxx</span><span class="p">,</span>
+    <span class="nx">method</span><span class="o">:</span> <span class="nx">xxx</span><span class="p">,</span>
+    <span class="nx">data</span><span class="o">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">Stringfy</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="o">:</span><span class="mi">2</span><span class="p">})</span>
+<span class="p">})</span>
+</pre></div>
+
+<p>上面这个是Django的，接下来看DRF解析器</p>
+<ol>
+<li>获取用户请求</li>
+<li>获取用户请求体</li>
+<li>根据用户请求头和parser_classes中支持的全给你求头进行比较</li>
+<li>符合的处理类进行请求的处理</li>
+<li>赋值给request.data</li>
+</ol>
+<p>调用request.data的时候生效。</p>
+<div class="codehilite"><pre><span></span><span class="c1"># JSONParser</span>
+<span class="k">class</span> <span class="nc">JSONParser</span><span class="p">(</span><span class="n">BaseParser</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parses JSON-serialized data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># 在JSONParser中定义了一个media type</span>
+    <span class="n">media_type</span> <span class="o">=</span> <span class="s1">&#39;application/json&#39;</span>
+    <span class="n">renderer_class</span> <span class="o">=</span> <span class="n">renderers</span><span class="o">.</span><span class="n">JSONRenderer</span>
+    <span class="n">strict</span> <span class="o">=</span> <span class="n">api_settings</span><span class="o">.</span><span class="n">STRICT_JSON</span>
+
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream</span><span class="p">,</span> <span class="n">media_type</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">parser_context</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parses the incoming bytestream as JSON and returns the resulting data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parser_context</span> <span class="o">=</span> <span class="n">parser_context</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="n">encoding</span> <span class="o">=</span> <span class="n">parser_context</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;encoding&#39;</span><span class="p">,</span> <span class="n">settings</span><span class="o">.</span><span class="n">DEFAULT_CHARSET</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">decoded_stream</span> <span class="o">=</span> <span class="n">codecs</span><span class="o">.</span><span class="n">getreader</span><span class="p">(</span><span class="n">encoding</span><span class="p">)(</span><span class="n">stream</span><span class="p">)</span>
+            <span class="n">parse_constant</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">strict_constant</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">strict</span> <span class="k">else</span> <span class="bp">None</span>
+            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">decoded_stream</span><span class="p">,</span> <span class="n">parse_constant</span><span class="o">=</span><span class="n">parse_constant</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ParseError</span><span class="p">(</span><span class="s1">&#39;JSON parse error - </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">six</span><span class="o">.</span><span class="n">text_type</span><span class="p">(</span><span class="n">exc</span><span class="p">))</span>
+</pre></div>
+
+<div class="codehilite"><pre><span></span><span class="c1"># FormParser</span>
+<span class="k">class</span> <span class="nc">FormParser</span><span class="p">(</span><span class="n">BaseParser</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parser for form data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">media_type</span> <span class="o">=</span> <span class="s1">&#39;application/x-www-form-urlencoded&#39;</span>
+
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream</span><span class="p">,</span> <span class="n">media_type</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">parser_context</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parses the incoming bytestream as a URL encoded form,</span>
+<span class="sd">        and returns the resulting QueryDict.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parser_context</span> <span class="o">=</span> <span class="n">parser_context</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="n">encoding</span> <span class="o">=</span> <span class="n">parser_context</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;encoding&#39;</span><span class="p">,</span> <span class="n">settings</span><span class="o">.</span><span class="n">DEFAULT_CHARSET</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">QueryDict</span><span class="p">(</span><span class="n">stream</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">data</span>
+</pre></div>
+
+<div class="codehilite"><pre><span></span><span class="c1"># 1、我们知道最后获取到的结果可以从request.data中拿到，但是这个request是经过封装后的Request的对象</span>
+<span class="c1"># 因此我们直接去Request里面去找data属性，首先调用了_hasattr，注意这里是带下划线的</span>
+<span class="nd">@property</span>
+<span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c1"># 3、默认的self._full_data为Empty，那么_hasattr会返回False，直接调用_load_data_and_files</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">_hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_full_data&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_load_data_and_files</span><span class="p">()</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_full_data</span>
+
+<span class="c1"># 2、找到下划线_has_attr,它会从当前self中去取对应的name，如果这个name取到了是Empty，那么就返回False</span>
+<span class="k">def</span> <span class="nf">_hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+    <span class="k">return</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="ow">is</span> <span class="n">Empty</span>
+
+<span class="c1"># 4、_full_data默认值</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">_full_data</span> <span class="o">=</span> <span class="n">Empty</span>
+
+<span class="c1"># 5、Empty的定义</span>
+<span class="k">class</span> <span class="nc">Empty</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Placeholder for unset attributes.</span>
+<span class="sd">    Cannot use `None`, as that may be a valid value.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+<span class="c1"># 6、_load_data_and_files方法</span>
+<span class="k">def</span> <span class="nf">_load_data_and_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parses the request content into `self.data`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># 默认的self._data = Empty，所以条件满足直接进入调用</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">_hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_data&#39;</span><span class="p">):</span>
+        <span class="c1"># 调用self._parse方法</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_files</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_files</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_full_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_full_data</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_files</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_full_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span>
+
+        <span class="c1"># if a form media type, copy data &amp; files refs to the underlying</span>
+        <span class="c1"># http request so that closable objects are handled appropriately.</span>
+        <span class="k">if</span> <span class="n">is_form_media_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">content_type</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">_post</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">POST</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">_files</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">FILES</span>
+
+<span class="c1"># 7、self._parse方法</span>
+<span class="k">def</span> <span class="nf">_parse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    格式化request的文本，并且返回一个两个元素的元组(data，files)</span>
+<span class="sd">    May raise an `UnsupportedMediaType`, or `ParseError` exception.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># 8、获取用户的请求头</span>
+    <span class="n">media_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">content_type</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># 10、获取用户的request.body的内容，以stream的形式</span>
+        <span class="n">stream</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream</span>
+    <span class="k">except</span> <span class="n">RawPostDataException</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">,</span> <span class="s1">&#39;_post&#39;</span><span class="p">):</span>
+            <span class="k">raise</span>
+        <span class="c1"># If request.POST has been accessed in middleware, and a method=&#39;POST&#39;</span>
+        <span class="c1"># request was made with &#39;multipart/form-data&#39;, then the request stream</span>
+        <span class="c1"># will already have been exhausted.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_supports_form_parsing</span><span class="p">():</span>
+            <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">FILES</span><span class="p">)</span>
+        <span class="n">stream</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">if</span> <span class="n">stream</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">media_type</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">media_type</span> <span class="ow">and</span> <span class="n">is_form_media_type</span><span class="p">(</span><span class="n">media_type</span><span class="p">):</span>
+            <span class="n">empty_data</span> <span class="o">=</span> <span class="n">QueryDict</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">_encoding</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">empty_data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">empty_files</span> <span class="o">=</span> <span class="n">MultiValueDict</span><span class="p">()</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">empty_data</span><span class="p">,</span> <span class="n">empty_files</span><span class="p">)</span>
+
+    <span class="c1"># 13、调用parser选择器，后面的self.parsers其实就是支持的对象。parser_classes</span>
+    <span class="c1"># self中也有content-type，所以这个self是请求对象，包含用户请求的content-type</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">negotiator</span><span class="o">.</span><span class="n">select_parser</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parsers</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">parser</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">UnsupportedMediaType</span><span class="p">(</span><span class="n">media_type</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">parsed</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">media_type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parser_context</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="c1"># If we get an exception during parsing, fill in empty data and</span>
+        <span class="c1"># re-raise.  Ensures we don&#39;t simply repeat the error when</span>
+        <span class="c1"># attempting to render the browsable renderer response, or when</span>
+        <span class="c1"># logging the request or similar.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">QueryDict</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">_encoding</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_files</span> <span class="o">=</span> <span class="n">MultiValueDict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_full_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span>
+        <span class="k">raise</span>
+
+    <span class="c1"># Parser classes may return the raw data, or a</span>
+    <span class="c1"># DataAndFiles object.  Unpack the result as required.</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">parsed</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">parsed</span><span class="o">.</span><span class="n">files</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+        <span class="n">empty_files</span> <span class="o">=</span> <span class="n">MultiValueDict</span><span class="p">()</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">parsed</span><span class="p">,</span> <span class="n">empty_files</span><span class="p">)</span>
+
+<span class="c1"># 9、加了property属性，可以直接像值一样去使用，这个content_type实际上就是去获取用户实际的请求头。</span>
+<span class="nd">@property</span>
+<span class="k">def</span> <span class="nf">content_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">meta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">META</span>
+    <span class="k">return</span> <span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CONTENT_TYPE&#39;</span><span class="p">,</span> <span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;HTTP_CONTENT_TYPE&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
+
+<span class="c1"># 11、stream</span>
+<span class="nd">@property</span>
+<span class="k">def</span> <span class="nf">stream</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns an object that may be used to stream the request content.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># 默认的_stream就是Empty所以，直接调用_load_stream方法</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">_hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_stream&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_load_stream</span><span class="p">()</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stream</span>
+
+<span class="c1"># 12、返回BytesIO形式的body信息</span>
+<span class="k">def</span> <span class="nf">_load_stream</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the content body of the request, as a stream.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">meta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">META</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">content_length</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span>
+            <span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CONTENT_LENGTH&#39;</span><span class="p">,</span> <span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;HTTP_CONTENT_LENGTH&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+        <span class="n">content_length</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">if</span> <span class="n">content_length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stream</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">elif</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">_read_started</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stream</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stream</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="p">)</span>
+</pre></div>
+
+<p>看一切的开头，入口还是dispatch</p>
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">initialize_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the initial request object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">parser_context</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_parser_context</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">Request</span><span class="p">(</span>
+        <span class="n">request</span><span class="p">,</span>
+        <span class="c1"># 这样Request的实例就会存在self.parsers这个属性可以调用。</span>
+        <span class="n">parsers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_parsers</span><span class="p">(),</span>
+        <span class="n">authenticators</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_authenticators</span><span class="p">(),</span>
+        <span class="n">negotiator</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_content_negotiator</span><span class="p">(),</span>
+        <span class="n">parser_context</span><span class="o">=</span><span class="n">parser_context</span>
+    <span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_parsers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Instantiates and returns the list of parsers that this view can use.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">parser</span><span class="p">()</span> <span class="k">for</span> <span class="n">parser</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parser_classes</span><span class="p">]</span>
+</pre></div>
+
+<p>最后这个解析器的属性写在全局就可以了。</p>
+<p>http协议的请求方法</p>
+<p>常用的请求头（状态码，方法等）：</p>
+<ul>
+<li>application/</li>
+</ul>
+<p>refer用来做防盗链，user_agent，accept，host等。</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../05-DRF访问限制/" title="05-DRF访问限制" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  后退
+                </span>
+                05-DRF访问限制
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../07-DRF序列化/" title="07-DRF序列化" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  前进
+                </span>
+                07-DRF序列化
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../../assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/jokerleu" class="md-footer-social__link fa fa-github"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/application.d9aa80ab.js"></script>
+      
+        
+        
+          
+          <script src="../../../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
+          
+            
+              
+                <script src="../../../assets/javascripts/lunr/tinyseg.js"></script>
+              
+              
+                <script src="../../../assets/javascripts/lunr/lunr.jp.js"></script>
+              
+            
+          
+          
+        
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../../.."}})</script>
+      
+        <script src="../../../js/extra.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2950 @@
+
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+        <meta name="author" content="jokerleu">
+      
+      
+        <meta name="lang:clipboard.copy" content="复制">
+      
+        <meta name="lang:clipboard.copied" content="已复制">
+      
+        <meta name="lang:search.language" content="jp">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="没有找到符合条件的结果">
+      
+        <meta name="lang:search.result.one" content="找到 1 个符合条件的结果">
+      
+        <meta name="lang:search.result.other" content="# 个符合条件的结果">
+      
+        <meta name="lang:search.tokenizer" content="[\uff0c\u3002]+">
+      
+      <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.2">
+    
+    
+      
+        <title>01-Docker介绍 - 知识与技能图景</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/application.982221ab.css">
+      
+        <link rel="stylesheet" href="../../../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="">
+      
+    
+    
+      <script src="../../../assets/javascripts/modernizr.1f0bcf2b.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../../assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="white" data-md-color-accent="blue">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#docker" tabindex="1" class="md-skip">
+        跳转至
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../../.." title="知识与技能图景" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              知识与技能图景
+            </span>
+            <span class="md-header-nav__topic">
+              01-Docker介绍
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            键入以开始搜索
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/jokerleu/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    jokerleu
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../../.." title="知识与技能图景" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    知识与技能图景
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/jokerleu/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    jokerleu
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1">
+    
+    <label class="md-nav__link" for="nav-1">
+      容器云技术
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        容器云技术
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-1-1" type="checkbox" id="nav-1-1">
+    
+    <label class="md-nav__link" for="nav-1-1">
+      Docker
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-1-1">
+        Docker
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-1-1-1" type="checkbox" id="nav-1-1-1">
+    
+    <label class="md-nav__link" for="nav-1-1-1">
+      Docker基础
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-1-1-1">
+        Docker基础
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        01-Docker介绍
+      </label>
+    
+    <a href="./" title="01-Docker介绍" class="md-nav__link md-nav__link--active">
+      01-Docker介绍
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#docker_1" title="Docker介绍" class="md-nav__link">
+    Docker介绍
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vs" title="容器VS虚拟化" class="md-nav__link">
+    容器VS虚拟化
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker_2" title="Docker可以做什么" class="md-nav__link">
+    Docker可以做什么
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker_3" title="Docker改变了什么？" class="md-nav__link">
+    Docker改变了什么？
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_4" title="Docker的安装" class="md-nav__link">
+    Docker的安装
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker_5" title="配置国内docker镜像源" class="md-nav__link">
+    配置国内docker镜像源
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_6" title="Docker镜像" class="md-nav__link">
+    Docker镜像
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" title="镜像搜索" class="md-nav__link">
+    镜像搜索
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="获取镜像" class="md-nav__link">
+    获取镜像
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="删除镜像" class="md-nav__link">
+    删除镜像
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_7" title="Docker容器" class="md-nav__link">
+    Docker容器
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="创建一个容器" class="md-nav__link">
+    创建一个容器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="启动并进入一个容器" class="md-nav__link">
+    启动并进入一个容器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="删除容器" class="md-nav__link">
+    删除容器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="停止容器" class="md-nav__link">
+    停止容器
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../02-Docker数据存储和网络访问/" title="02-Docker网络和存储" class="md-nav__link">
+      02-Docker网络和存储
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../03-手动构建镜像/" title="03-镜像的构建" class="md-nav__link">
+      03-镜像的构建
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../04-DockerFile/" title="04-Dockerfle" class="md-nav__link">
+      04-Dockerfle
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-1-2" type="checkbox" id="nav-1-2">
+    
+    <label class="md-nav__link" for="nav-1-2">
+      Kubernetes编排
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-1-2">
+        Kubernetes编排
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../kubernetes/01-k8s纯手工部署/" title="01-k8s纯手工部署" class="md-nav__link">
+      01-k8s纯手工部署
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Django学习笔记
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Django学习笔记
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-1" type="checkbox" id="nav-2-1">
+    
+    <label class="md-nav__link" for="nav-2-1">
+      Django DRF
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-1">
+        Django DRF
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../django/DRF/01-Restful/" title="01-Restful介绍" class="md-nav__link">
+      01-Restful介绍
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../django/DRF/02-Request的封装/" title="02-Request封装" class="md-nav__link">
+      02-Request封装
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../django/DRF/03-DRF的认证/" title="03-DRF的认证" class="md-nav__link">
+      03-DRF的认证
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../django/DRF/04-DRF权限/" title="04-DRF的权限" class="md-nav__link">
+      04-DRF的权限
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../django/DRF/05-DRF访问限制/" title="05-DRF访问限制" class="md-nav__link">
+      05-DRF访问限制
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../django/DRF/06-DRF版本&解析器/" title="06-DRF版本&解析器" class="md-nav__link">
+      06-DRF版本&解析器
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../django/DRF/07-DRF序列化/" title="07-DRF序列化" class="md-nav__link">
+      07-DRF序列化
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      未分类页面
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        未分类页面
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../linux内核.md" title="Linux内核" class="md-nav__link">
+      Linux内核
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    
+    <label class="md-nav__link" for="nav-4">
+      计算机
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        计算机
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-1" type="checkbox" id="nav-4-1">
+    
+    <label class="md-nav__link" for="nav-4-1">
+      操作系统
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-1">
+        操作系统
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        01-Docker介绍
+      </label>
+    
+    <a href="./" title="01-Docker介绍" class="md-nav__link md-nav__link--active">
+      01-Docker介绍
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#docker_1" title="Docker介绍" class="md-nav__link">
+    Docker介绍
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vs" title="容器VS虚拟化" class="md-nav__link">
+    容器VS虚拟化
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker_2" title="Docker可以做什么" class="md-nav__link">
+    Docker可以做什么
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker_3" title="Docker改变了什么？" class="md-nav__link">
+    Docker改变了什么？
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_4" title="Docker的安装" class="md-nav__link">
+    Docker的安装
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker_5" title="配置国内docker镜像源" class="md-nav__link">
+    配置国内docker镜像源
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_6" title="Docker镜像" class="md-nav__link">
+    Docker镜像
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" title="镜像搜索" class="md-nav__link">
+    镜像搜索
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="获取镜像" class="md-nav__link">
+    获取镜像
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="删除镜像" class="md-nav__link">
+    删除镜像
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_7" title="Docker容器" class="md-nav__link">
+    Docker容器
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="创建一个容器" class="md-nav__link">
+    创建一个容器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="启动并进入一个容器" class="md-nav__link">
+    启动并进入一个容器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="删除容器" class="md-nav__link">
+    删除容器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="停止容器" class="md-nav__link">
+    停止容器
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-2" type="checkbox" id="nav-4-2">
+    
+    <label class="md-nav__link" for="nav-4-2">
+      编程语言
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-2">
+        编程语言
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        01-Docker介绍
+      </label>
+    
+    <a href="./" title="01-Docker介绍" class="md-nav__link md-nav__link--active">
+      01-Docker介绍
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#docker_1" title="Docker介绍" class="md-nav__link">
+    Docker介绍
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vs" title="容器VS虚拟化" class="md-nav__link">
+    容器VS虚拟化
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker_2" title="Docker可以做什么" class="md-nav__link">
+    Docker可以做什么
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker_3" title="Docker改变了什么？" class="md-nav__link">
+    Docker改变了什么？
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_4" title="Docker的安装" class="md-nav__link">
+    Docker的安装
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker_5" title="配置国内docker镜像源" class="md-nav__link">
+    配置国内docker镜像源
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_6" title="Docker镜像" class="md-nav__link">
+    Docker镜像
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" title="镜像搜索" class="md-nav__link">
+    镜像搜索
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="获取镜像" class="md-nav__link">
+    获取镜像
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="删除镜像" class="md-nav__link">
+    删除镜像
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_7" title="Docker容器" class="md-nav__link">
+    Docker容器
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="创建一个容器" class="md-nav__link">
+    创建一个容器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="启动并进入一个容器" class="md-nav__link">
+    启动并进入一个容器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="删除容器" class="md-nav__link">
+    删除容器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="停止容器" class="md-nav__link">
+    停止容器
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-3" type="checkbox" id="nav-4-3">
+    
+    <label class="md-nav__link" for="nav-4-3">
+      网络
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-3">
+        网络
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        01-Docker介绍
+      </label>
+    
+    <a href="./" title="01-Docker介绍" class="md-nav__link md-nav__link--active">
+      01-Docker介绍
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#docker_1" title="Docker介绍" class="md-nav__link">
+    Docker介绍
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vs" title="容器VS虚拟化" class="md-nav__link">
+    容器VS虚拟化
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker_2" title="Docker可以做什么" class="md-nav__link">
+    Docker可以做什么
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker_3" title="Docker改变了什么？" class="md-nav__link">
+    Docker改变了什么？
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_4" title="Docker的安装" class="md-nav__link">
+    Docker的安装
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker_5" title="配置国内docker镜像源" class="md-nav__link">
+    配置国内docker镜像源
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_6" title="Docker镜像" class="md-nav__link">
+    Docker镜像
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" title="镜像搜索" class="md-nav__link">
+    镜像搜索
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="获取镜像" class="md-nav__link">
+    获取镜像
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="删除镜像" class="md-nav__link">
+    删除镜像
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_7" title="Docker容器" class="md-nav__link">
+    Docker容器
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="创建一个容器" class="md-nav__link">
+    创建一个容器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="启动并进入一个容器" class="md-nav__link">
+    启动并进入一个容器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="删除容器" class="md-nav__link">
+    删除容器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="停止容器" class="md-nav__link">
+    停止容器
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-4" type="checkbox" id="nav-4-4">
+    
+    <label class="md-nav__link" for="nav-4-4">
+      安全
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-4">
+        安全
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        01-Docker介绍
+      </label>
+    
+    <a href="./" title="01-Docker介绍" class="md-nav__link md-nav__link--active">
+      01-Docker介绍
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#docker_1" title="Docker介绍" class="md-nav__link">
+    Docker介绍
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vs" title="容器VS虚拟化" class="md-nav__link">
+    容器VS虚拟化
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker_2" title="Docker可以做什么" class="md-nav__link">
+    Docker可以做什么
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker_3" title="Docker改变了什么？" class="md-nav__link">
+    Docker改变了什么？
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_4" title="Docker的安装" class="md-nav__link">
+    Docker的安装
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker_5" title="配置国内docker镜像源" class="md-nav__link">
+    配置国内docker镜像源
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_6" title="Docker镜像" class="md-nav__link">
+    Docker镜像
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" title="镜像搜索" class="md-nav__link">
+    镜像搜索
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="获取镜像" class="md-nav__link">
+    获取镜像
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="删除镜像" class="md-nav__link">
+    删除镜像
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_7" title="Docker容器" class="md-nav__link">
+    Docker容器
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="创建一个容器" class="md-nav__link">
+    创建一个容器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="启动并进入一个容器" class="md-nav__link">
+    启动并进入一个容器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="删除容器" class="md-nav__link">
+    删除容器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="停止容器" class="md-nav__link">
+    停止容器
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-5" type="checkbox" id="nav-4-5">
+    
+    <label class="md-nav__link" for="nav-4-5">
+      弱电
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-5">
+        弱电
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        01-Docker介绍
+      </label>
+    
+    <a href="./" title="01-Docker介绍" class="md-nav__link md-nav__link--active">
+      01-Docker介绍
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#docker_1" title="Docker介绍" class="md-nav__link">
+    Docker介绍
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vs" title="容器VS虚拟化" class="md-nav__link">
+    容器VS虚拟化
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker_2" title="Docker可以做什么" class="md-nav__link">
+    Docker可以做什么
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker_3" title="Docker改变了什么？" class="md-nav__link">
+    Docker改变了什么？
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_4" title="Docker的安装" class="md-nav__link">
+    Docker的安装
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker_5" title="配置国内docker镜像源" class="md-nav__link">
+    配置国内docker镜像源
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_6" title="Docker镜像" class="md-nav__link">
+    Docker镜像
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" title="镜像搜索" class="md-nav__link">
+    镜像搜索
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="获取镜像" class="md-nav__link">
+    获取镜像
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="删除镜像" class="md-nav__link">
+    删除镜像
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_7" title="Docker容器" class="md-nav__link">
+    Docker容器
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="创建一个容器" class="md-nav__link">
+    创建一个容器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="启动并进入一个容器" class="md-nav__link">
+    启动并进入一个容器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="删除容器" class="md-nav__link">
+    删除容器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="停止容器" class="md-nav__link">
+    停止容器
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-6" type="checkbox" id="nav-4-6">
+    
+    <label class="md-nav__link" for="nav-4-6">
+      运维
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-6">
+        运维
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        01-Docker介绍
+      </label>
+    
+    <a href="./" title="01-Docker介绍" class="md-nav__link md-nav__link--active">
+      01-Docker介绍
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#docker_1" title="Docker介绍" class="md-nav__link">
+    Docker介绍
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vs" title="容器VS虚拟化" class="md-nav__link">
+    容器VS虚拟化
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker_2" title="Docker可以做什么" class="md-nav__link">
+    Docker可以做什么
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker_3" title="Docker改变了什么？" class="md-nav__link">
+    Docker改变了什么？
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_4" title="Docker的安装" class="md-nav__link">
+    Docker的安装
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker_5" title="配置国内docker镜像源" class="md-nav__link">
+    配置国内docker镜像源
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_6" title="Docker镜像" class="md-nav__link">
+    Docker镜像
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" title="镜像搜索" class="md-nav__link">
+    镜像搜索
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="获取镜像" class="md-nav__link">
+    获取镜像
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="删除镜像" class="md-nav__link">
+    删除镜像
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_7" title="Docker容器" class="md-nav__link">
+    Docker容器
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="创建一个容器" class="md-nav__link">
+    创建一个容器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="启动并进入一个容器" class="md-nav__link">
+    启动并进入一个容器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="删除容器" class="md-nav__link">
+    删除容器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="停止容器" class="md-nav__link">
+    停止容器
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-7" type="checkbox" id="nav-4-7">
+    
+    <label class="md-nav__link" for="nav-4-7">
+      IoT物联网
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-7">
+        IoT物联网
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        01-Docker介绍
+      </label>
+    
+    <a href="./" title="01-Docker介绍" class="md-nav__link md-nav__link--active">
+      01-Docker介绍
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#docker_1" title="Docker介绍" class="md-nav__link">
+    Docker介绍
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vs" title="容器VS虚拟化" class="md-nav__link">
+    容器VS虚拟化
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker_2" title="Docker可以做什么" class="md-nav__link">
+    Docker可以做什么
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker_3" title="Docker改变了什么？" class="md-nav__link">
+    Docker改变了什么？
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_4" title="Docker的安装" class="md-nav__link">
+    Docker的安装
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker_5" title="配置国内docker镜像源" class="md-nav__link">
+    配置国内docker镜像源
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_6" title="Docker镜像" class="md-nav__link">
+    Docker镜像
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" title="镜像搜索" class="md-nav__link">
+    镜像搜索
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="获取镜像" class="md-nav__link">
+    获取镜像
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="删除镜像" class="md-nav__link">
+    删除镜像
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_7" title="Docker容器" class="md-nav__link">
+    Docker容器
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="创建一个容器" class="md-nav__link">
+    创建一个容器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="启动并进入一个容器" class="md-nav__link">
+    启动并进入一个容器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="删除容器" class="md-nav__link">
+    删除容器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="停止容器" class="md-nav__link">
+    停止容器
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-8" type="checkbox" id="nav-4-8" checked>
+    
+    <label class="md-nav__link" for="nav-4-8">
+      工作未分类
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-8">
+        工作未分类
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        01-Docker介绍
+      </label>
+    
+    <a href="./" title="01-Docker介绍" class="md-nav__link md-nav__link--active">
+      01-Docker介绍
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#docker_1" title="Docker介绍" class="md-nav__link">
+    Docker介绍
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vs" title="容器VS虚拟化" class="md-nav__link">
+    容器VS虚拟化
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker_2" title="Docker可以做什么" class="md-nav__link">
+    Docker可以做什么
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker_3" title="Docker改变了什么？" class="md-nav__link">
+    Docker改变了什么？
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_4" title="Docker的安装" class="md-nav__link">
+    Docker的安装
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker_5" title="配置国内docker镜像源" class="md-nav__link">
+    配置国内docker镜像源
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_6" title="Docker镜像" class="md-nav__link">
+    Docker镜像
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" title="镜像搜索" class="md-nav__link">
+    镜像搜索
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="获取镜像" class="md-nav__link">
+    获取镜像
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="删除镜像" class="md-nav__link">
+    删除镜像
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_7" title="Docker容器" class="md-nav__link">
+    Docker容器
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="创建一个容器" class="md-nav__link">
+    创建一个容器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="启动并进入一个容器" class="md-nav__link">
+    启动并进入一个容器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="删除容器" class="md-nav__link">
+    删除容器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="停止容器" class="md-nav__link">
+    停止容器
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-9" type="checkbox" id="nav-4-9">
+    
+    <label class="md-nav__link" for="nav-4-9">
+      网站收藏
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-9">
+        网站收藏
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/测试用/" title="测试页面" class="md-nav__link">
+      测试页面
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#docker_1" title="Docker介绍" class="md-nav__link">
+    Docker介绍
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vs" title="容器VS虚拟化" class="md-nav__link">
+    容器VS虚拟化
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker_2" title="Docker可以做什么" class="md-nav__link">
+    Docker可以做什么
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker_3" title="Docker改变了什么？" class="md-nav__link">
+    Docker改变了什么？
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_4" title="Docker的安装" class="md-nav__link">
+    Docker的安装
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker_5" title="配置国内docker镜像源" class="md-nav__link">
+    配置国内docker镜像源
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_6" title="Docker镜像" class="md-nav__link">
+    Docker镜像
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" title="镜像搜索" class="md-nav__link">
+    镜像搜索
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="获取镜像" class="md-nav__link">
+    获取镜像
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="删除镜像" class="md-nav__link">
+    删除镜像
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_7" title="Docker容器" class="md-nav__link">
+    Docker容器
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="创建一个容器" class="md-nav__link">
+    创建一个容器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="启动并进入一个容器" class="md-nav__link">
+    启动并进入一个容器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="删除容器" class="md-nav__link">
+    删除容器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="停止容器" class="md-nav__link">
+    停止容器
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/jokerleu/edit/master/docs/docker/01-Docker基础使用/01-Docker介绍.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="docker">Docker<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>Docker是Docker.Inc公司开源的一个基于LXC技术之上构建的Container容器引擎，源代码托管在github上，基于Go语言并遵循Apache2.0协议开源。</p>
+<p>Docker是通过内核虚拟化技术（namespaces以及cgroups等）来提供容器的资源隔离与安全保证等。由于Docker通过系统层的虚拟化实现隔离，所以Docker容器在运行的时候不需要类似虚拟机额外的操作系统的开销（经验来看一般一个完整的系统大概会消耗一个物理主机6%左右的性能），提高资源利用率。</p>
+</blockquote>
+<p><strong>docker的核心理念</strong></p>
+<ul>
+<li>构建（Build）</li>
+<li>运输（Ship）</li>
+<li>运行（Run）</li>
+</ul>
+<h2 id="docker_1">Docker介绍<a class="headerlink" href="#docker_1" title="Permanent link">&para;</a></h2>
+<h3 id="vs">容器VS虚拟化<a class="headerlink" href="#vs" title="Permanent link">&para;</a></h3>
+<p><img alt="" src="http://tuku.dcgamer.top/18-5-11/23003726.jpg" /></p>
+<p>虚拟机是完整的资源隔离。容器是隔离不是虚拟，它不需要虚拟出来操作系统环境。</p>
+<p><img alt="" src="http://tuku.dcgamer.top/18-5-11/3645079.jpg" /></p>
+<h3 id="docker_2">Docker可以做什么<a class="headerlink" href="#docker_2" title="Permanent link">&para;</a></h3>
+<p><img alt="" src="http://tuku.dcgamer.top/18-5-11/87167288.jpg" /></p>
+<ol>
+<li>简化配置</li>
+<li>代码流水线的管理，让开发，测试生产都跑在同样一个环境，保证开发环境的一致性。</li>
+<li>提高开发效率</li>
+<li>应用的隔离（虚拟机也可以做到）</li>
+<li>整合服务器，通过docker的隔离能力整合多个服务器降低成本。</li>
+<li>调试能力</li>
+<li>多租户环境</li>
+<li>快速部署</li>
+</ol>
+<h3 id="docker_3">Docker改变了什么？<a class="headerlink" href="#docker_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li>面向产品：产品交付</li>
+<li>面向开发：简化环境配置</li>
+<li>面向测试：多版本测试</li>
+<li>面向运维：环境一致性，可以环境和代码一起发布，回滚的时候也可以做到一起回滚。</li>
+<li>面向架构：自动化扩容（微服务）</li>
+</ul>
+<h2 id="docker_4">Docker的安装<a class="headerlink" href="#docker_4" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>最新的安装信息请以官方文档的安装信息为准，<a href="https://docs.docker.com/install/linux/docker-ce/centos/#set-up-the-repository">官方Doc文档地址</a></p>
+</blockquote>
+<p>以下是一个简单的安装步骤：</p>
+<div class="codehilite"><pre><span></span>yum install -y yum-utils device-mapper-persistent-data lvm2
+yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+yum install docker-ce
+systemctl start docker
+</pre></div>
+
+<p>查看docker启动状态：</p>
+<div class="codehilite"><pre><span></span><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># ps -ef | grep docker</span>
+root     <span class="m">31551</span>     <span class="m">1</span>  <span class="m">2</span> <span class="m">00</span>:43 ?        <span class="m">00</span>:00:00 /usr/bin/dockerd
+root     <span class="m">31555</span> <span class="m">31551</span>  <span class="m">0</span> <span class="m">00</span>:43 ?        <span class="m">00</span>:00:00 docker-containerd --config /var/run/docker/containerd/containerd.toml
+root     <span class="m">31667</span> <span class="m">31082</span>  <span class="m">0</span> <span class="m">00</span>:43 pts/0    <span class="m">00</span>:00:00 grep --color<span class="o">=</span>auto docker
+</pre></div>
+
+<p>拉取docker镜像，这里如果直接拉的话可能会因为网速慢导致拉不下来，因此我们可以配置一下国内的docker镜像源</p>
+<h3 id="docker_5">配置国内docker镜像源<a class="headerlink" href="#docker_5" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>国内的Docker镜像源有很多可以选择，<a href="https://www.cnblogs.com/anliven/p/6218741.html">参考原文</a></p>
+<ul>
+<li><a href="https://dashboard.daocloud.io/">DaoCloud - Docker加速器</a></li>
+<li><a href="https://dev.aliyun.com/">阿里云 - 开发者平台</a></li>
+<li><a href="https://csphere.cn/hub">微镜像 - 希云cSphere</a></li>
+<li><a href="https://hub.tenxcloud.com/">镜像广场 - 时速云</a></li>
+<li><a href="https://hub.alauda.cn/">灵雀云</a></li>
+<li><a href="https://c.163.com/">网易蜂巢</a></li>
+</ul>
+</blockquote>
+<p>这里以阿里云的Docker加速器为例，注册并登陆<a href="https://dev.aliyun.com/">阿里云 - 开发者平台</a>之后，在首页点击“创建我的容器镜像”，然后就会来到阿里云的服务面板。点击加速器标签。根据提示输入Docker登录时需要使用的密码（后期可更改），用户名就是登录阿里云的用户名。在出现的页面中，可以得到一个专属的镜像加速地址，类似于“<a href="https://1234abcd.mirror.aliyuncs.com/">https://1234abcd.mirror.aliyuncs.com</a>”。根据页面中的“操作文档”信息，配置自己的Docker加速器。</p>
+<p>或者，登录<a href="https://cr.console.aliyun.com/">阿里云 - 容器Hub服务控制台</a>之后，点击加速器标签，也会出现相应信息。</p>
+<p><img alt="" src="http://tuku.dcgamer.top/18-5-11/49585375.jpg" /></p>
+<p><strong>其他国内Docker镜像的配置方法</strong></p>
+<p>国内其他Docker加速器配置方法和阿里云的差不多：</p>
+<ul>
+<li>注册账号，获取专属的镜像加速地址</li>
+<li>根据提示和系统类型，升级，并配置Docker，然后重启。</li>
+<li>验证操作结果</li>
+</ul>
+<p><strong>手动配置Docker加速器</strong></p>
+<p>配置Docker加速器的本质就是把Docker配置文件中的镜像下载地址由默认的Docker Hub地址变为国内镜像的加速地址。</p>
+<div class="codehilite"><pre><span></span>/lib/systemd/system/docker.service
+/etc/systemd/system/docker.service
+
+<span class="c1"># 比如centos7中</span>
+将 <span class="nv">OPTIONS</span><span class="o">=</span>--registry-mirror<span class="o">=</span>http://abcd1234.m.daocloud.io加入到docker的配置文件/etc/sysconfig/docker中，然后重启Docker
+</pre></div>
+
+<h2 id="docker_6">Docker镜像<a class="headerlink" href="#docker_6" title="Permanent link">&para;</a></h2>
+<h3 id="_1">镜像搜索<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="c1"># docker有一个docker hub仓库，这个其实和github很相似。仓库中存了很多已经构建好的镜像。</span>
+<span class="c1"># 大多数情况我们可以直接下载一个现成的镜像而不需要我们自己构建</span>
+COMAND:
+
+$ sudo docker search TERM
+
+OPTIONS:
+
+--automated<span class="o">=</span><span class="nb">false</span>     是否仅显示自动创建的镜像  
+--no-trunc<span class="o">=</span><span class="nb">false</span>      是否截断输出  
+-s, --stars<span class="o">=</span><span class="m">0</span>         仅显示至少有x颗星的镜像  
+
+示例:
+
+<span class="o">[</span>root@maxiaoyu ~<span class="o">]</span><span class="c1"># docker search nginx</span>
+INDEX       NAME                    DESCRIPTION               STARS     OFFICIAL   AUTOMATED
+docker.io   docker.io/nginx    Official build of Nginx.       <span class="m">7127</span>        <span class="o">[</span>OK<span class="o">]</span>
+</pre></div>
+
+<p>我这里截取了搜索出结果的第一行，当然如果你实际搜索的话会有很多行的内容的，其中包含了官方的以及各种自制的。</p>
+<ul>
+<li>
+<p>NAME：镜像名称</p>
+</li>
+<li>
+<p>DESCRIPTION：也就是镜像的描述，</p>
+</li>
+<li>
+<p>STARS类似于github里面的stars，表示点赞和热度。</p>
+</li>
+<li>
+<p>OFFICIAL：指docker标准库, 由docker 官方建立. 用户建立的image则会有userid的prefix.</p>
+</li>
+<li>
+<p>automated builds ：则是通过代码版本管理网站结合docker hub提供的接口生成的, 例如github, bitbucket, 你需要注册docker hub, 然后使用github或bitbucket的在账户链接到docker hub, 然后就可以选择在github或bitbucket里面的项目自动build docker image, 这样的话只要代码版本管理网站的项目有更新, 就会触发自动创建image.对于的image属于什么版本，下面的“[OK]”就会打在什么地方</p>
+</li>
+</ul>
+<h3 id="_2">获取镜像<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>获取镜像的方式有两种，一种是直接去pull我们刚才用docker search搜索到的镜像：</p>
+<div class="codehilite"><pre><span></span><span class="o">[</span>root@maxiaoyu ~<span class="o">]</span><span class="c1"># docker pull docker.io/nginx   </span>
+Using default tag: latest
+Trying to pull repository docker.io/library/nginx ... 
+latest: Pulling from docker.io/library/nginx
+bc95e04b23c0: Pull <span class="nb">complete</span> 
+110767c6efff: Pull <span class="nb">complete</span> 
+f081e0c4df75: Pull <span class="nb">complete</span> 
+Digest: sha256:004ac1d5e791e705f12a17c80d7bb1e8f7f01aa7dca7deee6e65a03465392072
+<span class="o">[</span>root@maxiaoyu ~<span class="o">]</span><span class="c1"># docker images</span>
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+docker.io/nginx     latest              1e5ab59102ce        <span class="m">2</span> weeks ago         <span class="m">108</span>.3 MB
+docker.io/centos    latest              328edcd84f1b        <span class="m">12</span> weeks ago        <span class="m">192</span>.5 MB
+</pre></div>
+
+<p>导入本地的docker包：</p>
+<div class="codehilite"><pre><span></span>docker load --input centos.tar
+或者
+docker load &lt; nginx.tar
+</pre></div>
+
+<p>我们也可以通过docker的导出功能将我们pull下来的image导出成一个tar包，生成的tar包会保存在当前的目录：</p>
+<div class="codehilite"><pre><span></span>docker save -o centos.tar centos
+</pre></div>
+
+<p>使用docker inspect去查看image的内容：</p>
+<div class="codehilite"><pre><span></span>docker inspect docker.io/nginx:latest   
+</pre></div>
+
+<p>列出当前下载的所有的镜像：</p>
+<div class="codehilite"><pre><span></span><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># docker images</span>
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+nginx               latest              ae513a47849c        <span class="m">10</span> days ago         109MB
+centos              latest              e934aafc2206        <span class="m">4</span> weeks ago         199MB
+</pre></div>
+
+<p>如果我们在docker pull的时候不加额外的参数，那么下载的就是最新的，可以在tag中看到是latest的。但是我们可以指定版本，比如：</p>
+<div class="codehilite"><pre><span></span><span class="c1"># 参考示例</span>
+docker pull centos:v1.0
+</pre></div>
+
+<h3 id="_3">删除镜像<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>docker rmi 镜像ID，比如：
+<span class="o">[</span>root@maxiaoyu ~<span class="o">]</span><span class="c1"># docker images</span>
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+docker.io/nginx     latest              1e5ab59102ce        <span class="m">2</span> weeks ago         <span class="m">108</span>.3 MB
+docker.io/centos    latest              328edcd84f1b        <span class="m">12</span> weeks ago        <span class="m">192</span>.5 MB
+<span class="o">[</span>root@maxiaoyu ~<span class="o">]</span><span class="c1"># docker rmi 1e5ab59102ce</span>
+Untagged: docker.io/nginx:latest
+Untagged: docker.io/nginx@sha256:004ac1d5e791e705f12a17c80d7bb1e8f7f01aa7dca7deee6e65a03465392072
+Deleted: sha256:1e5ab59102ce46c277eda5ed77affaa4e3b06a59fe209fe0b05200606db3aa7a
+Deleted: sha256:182a54bd28aa918a440f7edd3066ea838825c3d6a08cc73858ba070dc4f27211
+Deleted: sha256:a527b2a06e67cab4b15e0fd831882f9e6a6485c24f3c56f870ac550b81938771
+Deleted: sha256:cec7521cdf36a6d4ad8f2e92e41e3ac1b6fa6e05be07fa53cc84a63503bc5700
+</pre></div>
+
+<p>实际上是按照image的id去删除的，当然如果你的image属于被其他容器引用的情况下的话是无法删除的。会收到如下的报错信息：</p>
+<div class="codehilite"><pre><span></span><span class="o">[</span>root@maxiaoyu ~<span class="o">]</span><span class="c1"># docker rmi 328edcd84f1b</span>
+Error response from daemon: conflict: unable to delete 328edcd84f1b <span class="o">(</span>must be forced<span class="o">)</span> - image is being used by stopped container 1284da16efeb
+</pre></div>
+
+<h2 id="docker_7">Docker容器<a class="headerlink" href="#docker_7" title="Permanent link">&para;</a></h2>
+<h3 id="_4">创建一个容器<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="o">[</span>root@maxiaoyu ~<span class="o">]</span><span class="c1"># docker run --name myfirstdocker -i -t centos /bin/bash</span>
+<span class="o">[</span>root@2ce82d7a275e /<span class="o">]</span><span class="c1"># uname -a</span>
+Linux 2ce82d7a275e <span class="m">3</span>.10.0-514.26.2.el7.x86_64 <span class="c1">#1 SMP Tue Jul 4 15:04:05 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux</span>
+<span class="o">[</span>root@2ce82d7a275e /<span class="o">]</span><span class="c1"># ps aux</span>
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         <span class="m">1</span>  <span class="m">0</span>.0  <span class="m">0</span>.1  <span class="m">11764</span>  <span class="m">1888</span> ?        Ss   <span class="m">09</span>:40   <span class="m">0</span>:00 /bin/bash
+root        <span class="m">14</span>  <span class="m">0</span>.0  <span class="m">0</span>.0  <span class="m">47436</span>  <span class="m">1676</span> ?        R+   <span class="m">09</span>:44   <span class="m">0</span>:00 ps aux
+</pre></div>
+
+<p>这样就新建了一个容器，我们也随之会进入到容器的界面。docker容器的启动，即使没有把镜像pull下来，在执行如上的命令的时候依然可以执行，因为docker发现你没有这个镜像的时候会帮你把镜像pull下来。容器的主机名就是容器的container id。接下来看看如上的几个参数都代表什么意思：</p>
+<ul>
+<li>--name:指定这个生成的容器的名字，当然如果不指定的话name也会自动生成，我们指定名字只不过是为了更方便的去管理我们的容器。</li>
+<li>-i：允许标准输入 ，即确保容器的STDIN是开启的。可以看到，运行命令以后我们进入到了容器中，进程为PID的是/bin/bash，也就是刚才我们指定要运行的命令。因此docker其实是为进程执行隔离作用的，虚拟机是给操作系统做隔离的。</li>
+<li>-t：开启一个tty伪终端。</li>
+<li>-d：如果需要容器在后台运行的话，可以加上-d参数。范围值为容器的id</li>
+</ul>
+<blockquote>
+<p>以上操作其实是经历了这样一个过程：</p>
+<ol>
+<li>执行上面操作首先会在系统本地去找有没有对应的这样一个image，如果没有的话那么就会去Docker Hub Registry去找，一旦找到以后就回去下载然后保存到本地宿主机器。</li>
+<li>Docker利用这个image创建了一个容器，这个容器拥有自己的网络，ip，以及桥接外部网络的接口。</li>
+<li>我们告诉这个容器要去执行什么命令（/bin/bash），当然这个命令是可以在容器中指定的，指定容器起来的时候自动执行某个命令，那这里就可以不写了。</li>
+</ol>
+</blockquote>
+<p>当前我们是在容器的内部，通过<code>ps aux</code>我们可以得知，pid的大树根并不是init（centos7的树根并不是init），而是我们运行的/bin/bash，如果此时我们使用exit退出容器的话，那么此时的容器就会被关掉，它就完成了它的使命。</p>
+<div class="codehilite"><pre><span></span><span class="o">[</span>root@2ce82d7a275e /<span class="o">]</span><span class="c1"># exit</span>
+<span class="nb">exit</span>
+<span class="o">[</span>root@maxiaoyu ~<span class="o">]</span><span class="c1"># docker ps -a</span>
+CONTAINER ID  IMAGE    COMMAND      CREATED         STATUS                   PORTS     NAMES     
+2ce82d7a275e  centos  <span class="s2">&quot;/bin/bash&quot;</span>  <span class="m">10</span> minutes ago  Exited <span class="o">(</span><span class="m">0</span><span class="o">)</span> <span class="m">5</span> seconds ago       myfirstdocker
+</pre></div>
+
+<p>Docker其实是单进程的，他需要一个进程在前台跑着，因此如果这个程序执行完了，那么整个容器也就退出了，就像我们刚才执行/bin/bash后进入到容器，当exit退出的时候这个进程结束以后整个容器也就跟着一起退出了。所以说不是所有的应用都适合docker。</p>
+<h3 id="_5">启动并进入一个容器<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>那么如何启动已经关闭的容器呢？</p>
+<p><strong>方法一</strong></p>
+<div class="codehilite"><pre><span></span>docker start docker_name
+
+比如（这样就一直跑起来了）：
+[root@maxiaoyu ~]# docker start myfirstdocker
+myfirstdocker
+</pre></div>
+
+<p><strong>方法二</strong></p>
+<div class="codehilite"><pre><span></span>[root@maxiaoyu ~]# docker attach myfirstdocker
+[root@2ce82d7a275e /]# 
+# 这样就是直接进到容器里面去了，不过exit以后容器还是会停止，因此一般不会去这么操作的
+# 而且多人同时进入到这个容器这个命令显示是同步的。
+</pre></div>
+
+<p><strong>方法三</strong></p>
+<div class="codehilite"><pre><span></span><span class="c1"># 生产中建议使用的方法</span>
+<span class="o">[</span>root@maxiaoyu ~<span class="o">]</span><span class="c1"># yum -y install util-linux</span>
+<span class="o">[</span>root@maxiaoyu ~<span class="o">]</span><span class="c1"># docker start mydocker</span>
+mydocker
+<span class="c1"># 获取当前的docker的pid，如果获取到的pid=0，说明你这个容器没起来，后面可以接容器id也可以接容器名称。</span>
+<span class="o">[</span>root@maxiaoyu ~<span class="o">]</span><span class="c1"># docker inspect -f &quot;{{ .State.Pid }}&quot; mydocker</span>
+<span class="m">13500</span>
+<span class="o">[</span>root@maxiaoyu ~<span class="o">]</span><span class="c1"># nsenter -t 13500 -m -u -i -n -p </span>
+<span class="c1"># 使用这种方法进入容器，即使退出的话仍然可以保证容器是开启的，进程并不会结束，docker ps能看到</span>
+<span class="o">[</span>root@1284da16efeb /<span class="o">]</span><span class="c1"># exit</span>
+<span class="nb">logout</span>
+<span class="c1"># 那么为什么即使exit出去也不会退出容器呢？</span>
+<span class="o">[</span>root@1284da16efeb /<span class="o">]</span><span class="c1"># ps aux</span>
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         <span class="m">1</span>  <span class="m">0</span>.0  <span class="m">0</span>.0  <span class="m">11764</span>  <span class="m">1676</span> ?        Ss+  <span class="m">10</span>:01   <span class="m">0</span>:00 /bin/bash
+root        <span class="m">26</span>  <span class="m">0</span>.0  <span class="m">0</span>.1  <span class="m">15192</span>  <span class="m">1996</span> ?        S    <span class="m">10</span>:05   <span class="m">0</span>:00 -bash
+root        <span class="m">39</span>  <span class="m">0</span>.0  <span class="m">0</span>.0  <span class="m">50868</span>  <span class="m">1816</span> ?        R+   <span class="m">10</span>:05   <span class="m">0</span>:00 ps aux
+<span class="c1"># 主要原因是因为多了一个-bash的进程，因此退出当前的进程这个docker不会退出，因为仍然还有一个/bin/bash的进程正在运行，因此整个容器是并不会退出的。</span>
+</pre></div>
+
+<p>查看一下nsenter的帮助信息：</p>
+<div class="codehilite"><pre><span></span>[root@maxiaoyu ~]# nsenter --help
+
+Usage:
+ nsenter [options] &lt;program&gt; [&lt;argument&gt;...]
+
+Run a program with namespaces of other processes.
+
+Options:
+ -t, --target &lt;pid&gt;     target process to get namespaces from
+ -m, --mount[=&lt;file&gt;]   enter mount namespace
+ -u, --uts[=&lt;file&gt;]     enter UTS namespace (hostname etc)
+ -i, --ipc[=&lt;file&gt;]     enter System V IPC namespace
+ -n, --net[=&lt;file&gt;]     enter network namespace
+ -p, --pid[=&lt;file&gt;]     enter pid namespace
+ -U, --user[=&lt;file&gt;]    enter user namespace
+ -S, --setuid &lt;uid&gt;     set uid in entered namespace
+ -G, --setgid &lt;gid&gt;     set gid in entered namespace
+     --preserve-credentials do not touch uids or gids
+ -r, --root[=&lt;dir&gt;]     set the root directory
+ -w, --wd[=&lt;dir&gt;]       set the working directory
+ -F, --no-fork          do not fork before exec&#39;ing &lt;program&gt;
+ -Z, --follow-context   set SELinux context according to --target PID
+
+ -h, --help     display this help and exit
+ -V, --version  output version information and exit
+
+For more details see nsenter(1).
+</pre></div>
+
+<p>因此我们可以针对第三种生产中使用的方法去写一个小脚本然后通过批量部署分发后使用：</p>
+<div class="codehilite"><pre><span></span><span class="c1"># $1可以是容器的名称，或者容器的id</span>
+<span class="o">[</span>root@maxiaoyu ~<span class="o">]</span><span class="c1"># cat docker_in.sh </span>
+<span class="c1">#!/bin/bash</span>
+
+<span class="c1"># Use nsenter to access docker </span>
+
+docker_in <span class="o">(){</span>
+   <span class="nv">NAME_ID</span><span class="o">=</span><span class="nv">$1</span>
+   <span class="nv">PID</span><span class="o">=</span><span class="k">$(</span>docker inspect -f <span class="s2">&quot;{{ .State.Pid }}&quot;</span> <span class="nv">$NAME_ID</span><span class="k">)</span>
+   nsenter -t <span class="nv">$PID</span> -m -u -i -n -p
+<span class="o">}</span>
+
+docker_in <span class="nv">$1</span>
+<span class="o">[</span>root@maxiaoyu ~<span class="o">]</span><span class="c1"># chmod +x docker_in.sh</span>
+</pre></div>
+
+<p><strong>方法四</strong></p>
+<div class="codehilite"><pre><span></span><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># docker exec mydocker uptime</span>
+ <span class="m">06</span>:38:47 up  <span class="m">3</span>:51,  <span class="m">0</span> users,  load average: <span class="m">0</span>.00, <span class="m">0</span>.03, <span class="m">0</span>.05
+</pre></div>
+
+<p>我不想真的进入容器，但是我还想让这个容器给我执行个命令，就可以使用exec，这个是exec命令的用途本意。不过通过exec也能进入容器，比如：</p>
+<div class="codehilite"><pre><span></span><span class="o">[</span>root@linux-node1 ~<span class="o">]</span><span class="c1"># docker exec -it mydocker /bin/bash</span>
+<span class="o">[</span>root@e95a62d6770f /<span class="o">]</span><span class="c1"># ps aux</span>
+USER        PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root          <span class="m">1</span>  <span class="m">0</span>.0  <span class="m">0</span>.0  <span class="m">11768</span>  <span class="m">1676</span> ?        Ss+  <span class="m">02</span>:28   <span class="m">0</span>:00 /bin/bash
+root         <span class="m">50</span>  <span class="m">0</span>.5  <span class="m">0</span>.0  <span class="m">11768</span>  <span class="m">1884</span> ?        Ss   <span class="m">02</span>:41   <span class="m">0</span>:00 /bin/bash
+root         <span class="m">62</span>  <span class="m">0</span>.0  <span class="m">0</span>.0  <span class="m">47440</span>  <span class="m">1676</span> ?        R+   <span class="m">02</span>:41   <span class="m">0</span>:00 ps aux
+<span class="c1">###有两个/bin/bash，因此这个容器技术退出了仍然还在运行，他退出的是pid=50的/bin/bash</span>
+
+<span class="o">[</span>root@e95a62d6770f /<span class="o">]</span><span class="c1"># exit</span>
+<span class="nb">exit</span>
+<span class="o">[</span>root@linux-node1 ~<span class="o">]</span><span class="c1"># docker ps -a</span>
+CONTAINER ID    IMAGE    COMMAND     CREATED         STATUS        PORTS         NAMES
+e95a62d6770f    centos  <span class="s2">&quot;/bin/bash&quot;</span> <span class="m">33</span> minutes ago  Up <span class="m">12</span> minutes              mydocker
+78fc36ba1e5a    centos  <span class="s2">&quot;/bin/echo xx&quot;</span> <span class="m">39</span> minutes ago  Exited <span class="o">(</span><span class="m">0</span><span class="o">)</span> <span class="m">39</span> minutes ago                       compassionate_rosalind
+</pre></div>
+
+<h3 id="_6">删除容器<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>docker rm 容器id
+</pre></div>
+
+<p>如果容器在使用的话那是不允许你删除的，不过你可以使用-f强制干掉。当然一般不建议这么做。一般来讲都是先把容器停掉以后再把容器干掉。</p>
+<p>运行玩意后直接删除容器</p>
+<div class="codehilite"><pre><span></span><span class="c1">## --rm参数可以使得一个容器运行完成以后就直接删除了。下面的内容执行完成以后再docker ps就看不到了</span>
+<span class="o">[</span>root@linux-node1 ~<span class="o">]</span><span class="c1"># docker run --rm centos /bin/echo &quot;hello lamber&quot;</span>
+hello lamber
+</pre></div>
+
+<h3 id="_7">停止容器<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>docker stop 容器ID
+</pre></div>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="./" title="01-Docker介绍" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  后退
+                </span>
+                01-Docker介绍
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../../../计算机/测试用/" title="测试页面" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  前进
+                </span>
+                测试页面
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../../assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/jokerleu" class="md-footer-social__link fa fa-github"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/application.d9aa80ab.js"></script>
+      
+        
+        
+          
+          <script src="../../../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
+          
+            
+              
+                <script src="../../../assets/javascripts/lunr/tinyseg.js"></script>
+              
+              
+                <script src="../../../assets/javascripts/lunr/lunr.jp.js"></script>
+              
+            
+          
+          
+        
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../../.."}})</script>
+      
+        <script src="../../../js/extra.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+    
+  </body>
+</html>

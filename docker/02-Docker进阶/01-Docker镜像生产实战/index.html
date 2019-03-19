@@ -1,0 +1,1457 @@
+
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+        <meta name="author" content="jokerleu">
+      
+      
+        <meta name="lang:clipboard.copy" content="复制">
+      
+        <meta name="lang:clipboard.copied" content="已复制">
+      
+        <meta name="lang:search.language" content="jp">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="没有找到符合条件的结果">
+      
+        <meta name="lang:search.result.one" content="找到 1 个符合条件的结果">
+      
+        <meta name="lang:search.result.other" content="# 个符合条件的结果">
+      
+        <meta name="lang:search.tokenizer" content="[\uff0c\u3002]+">
+      
+      <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.2">
+    
+    
+      
+        <title>Docker镜像生产规划与实战 - 知识与技能图景</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/application.982221ab.css">
+      
+        <link rel="stylesheet" href="../../../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="">
+      
+    
+    
+      <script src="../../../assets/javascripts/modernizr.1f0bcf2b.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../../assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="white" data-md-color-accent="blue">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#docker" tabindex="1" class="md-skip">
+        跳转至
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../../.." title="知识与技能图景" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              知识与技能图景
+            </span>
+            <span class="md-header-nav__topic">
+              Docker镜像生产规划与实战
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            键入以开始搜索
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/jokerleu/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    jokerleu
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../../.." title="知识与技能图景" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    知识与技能图景
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/jokerleu/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    jokerleu
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1">
+    
+    <label class="md-nav__link" for="nav-1">
+      容器云技术
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        容器云技术
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-1-1" type="checkbox" id="nav-1-1">
+    
+    <label class="md-nav__link" for="nav-1-1">
+      Docker
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-1-1">
+        Docker
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-1-1-1" type="checkbox" id="nav-1-1-1">
+    
+    <label class="md-nav__link" for="nav-1-1-1">
+      Docker基础
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-1-1-1">
+        Docker基础
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../01-Docker基础使用/01-Docker介绍/" title="01-Docker介绍" class="md-nav__link">
+      01-Docker介绍
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../01-Docker基础使用/02-Docker数据存储和网络访问/" title="02-Docker网络和存储" class="md-nav__link">
+      02-Docker网络和存储
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../01-Docker基础使用/03-手动构建镜像/" title="03-镜像的构建" class="md-nav__link">
+      03-镜像的构建
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../01-Docker基础使用/04-DockerFile/" title="04-Dockerfle" class="md-nav__link">
+      04-Dockerfle
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-1-2" type="checkbox" id="nav-1-2">
+    
+    <label class="md-nav__link" for="nav-1-2">
+      Kubernetes编排
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-1-2">
+        Kubernetes编排
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../kubernetes/01-k8s纯手工部署/" title="01-k8s纯手工部署" class="md-nav__link">
+      01-k8s纯手工部署
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Django学习笔记
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Django学习笔记
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-1" type="checkbox" id="nav-2-1">
+    
+    <label class="md-nav__link" for="nav-2-1">
+      Django DRF
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-1">
+        Django DRF
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../django/DRF/01-Restful/" title="01-Restful介绍" class="md-nav__link">
+      01-Restful介绍
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../django/DRF/02-Request的封装/" title="02-Request封装" class="md-nav__link">
+      02-Request封装
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../django/DRF/03-DRF的认证/" title="03-DRF的认证" class="md-nav__link">
+      03-DRF的认证
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../django/DRF/04-DRF权限/" title="04-DRF的权限" class="md-nav__link">
+      04-DRF的权限
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../django/DRF/05-DRF访问限制/" title="05-DRF访问限制" class="md-nav__link">
+      05-DRF访问限制
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../django/DRF/06-DRF版本&解析器/" title="06-DRF版本&解析器" class="md-nav__link">
+      06-DRF版本&解析器
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../django/DRF/07-DRF序列化/" title="07-DRF序列化" class="md-nav__link">
+      07-DRF序列化
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      未分类页面
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        未分类页面
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../linux内核.md" title="Linux内核" class="md-nav__link">
+      Linux内核
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      计算机
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        计算机
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-1" type="checkbox" id="nav-4-1">
+    
+    <label class="md-nav__link" for="nav-4-1">
+      操作系统
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-1">
+        操作系统
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../01-Docker基础使用/01-Docker介绍/" title="01-Docker介绍" class="md-nav__link">
+      01-Docker介绍
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-2" type="checkbox" id="nav-4-2">
+    
+    <label class="md-nav__link" for="nav-4-2">
+      编程语言
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-2">
+        编程语言
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../01-Docker基础使用/01-Docker介绍/" title="01-Docker介绍" class="md-nav__link">
+      01-Docker介绍
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-3" type="checkbox" id="nav-4-3">
+    
+    <label class="md-nav__link" for="nav-4-3">
+      网络
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-3">
+        网络
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../01-Docker基础使用/01-Docker介绍/" title="01-Docker介绍" class="md-nav__link">
+      01-Docker介绍
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-4" type="checkbox" id="nav-4-4">
+    
+    <label class="md-nav__link" for="nav-4-4">
+      安全
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-4">
+        安全
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../01-Docker基础使用/01-Docker介绍/" title="01-Docker介绍" class="md-nav__link">
+      01-Docker介绍
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-5" type="checkbox" id="nav-4-5">
+    
+    <label class="md-nav__link" for="nav-4-5">
+      弱电
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-5">
+        弱电
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../01-Docker基础使用/01-Docker介绍/" title="01-Docker介绍" class="md-nav__link">
+      01-Docker介绍
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-6" type="checkbox" id="nav-4-6">
+    
+    <label class="md-nav__link" for="nav-4-6">
+      运维
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-6">
+        运维
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../01-Docker基础使用/01-Docker介绍/" title="01-Docker介绍" class="md-nav__link">
+      01-Docker介绍
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-7" type="checkbox" id="nav-4-7">
+    
+    <label class="md-nav__link" for="nav-4-7">
+      IoT物联网
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-7">
+        IoT物联网
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../01-Docker基础使用/01-Docker介绍/" title="01-Docker介绍" class="md-nav__link">
+      01-Docker介绍
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-8" type="checkbox" id="nav-4-8">
+    
+    <label class="md-nav__link" for="nav-4-8">
+      工作未分类
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-8">
+        工作未分类
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../01-Docker基础使用/01-Docker介绍/" title="01-Docker介绍" class="md-nav__link">
+      01-Docker介绍
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-9" type="checkbox" id="nav-4-9">
+    
+    <label class="md-nav__link" for="nav-4-9">
+      网站收藏
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-9">
+        网站收藏
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/测试用/" title="测试页面" class="md-nav__link">
+      测试页面
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="分层的设计" class="md-nav__link">
+    分层的设计
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="模拟案例" class="md-nav__link">
+    模拟案例
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="规划：" class="md-nav__link">
+    规划：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#centos" title="构建一个基础的centos镜像" class="md-nav__link">
+    构建一个基础的centos镜像
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sshcentos-docker" title="构建一个带ssh的centos docker镜像" class="md-nav__link">
+    构建一个带ssh的centos docker镜像
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="总结" class="md-nav__link">
+    总结
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supervisor" title="使用supervisor管理进程" class="md-nav__link">
+    使用supervisor管理进程
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="参考文档" class="md-nav__link">
+    参考文档
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/jokerleu/edit/master/docs/docker/02-Docker进阶/01-Docker镜像生产实战.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="docker">Docker镜像生产规划与实战<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>公开的dockerfile：<a href="https://github.com/dockerfile">https://github.com/dockerfile</a></p>
+</blockquote>
+<h2 id="_1">分层的设计<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="http://omk1n04i8.bkt.clouddn.com/18-5-15/1214172.jpg" /></p>
+<div class="codehilite"><pre><span></span>A(系统层)--&gt;B(运行环境层)--&gt;C(应用服务层)
+</pre></div>
+
+<div class="codehilite"><pre><span></span>[root@linux-node1 ~]# mkdir docker
+[root@linux-node1 ~]# cd docker/
+[root@linux-node1 docker]# mkdir system
+[root@linux-node1 docker]# mkdir runtime
+[root@linux-node1 docker]# mkdir app
+[root@linux-node1 docker]# cd system/
+[root@linux-node1 system]# mkdir centos
+[root@linux-node1 system]# mkdir ubuntu
+[root@linux-node1 system]# mkdir centos-ssh
+[root@linux-node1 system]# cd ../runtime/
+[root@linux-node1 runtime]# mkdir php
+[root@linux-node1 runtime]# mkdir java
+[root@linux-node1 runtime]# mkdir python
+[root@linux-node1 runtime]# cd ../app/
+[root@linux-node1 app]# mkdir xxx.api
+[root@linux-node1 app]# mkdir xxx.admin
+[root@linux-node1 docker]# tree .
+.
+├── app
+│   ├── xxx.admin
+│   └── xxx.api
+├── runtime
+│   ├── java
+│   ├── php
+│   └── python
+└── system
+    ├── centos
+    ├── centos-ssh
+    └── ubuntu
+</pre></div>
+
+<h2 id="_2">模拟案例<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="_3">规划：<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>requirement.txt</p>
+<p>pip install -r requirement.txt</p>
+<p>创建dockerfile然后build镜像</p>
+<h3 id="centos">构建一个基础的centos镜像<a class="headerlink" href="#centos" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>[root@linux-node1 docker]# cd system/centos
+[root@linux-node1 centos]# pwd
+/root/docker/system/centos
+[root@linux-node1 centos]# wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo
+--2017-03-31 18:13:42--  http://mirrors.aliyun.com/repo/epel-7.repo
+正在解析主机 mirrors.aliyun.com (mirrors.aliyun.com)... 115.28.122.210, 112.124.140.210
+正在连接 mirrors.aliyun.com (mirrors.aliyun.com)|115.28.122.210|:80... 已连接。
+已发出 HTTP 请求，正在等待回应... 200 OK
+长度：1084 (1.1K) [application/octet-stream]
+正在保存至: “/etc/yum.repos.d/epel.repo”
+
+100%[====================================================================================&gt;] 1,084       --.-K/s 用时 0s      
+
+2017-03-31 18:13:42 (16.7 MB/s) - 已保存 “/etc/yum.repos.d/epel.repo” [1084/1084])
+
+[root@linux-node1 centos]# cp /etc/yum.repos.d/epel.repo .
+</pre></div>
+
+<p><div class="codehilite"><pre><span></span>[root@linux-node1 centos]# vim Dockerfile
+# Docker for CentOS
+
+FROM centos
+
+MAINTAINER lamber 1020561033@qq.com
+
+# EPEL
+ADD epel.repo /etc/yum.repos.d/
+
+# Base pkg
+RUN yum install -y wget mysql-devel supervisor git redis tree net-tools sudo psmisc &amp;&amp; yum clean all
+
+[root@linux-node1 centos]# docker build -t lamber/centos:base .
+[root@linux-node1 centos]# docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+lamber/centos       base                6a427d784875        6 seconds ago       283.1 MB
+mynginx             v2                  5104f2ed9887        42 minutes ago      280.7 MB
+nginx/mynginx       v1                  81f1607bb8a0        About an hour ago   355 MB
+docker.io/nginx     latest              5e69fe4b3c31        3 days ago          182.5 MB
+docker.io/centos    latest              98d35105a391        2 weeks ago         192.5 MB
+</pre></div>
+再创建运行环境的时候就应该from上面我们创建的镜像了：</p>
+<p><div class="codehilite"><pre><span></span>[root@linux-node1 python]# cat Dockerfile 
+FROM lamber/centos:base
+
+MAINTAINER lamber 1020561033@qq.com
+
+# Python env
+RUN yum install -y python-devel python-pip supervisor
+
+# Upgrade pip
+RUN pip install --upgrade pip
+</pre></div>
+这里引用的就是上面我们创建好的镜像。</p>
+<p>构建docker镜像</p>
+<div class="codehilite"><pre><span></span>[root@linux-node1 python]# docker build -t lamber/python .
+[root@linux-node1 app]# docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+lamber/python       latest              94747e30d7b4        2 minutes ago       413.3 MB
+lamber/centos       base                6a427d784875        About an hour ago   283.1 MB
+mynginx             v2                  5104f2ed9887        2 hours ago         280.7 MB
+nginx/mynginx       v1                  81f1607bb8a0        2 hours ago         355 MB
+docker.io/nginx     latest              5e69fe4b3c31        3 days ago          182.5 MB
+docker.io/centos    latest              98d35105a391        2 weeks ago         192.5 MB
+</pre></div>
+
+<h2 id="sshcentos-docker">构建一个带ssh的centos docker镜像<a class="headerlink" href="#sshcentos-docker" title="Permanent link">&para;</a></h2>
+<p><div class="codehilite"><pre><span></span>[root@linux-node1 centos-ssh]# pwd
+/root/docker/system/centos-ssh
+[root@linux-node1 centos-ssh]# cat Dockerfile 
+# Docker for CentOS
+
+FROM centos
+
+MAINTAINER lamber 1020561033@qq.com
+
+# EPEL
+ADD epel.repo /etc/yum.repos.d/
+
+# Base pkg
+RUN yum install -y openssh-clients openssl-devel openssh-server wget mysql-devel supervisor git redis tree net-tools sudo psmisc &amp;&amp; yum clean all
+
+# For SSHD
+RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key
+RUN ssh-keygen -t ecdsa -f /etc/ssh/ssh_host_ecdsa_key
+RUN echo &quot;root:redhat&quot; | chpasswd
+[root@linux-node1 centos-ssh]# docker build -t lamber/centos-ssh .
+[root@linux-node1 centos-ssh]# docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+lamber/centos-ssh   latest              41db0593e915        2 minutes ago       284.1 MB
+lamber/python       latest              94747e30d7b4        16 minutes ago      413.3 MB
+lamber/centos       base                6a427d784875        About an hour ago   283.1 MB
+mynginx             v2                  5104f2ed9887        2 hours ago         280.7 MB
+nginx/mynginx       v1                  81f1607bb8a0        3 hours ago         355 MB
+docker.io/nginx     latest              5e69fe4b3c31        3 days ago          182.5 MB
+docker.io/centos    latest              98d35105a391        2 weeks ago         192.5 MB
+</pre></div>
+部署环境层：</p>
+<p><div class="codehilite"><pre><span></span>[root@linux-node1 runtime]# cp -r python/ python-ssh
+[root@linux-node1 runtime]# ll
+总用量 0
+drwxr-xr-x 2 root root  6 3月  31 18:08 java
+drwxr-xr-x 2 root root  6 3月  31 18:08 php
+drwxr-xr-x 2 root root 24 3月  31 19:52 python
+drwxr-xr-x 2 root root 24 3月  31 22:39 python-ssh
+[root@linux-node1 runtime]# cd python
+[root@linux-node1 python]# cat Dockerfile 
+FROM lamber/centos-ssh
+
+MAINTAINER lamber 1020561033@qq.com
+
+# Python env
+RUN yum install -y python-devel python-pip supervisor
+
+# Upgrade pip
+RUN pip install --upgrade pip
+[root@linux-node1 python]# docker build -t lamber/python-ssh .
+[root@linux-node1 python]# docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+lamber/python-ssh   latest              657b57f25bdd        24 seconds ago      414.3 MB
+lamber/centos-ssh   latest              41db0593e915        2 hours ago         284.1 MB
+lamber/python       latest              94747e30d7b4        2 hours ago         413.3 MB
+lamber/centos       base                6a427d784875        4 hours ago         283.1 MB
+mynginx             v2                  5104f2ed9887        5 hours ago         280.7 MB
+nginx/mynginx       v1                  81f1607bb8a0        5 hours ago         355 MB
+docker.io/nginx     latest              5e69fe4b3c31        3 days ago          182.5 MB
+docker.io/centos    latest              98d35105a391        2 weeks ago         192.5 MB
+</pre></div>
+部署应用层：</p>
+<p>测试脚本：</p>
+<p><div class="codehilite"><pre><span></span>[root@linux-node1 shop-api]# pwd
+/root/docker/app/shop-api
+
+[root@linux-node1 shop-api]# cat app.py 
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route(&#39;/&#39;)
+def hello():
+    return &#39;Hello World!&#39; 
+
+if __name__ == &quot;__main__&quot;:
+    app.run(host=&quot;0.0.0.0&quot;, debug=True)
+</pre></div>
+测试脚本在本机进行测试（要首先确保本地跑没问题，然后再封装进docker镜像里面去）：</p>
+<p><div class="codehilite"><pre><span></span>[root@linux-node1 shop-api]# yum -y install python-pip
+[root@linux-node1 python-ssh]# pip install flask
+[root@linux-node1 shop-api]# python app.py 
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 248-731-527
+
+起到了5000端口，访问测试
+[root@linux-node1 shop-api]# curl  127.0.0.1:5000 
+Hello World!
+</pre></div>
+创建Dockerfile：</p>
+<div class="codehilite"><pre><span></span>[root@linux-node1 shop-api]# cat Dockerfile 
+#Base image
+FROM lamber/python-ssh
+
+#Maintainer
+MAINTAINER lamber 1020561033@qq.com
+
+# Add www user
+RUN useradd -s /sbin/nologin -M www
+
+# ADD file
+ADD app.py /opt/app.py
+ADD requirements.txt /opt/
+ADD supervisord.conf /etc/supervisord.conf
+ADD app-supervisor.ini /etc/supervisord.d/
+
+# pip
+RUN /usr/bin/pip2.7 install -r /opt/requirements.txt
+
+# Port
+EXPOSE 22 5000
+
+#CMD
+CMD [&quot;/usr/bin/supervisord&quot;, &quot;-c&quot;, &quot;/etc/supervisord.conf&quot;]
+##有参数是上面这种写法
+</pre></div>
+
+<p>创建supervisor的配置文件：</p>
+<div class="codehilite"><pre><span></span>[root@linux-node1 shop-api]# cat app-supervisor.ini 
+[program:shop-api]
+command=/usr/bin/python2.7 /opt/app.py
+process_name=%(program_name)s
+autostart=true
+user=www
+stdout_logfile=/tmp/app.log
+stderr_logfile=/tmp/app.error
+
+[program:sshd]
+command=/usr/sbin/sshd -D
+process_name=%(program_name)s
+autostart=true
+</pre></div>
+
+<p>创建依赖文件：</p>
+<p><div class="codehilite"><pre><span></span>[root@linux-node1 shop-api]# cat requirements.txt 
+flask
+</pre></div>
+修改supervisor.conf的配置文件：</p>
+<div class="codehilite"><pre><span></span>[root@linux-node1 shop-api]# cat supervisord.conf | grep nodaemon
+nodaemon=true              ; (start in foreground if true;default false)
+将nodaemon改为true，这样supervisor就在前台运行了，如此创建容器以后就能起来了。
+</pre></div>
+
+<p>补全文件：</p>
+<p><div class="codehilite"><pre><span></span>[root@linux-node1 shop-api]# ll
+总用量 24
+-rw-r--r-- 1 root root  172 9月  10 2016 app.py
+-rw-r--r-- 1 root root  257 9月  10 2016 app-supervisor.ini
+-rw-r--r-- 1 root root  433 9月  10 2016 Dockerfile
+-rw-r--r-- 1 root root    6 9月  10 2016 requirements.txt
+-rw-r--r-- 1 root root 7952 9月  10 2016 supervisord.conf
+</pre></div>
+生成docker镜像：</p>
+<p><div class="codehilite"><pre><span></span>[root@linux-node1 shop-api]# docker build -t lamber/shop-api .
+[root@linux-node1 shop-api]# docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+lamber/shop-api     latest              9a9470aa92eb        32 seconds ago      420.3 MB
+lamber/python-ssh   latest              f1c4bcf54bad        19 minutes ago      414.3 MB
+lamber/python       latest              570e81c8e8bf        23 minutes ago      413.3 MB
+lamber/centos-ssh   latest              41db0593e915        3 hours ago         284.1 MB
+lamber/centos       base                6a427d784875        4 hours ago         283.1 MB
+mynginx             v2                  5104f2ed9887        5 hours ago         280.7 MB
+nginx/mynginx       v1                  81f1607bb8a0        6 hours ago         355 MB
+docker.io/nginx     latest              5e69fe4b3c31        3 days ago          182.5 MB
+docker.io/centos    latest              98d35105a391        2 weeks ago         192.5 MB
+</pre></div>
+启动镜像容器：</p>
+<p><div class="codehilite"><pre><span></span>[root@linux-node1 shop-api]# docker run --name shop-api -d -p 88:5000 -p 8022:22 lamber/shop-api
+f38807176f44970632f0156bd02a614c102343749a627a1eb945a6e745c2e95b
+[root@linux-node1 shop-api]# docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                                        NAMES
+f38807176f44        lamber/shop-api     &quot;/usr/bin/supervisord&quot;   7 seconds ago       Up 6 seconds        0.0.0.0:8022-&gt;22/tcp, 0.0.0.0:88-&gt;5000/tcp   shop-api
+a1efc632ba6d        mynginx:v2          &quot;nginx&quot;                  5 hours ago         Up 5 hours          0.0.0.0:82-&gt;80/tcp                           mynginxv2
+604ac1c6443a        nginx/mynginx:v1    &quot;nginx&quot;                  6 hours ago         Up 6 hours          0.0.0.0:81-&gt;80/tcp                           mynginxv1
+</pre></div>
+测试结果：</p>
+<p><div class="codehilite"><pre><span></span>[root@linux-node1 shop-api]# curl 127.0.0.1:88
+Hello World!
+[root@linux-node1 shop-api]# /root/docker_in.sh shop-api
+[root@f38807176f44 /]# ps aux
+USER        PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root          1  0.0  0.5 117256 14796 ?        Ss   15:21   0:00 /usr/bin/python /usr/bin/supervisord -c /etc/supervisord.con
+root          7  0.0  0.1  82524  3592 ?        S    15:21   0:00 /usr/sbin/sshd -D
+www           8  0.0  0.6 119760 17328 ?        S    15:21   0:00 /usr/bin/python2.7 /opt/app.py
+www          13  0.6  0.6 196036 18052 ?        Sl   15:21   0:02 /usr/bin/python2.7 /opt/app.py
+root         19  0.0  0.0  15172  1896 ?        S    15:27   0:00 -bash
+root         32  0.0  0.0  50844  1700 ?        R+   15:27   0:00 ps aux
+</pre></div>
+访问容器的22端口：</p>
+<p>密码就是我们在创建centos-ssh时候指定的root：redhat</p>
+<p><img alt="" src="http://omk1n04i8.bkt.clouddn.com/17-3-31/36142994-file_1490974494177_17425.jpg" /></p>
+<h4 id="_4">总结<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<p>这就是分层的便利性，生产情况下都是使用supervisor来启动，即使是一个也要用supervisor来启动，python的依赖文件要写好。实际生产过程中，需要在真机上测试好了然后再进行镜像的封装。</p>
+<div class="codehilite"><pre><span></span>[root@linux-node1 docker]# tree
+.
+├── app
+│   ├── shop-api
+│   │   ├── app.py
+│   │   ├── app-supervisor.ini
+│   │   ├── Dockerfile
+│   │   ├── requirements.txt
+│   │   └── supervisord.conf
+│   ├── xxx.admin
+│   └── xxx.api
+├── runtime
+│   ├── java
+│   ├── php
+│   ├── python
+│   │   └── Dockerfile
+│   └── python-ssh
+│       └── Dockerfile
+└── system
+    ├── centos
+    │   ├── Dockerfile
+    │   └── epel.repo
+    ├── centos-ssh
+    │   ├── Dockerfile
+    │   └── epel.repo
+    └── ubuntu
+</pre></div>
+
+<h3 id="supervisor">使用supervisor管理进程<a class="headerlink" href="#supervisor" title="Permanent link">&para;</a></h3>
+<h4 id="_5">参考文档<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p><a href="http://supervisord.org/">http://supervisord.org/</a></p>
+<p><a href="http://liyangliang.me/posts/2015/06/using-supervisor/">http://liyangliang.me/posts/2015/06/using-supervisor/</a></p>
+</blockquote>
+<p>安装supervisor</p>
+<div class="codehilite"><pre><span></span>[root@linux-node1 ~]# yum install supervisor -y
+[root@linux-node1 ~]# rpm -ql supervisor | head -2
+/etc/logrotate.d/supervisor
+/etc/supervisord.conf
+[root@linux-node1 ~]# tail -2 /etc/supervisord.conf 
+[include]
+files = supervisord.d/*.ini
+</pre></div>
+
+<div class="codehilite"><pre><span></span>[program:sshd]
+command=/usr/sbin/sshd -D
+process_name=%(program_name)s
+autostart=true
+</pre></div>
+
+<div class="codehilite"><pre><span></span># docker容器统一使用supervisor进行管理，是管理操作标准化起来。
+[root@6dd90ccf92d0 ~]# ps -ef
+UID        PID  PPID  C STIME TTY          TIME CMD
+root         1     0  0 18:01 ?        00:00:00 /usr/bin/python /usr/bin/supervisord -c /
+root         7     1  0 18:01 ?        00:00:00 /usr/sbin/sshd -D
+root         8     7  0 18:02 ?        00:00:00 sshd: root@pts/0
+root        10     8  0 18:02 pts/0    00:00:00 -bash
+root        23    10  0 18:03 pts/0    00:00:00 ps -ef
+[root@6dd90ccf92d0 ~]# supervisorctl status
+sshd                             RUNNING   pid 7, uptime 0:01:28
+</pre></div>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../../assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/jokerleu" class="md-footer-social__link fa fa-github"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/application.d9aa80ab.js"></script>
+      
+        
+        
+          
+          <script src="../../../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
+          
+            
+              
+                <script src="../../../assets/javascripts/lunr/tinyseg.js"></script>
+              
+              
+                <script src="../../../assets/javascripts/lunr/lunr.jp.js"></script>
+              
+            
+          
+          
+        
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../../.."}})</script>
+      
+        <script src="../../../js/extra.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+    
+  </body>
+</html>
