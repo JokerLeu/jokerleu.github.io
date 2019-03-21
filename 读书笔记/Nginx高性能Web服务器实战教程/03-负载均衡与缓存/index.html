@@ -1,0 +1,1959 @@
+
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+        <meta name="author" content="jokerleu">
+      
+      
+        <meta name="lang:clipboard.copy" content="复制">
+      
+        <meta name="lang:clipboard.copied" content="已复制">
+      
+        <meta name="lang:search.language" content="jp">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="没有找到符合条件的结果">
+      
+        <meta name="lang:search.result.one" content="找到 1 个符合条件的结果">
+      
+        <meta name="lang:search.result.other" content="# 个符合条件的结果">
+      
+        <meta name="lang:search.tokenizer" content="[\uff0c\u3002]+">
+      
+      <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.2">
+    
+    
+      
+        <title>负载均衡与缓存 - 知识与技能图景</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/application.982221ab.css">
+      
+        <link rel="stylesheet" href="../../../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="">
+      
+    
+    
+      <script src="../../../assets/javascripts/modernizr.1f0bcf2b.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../../assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="white" data-md-color-accent="blue">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#_1" tabindex="1" class="md-skip">
+        跳转至
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../../.." title="知识与技能图景" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              知识与技能图景
+            </span>
+            <span class="md-header-nav__topic">
+              负载均衡与缓存
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            键入以开始搜索
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/jokerleu/blog/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    jokerleu/blog
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../../.." title="知识与技能图景" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    知识与技能图景
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/jokerleu/blog/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    jokerleu/blog
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../.." title="首页" class="md-nav__link">
+      首页
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      计算机
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        计算机
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-1" type="checkbox" id="nav-2-1">
+    
+    <label class="md-nav__link" for="nav-2-1">
+      操作系统
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-1">
+        操作系统
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/测试页面/" title="测试页面" class="md-nav__link">
+      测试页面
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-2" type="checkbox" id="nav-2-2">
+    
+    <label class="md-nav__link" for="nav-2-2">
+      编程语言
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-2">
+        编程语言
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/测试页面/" title="测试页面" class="md-nav__link">
+      测试页面
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-3" type="checkbox" id="nav-2-3">
+    
+    <label class="md-nav__link" for="nav-2-3">
+      网络
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-3">
+        网络
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/测试页面/" title="测试页面" class="md-nav__link">
+      测试页面
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-4" type="checkbox" id="nav-2-4">
+    
+    <label class="md-nav__link" for="nav-2-4">
+      安全
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-4">
+        安全
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/测试页面/" title="测试页面" class="md-nav__link">
+      测试页面
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-5" type="checkbox" id="nav-2-5">
+    
+    <label class="md-nav__link" for="nav-2-5">
+      弱电
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-5">
+        弱电
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/测试页面/" title="测试页面" class="md-nav__link">
+      测试页面
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-6" type="checkbox" id="nav-2-6">
+    
+    <label class="md-nav__link" for="nav-2-6">
+      运维
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-6">
+        运维
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/测试页面/" title="测试页面" class="md-nav__link">
+      测试页面
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-7" type="checkbox" id="nav-2-7">
+    
+    <label class="md-nav__link" for="nav-2-7">
+      IoT物联网
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-7">
+        IoT物联网
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/测试页面/" title="测试页面" class="md-nav__link">
+      测试页面
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-8" type="checkbox" id="nav-2-8">
+    
+    <label class="md-nav__link" for="nav-2-8">
+      工作未分类
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-8">
+        工作未分类
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/测试页面/" title="测试页面" class="md-nav__link">
+      测试页面
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-9" type="checkbox" id="nav-2-9">
+    
+    <label class="md-nav__link" for="nav-2-9">
+      网站收藏
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-9">
+        网站收藏
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/测试页面/" title="测试页面" class="md-nav__link">
+      测试页面
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      IoT物联网
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        IoT物联网
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/IoT物联网/Domotize/" title="Domotize" class="md-nav__link">
+      Domotize
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/IoT物联网/Keil/" title="Keil" class="md-nav__link">
+      Keil
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/IoT物联网/stm32/" title="stm32" class="md-nav__link">
+      stm32
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/IoT物联网/机智云/" title="机智云" class="md-nav__link">
+      机智云
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/IoT物联网/树莓派/" title="树莓派" class="md-nav__link">
+      树莓派
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      ITIL
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        ITIL
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/ITIL/持续服务改进/" title="持续服务改进" class="md-nav__link">
+      持续服务改进
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/ITIL/服务战略/" title="服务战略" class="md-nav__link">
+      服务战略
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/ITIL/服务设计/" title="服务设计" class="md-nav__link">
+      服务设计
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/ITIL/服务转换/" title="服务转换" class="md-nav__link">
+      服务转换
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/ITIL/服务运营/" title="服务运营" class="md-nav__link">
+      服务运营
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      软件
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        软件
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/Ansible/" title="Ansible" class="md-nav__link">
+      Ansible
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/Apache/" title="Apache" class="md-nav__link">
+      Apache
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/ApacheTomcat/" title="ApacheTomcat" class="md-nav__link">
+      ApacheTomcat
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/ApacheZookeeper/" title="ApacheZookeeper" class="md-nav__link">
+      ApacheZookeeper
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/Cacti/" title="Cacti" class="md-nav__link">
+      Cacti
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/DHCP/" title="DHCP" class="md-nav__link">
+      DHCP
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/DNS/" title="DNS" class="md-nav__link">
+      DNS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/Dokcer/" title="Docker" class="md-nav__link">
+      Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/ELK/" title="ELK" class="md-nav__link">
+      ELK
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/ElasticSearch/" title="ElasticSearch" class="md-nav__link">
+      ElasticSearch
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/FTP/" title="FTP" class="md-nav__link">
+      FTP
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/Fabric/" title="Fabric" class="md-nav__link">
+      Fabric
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/Git/" title="Git" class="md-nav__link">
+      Git
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/Graylog/" title="Graylog" class="md-nav__link">
+      Graylog
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/HAProxy/" title="HAProxy" class="md-nav__link">
+      HAProxy
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/IIS/" title="IIS" class="md-nav__link">
+      IIS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/Jenkins/" title="Jenkins" class="md-nav__link">
+      Jenkins
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/Keepalived/" title="Keepalived" class="md-nav__link">
+      Keepalived
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/Kubernates(K8s)/" title="Kubernates(K8s)" class="md-nav__link">
+      Kubernates(K8s)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/LVS/" title="LVS" class="md-nav__link">
+      LVS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/ModSecurity/" title="ModSecurity" class="md-nav__link">
+      ModSecurity
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/MongoDB/" title="MongoDB" class="md-nav__link">
+      MongoDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/MySQL&MariaDB/" title="Mysql&MariaDB" class="md-nav__link">
+      Mysql&MariaDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/NTP/" title="NTP" class="md-nav__link">
+      NTP
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/Nagios/" title="Nagios" class="md-nav__link">
+      Nagios
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/Nginx/" title="Nginx" class="md-nav__link">
+      Nginx
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/Ngrok/" title="Ngrok" class="md-nav__link">
+      Ngrok
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/OpenResty/" title="OpenResty" class="md-nav__link">
+      OpenResty
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/Oracle/" title="Oracle" class="md-nav__link">
+      Oracle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/PostgreSQL/" title="PostgreSQL" class="md-nav__link">
+      PostgreSQL
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/Puppet/" title="Puppet" class="md-nav__link">
+      Puppet
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/Redis/" title="Redis" class="md-nav__link">
+      Redis
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/SAMBA/" title="SAMBA" class="md-nav__link">
+      SAMBA
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/SaltStack/" title="SaltStack" class="md-nav__link">
+      SaltStack
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/VirtualBox/" title="VirtualBox" class="md-nav__link">
+      VirtualBox
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/WebLogic/" title="WebLogic" class="md-nav__link">
+      WebLogic
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/Zabbix/" title="Zabbix" class="md-nav__link">
+      Zabbix
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/eMail/" title="eMail" class="md-nav__link">
+      eMail
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/grafana/" title="Grafana" class="md-nav__link">
+      Grafana
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/rsyslog/" title="Rsyslog" class="md-nav__link">
+      Rsyslog
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/ssh&pssh&dsh/" title="Ssh&pssh&dsh" class="md-nav__link">
+      Ssh&pssh&dsh
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" checked>
+    
+    <label class="md-nav__link" for="nav-6">
+      读书笔记
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        读书笔记
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6-1" type="checkbox" id="nav-6-1" checked>
+    
+    <label class="md-nav__link" for="nav-6-1">
+      Nginx高性能Web服务器实战教程
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-1">
+        Nginx高性能Web服务器实战教程
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../01-Nginx基本配置/" title="Nginx基本配置" class="md-nav__link">
+      Nginx基本配置
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../02-Web服务器搭建/" title="Web服务器搭建" class="md-nav__link">
+      Web服务器搭建
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        负载均衡与缓存
+      </label>
+    
+    <a href="./" title="负载均衡与缓存" class="md-nav__link md-nav__link--active">
+      负载均衡与缓存
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="反向代理" class="md-nav__link">
+    反向代理
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="负载均衡" class="md-nav__link">
+    负载均衡
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../04-模块配置应用/" title="模块配置应用" class="md-nav__link">
+      模块配置应用
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../05-高可用负载均衡集群/" title="高可用负载均衡集群" class="md-nav__link">
+      高可用负载均衡集群
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      未分类页面
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        未分类页面
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../未分类页面/软件收藏/" title="软件收藏" class="md-nav__link">
+      软件收藏
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/基础知识/" title="基础知识" class="md-nav__link">
+      基础知识
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/面试试题/" title="面试试题" class="md-nav__link">
+      面试试题
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="反向代理" class="md-nav__link">
+    反向代理
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="负载均衡" class="md-nav__link">
+    负载均衡
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/jokerleu/blog/edit/master/docs/读书笔记/Nginx高性能Web服务器实战教程/03-负载均衡与缓存.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="_1">负载均衡与缓存<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="_2">反向代理<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>反向代理服务器配置nginx.conf
+＃配置域名为test.web1.test的虚拟主机
+server{
+    listen 80;
+    server_name test.web1.test;
+    #域名test.web1.test的请求全部转发到Web服务器192.168.1.101
+    location / {
+         proxy_pass <a href="http://192.168.1.101">http://192.168.1.101</a>;
+    }
+}
+＃配置域名为test.web2.test的虚拟主机
+server{
+    listen 80;
+    server_name test.web2.test;
+    #域名test.we2.test的请求全部转发到Web服务器192.168.1.102
+    location / {
+         proxy_pass <a href="http://192.168.1.102">http://192.168.1.102</a>;
+    }
+}
+实验客户端配置，hosts文件，...103为nginx反向代理服务器地址
+192.168.1.103  test.web1.test
+192.168.1.103  test.web2.test</p>
+<p>反向代理其他指令
+proxy_set_header 在将客户端请求发送给后端服务器之前，更改来自客户端的请求头信息
+proxy_connect_timeout 配置与后端服务器尝试建立连接的超时时间
+proxy_read_ timeout 配置向后端服务器组发出read请求后，等待响应的超时时间
+proxy <em>send_timeout 配置向后端服务器组发出write请求后，等待响应的超时时间
+proxy_redirect 
+用于修改后端服务器返回的响应头中的Location和Refresh
+如 
+location / { 
+    proxy_pass <a href="http://192.168.78.200">http://192.168.78.200</a>; 
+    proxy_set_header Host $host;
+    proxy_set header X-Real-IP $remote</em> addr; 
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+} </p>
+<h2 id="_3">负载均衡<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>负载均衡配置方式
+1轮询方式：按时间顺序
+2权重方式：用于后端服务器性能不均的情况
+3ip_hash方式：每个访客固定访问一个后端服务器,解决session共享问题
+4第三方模块方式：fair模块按服务器响应时间分配；url_hash模块</p>
+<p>一般轮询负载均衡
+代理服务器配置nginx.conf</p>
+<h1 id="testwebtest">配置域名为test.web.test的虚拟主机<a class="headerlink" href="#testwebtest" title="Permanent link">&para;</a></h1>
+<p>server {
+    listen 80;
+    server_name test.web.test;
+    location / {
+         proxy_pass http://web_server;
+    }
+}</p>
+<h1 id="_4">配置负载均衡服务器组，服务器宕掉不影响自动跳过<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h1>
+<p>upstream web_server {
+    server 192.168.1.101;
+    server 192.168.1.102;
+}</p>
+<p>加权轮询负载均衡
+代理服务器配置nginx.conf</p>
+<h1 id="testwebtest_1">配置域名为test.web.test的虚拟主机<a class="headerlink" href="#testwebtest_1" title="Permanent link">&para;</a></h1>
+<p>server {
+    listen 80;
+    server_name test.web.test;
+    location / {
+         proxy_pass http://web_server;
+    }
+}</p>
+<h1 id="_5">配置负载均衡服务器组，按照分散算法分配概率<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h1>
+<p>upstream web_server {
+    server 192.168.1.101 weight=1;
+    server 192.168.1.102 weight=3;
+}
+可以添加的状态参数以空格分割
+weight=1：权重
+max_fails=1 允许请求失败次数，默认为1
+fail_timeout=超过max_fail后暂停服务时间
+backup 预留备份机器，所有其他都故障或忙碌时启用
+down 暂时不参与负载均衡 </p>
+<p>ip_hash负载均衡</p>
+<h1 id="testwebtest_2">配置域名为test.web.test的虚拟主机<a class="headerlink" href="#testwebtest_2" title="Permanent link">&para;</a></h1>
+<p>server {
+    listen 80;
+    server_name test.web.test;
+    location / {
+         proxy_pass http://web_server;
+    }
+}</p>
+<h1 id="_6">配置负载均衡服务器组，按照分散算法分配概率<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h1>
+<p>upstream web_server {
+    ip_hash;
+    server 192.168.1.101;
+    server 192.168.1.102;
+    server 192.168.1.103 dwn;
+}
+此配置下不可用weigit和backup参数。ip_hash容易形成某服务器请求过多另一服务器请求过少的情况。</p>
+<p>利用第三方模块，fair
+$ cp -r /usr/local/nginx usr/local/nginx_bak # 备份原nginx
+$ cd /usr/local/src/
+$ curl -O <a href="https://codeload.github.com/gnosek/nginx-upstream-fair/zip/master">https://codeload.github.com/gnosek/nginx-upstream-fair/zip/master</a>
+$ unzip mster  # unzip指令需要yum安装
+$ mv nginx-upstream-fair-master nginx-upstream-fair  # 解压改名即可
+$ cd /usr/local/src/nginx-1.15.8
+$ /usr/local/nginx/nginx -V 查看当前./confgure选项复制内容加上要加入的模块
+$ ./configure --sbin-path=/usr/local/nginx/nginx \
+--conf-path=/usr/local/nginx/nginx.conf \
+--pid-path=/usr/local/nginx/nginx.pid \
+--with-http_ssl_module \
+--with-pcre=/usr/local/src/pcre-8.42 \
+--with-zlib=/usr/local/src/zlib-1.2.11 \
+--with-openssl=/usr/local/src/openssl-1.1.1a \
+--add-module=/usr/local/src/nginx-upstream-fair
+$ make  # 不要install，会覆盖原安装文件
+$ /usr/local/nginx/nginx -s stop
+$ cp objs/nginx /usr/local/nginx/objs/nginx  # 复制生成的nginx文件
+$ /usr/local/nginx/nginx
+注意：nginx1.14.0以上修改源码文件ngx_http_upstream_fair_module.c
+543-if (us-&gt;port == 0 &amp;&amp; us-&gt;default_port == 0) {
+543+if (us-&gt;port == 0) {
+553-u.port = (in_port_t) (us-&gt;port ? us-&gt;port : us-&gt;default_port);
+553u.port = us-&gt;port;
+配置fair方式的负载均衡，nginx.conf</p>
+<h1 id="testwebtest_3">配置域名为test.web.test的虚拟主机<a class="headerlink" href="#testwebtest_3" title="Permanent link">&para;</a></h1>
+<p>server {
+    listen 80;
+    server_name test.web.test;
+    location / {
+         proxy_pass http://web_server;
+    }
+}</p>
+<h1 id="fair">配置fair方式的负载均衡<a class="headerlink" href="#fair" title="Permanent link">&para;</a></h1>
+<p>upstream web_server {
+    server 192.168.1.101;
+    server 192.168.1.102;
+    fair;
+}</p>
+<h2 id="_7">缓存配置<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>永久缓存配置
+Web缓存服务器配置，nginx.conf
+server {
+    listen 80;
+    server_name 192.168.1.100;
+    location / {
+         root cache;  # 指定缓存文件保存目录cache/，手动创建赋权
+         proxy_store on;  # 开启本地缓存
+         proxy_store_access user:rw group:rw all:r;  # 设置读写规则
+         proxy_temp_path cache_tmp;  # 临时缓存目录，自动创建
+         # 先判断缓存文件是否存在，若不存在则向后端服务器获取
+        if(!-e $request_filename){ 
+             proxy_pass <a href="http://192.168.1.101">http://192.168.1.101</a>;
+         }
+    }
+}</p>
+<p>临时缓存配置
+Web缓存服务器配置，nginx.conf
+http {...</p>
+<h1 id="_8">代理临时目录<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h1>
+<p>proxy_temp_path /user/local/nginx/proxy_temp_dir</p>
+<h1 id="web">web缓存目录和参数配置<a class="headerlink" href="#web" title="Permanent link">&para;</a></h1>
+<p>proxy_cache_path /usr/local/nginx/proxy_cache_dir levels=1:2 keys_zone=cache_one:50m inactive=1m max_size=500m</p>
+<p>levels1:2 根据请求链接地址的hash值创建目录，如hash=af7098al5e430326197ee01516fdace0则第一层子目录名称长度为1字符0，第二层子目录名称长度为2字符ce。
+key_zone=50m 缓存区名称及大小
+inactive=1m 清除未在指定时间内被访问的缓存，1m=1分钟,1h,1d
+max_size 磁盘空间大小500m,10g
+server {
+    listen 80;
+    server_name test.web.test;
+    # 增加两个响应头信息，用于获知访问的服务器地址与缓存是否成功
+    add_header X-Via <span><span class="MathJax_Preview">server_addr;  # X-Via服务器地址
+    add_header X-Cache <span><span class="MathJax_Preview">upstream_cache_status;  # X-Cache资源缓存状态
+    location / {
+         proxy_cache cache_one  # 设置缓存区名称
+         proyx_cache_key <span><span class="MathJax_Preview">host</span><script type="math/tex">host</script></span>uriuri</span><script type="math/tex">upstream_cache_status;  # X-Cache资源缓存状态
+    location / {
+         proxy_cache cache_one  # 设置缓存区名称
+         proyx_cache_key <span><span class="MathJax_Preview">host</span><script type="math/tex">host</script></span>uriuri</script></span>is_argsis_args</span><script type="math/tex">server_addr;  # X-Via服务器地址
+    add_header X-Cache <span><span class="MathJax_Preview">upstream_cache_status;  # X-Cache资源缓存状态
+    location / {
+         proxy_cache cache_one  # 设置缓存区名称
+         proyx_cache_key <span><span class="MathJax_Preview">host</span><script type="math/tex">host</script></span>uriuri</span><script type="math/tex">upstream_cache_status;  # X-Cache资源缓存状态
+    location / {
+         proxy_cache cache_one  # 设置缓存区名称
+         proyx_cache_key <span><span class="MathJax_Preview">host</span><script type="math/tex">host</script></span>uriuri</script></span>is_argsis_args</script></span>args  # 以此组合Key值计算hash
+         proxy_cache_valid 200 10m;  # 状态码200缓存10分钟
+         proxy_cache_valid 304 1m;  # 304缓存1分钟
+         proxy_cache_valid 301 302 1h;  # 301 302缓存1小时
+         proxy_cache_valid any 1m;  # 其他状态缓存1分钟
+         # 设置反向代理
+         proxy_pass <a href="http://192.168.1.101">http://192.168.1.101</a>;
+    }
+}
+其中
+$upstream_cache_status资源缓存状态
+    HIT缓存命中
+    MISS未命中，请求被传到后端
+    EXPIRED缓存已经过期，请求被传到后端
+    UPDATING正在更新缓存，将使用旧的应答
+    STALE无法从后端更新缓存，使用旧的缓存内容，通过proxy_cache_use_stale
+    BYPASS缓存被绕过，通过proxy_cache_bypass
+    REVALIDATED通过If-Modified-Since请求验证缓存是否过期，通过proxy_cache_revalidate
+$host：如test.web.test
+$uri：如index.html
+$is_args：？或空
+$args：如a=1&amp;b=2
+常用缓存配置指令
+proxy_cache_bypass不从缓存获取数据的条件
+proxy_cache_lock是否开启缓存锁
+proxy_cache_lock_timeout缓存锁超时时间
+proxy_on_cache不使用缓存功能的条件
+proxy_cache_min_uses超过一定请求数的URL才进行缓存
+proxy_cache_revalidate通过If-Modified-Since请求验证缓存是否过期
+proxy_cache_use_stale使用旧的缓存内容</p>
+<p>缓存清理配置，利用第三方模块ngx_cache_purge
+$ cp -r /usr/local/nginx usr/local/nginx_bak2 # 备份原nginx
+$ cd /usr/local/src/
+$ curl -O <a href="http://labs.frickle.com/files/ngx_cache_purge-2.3.tar.gz">http://labs.frickle.com/files/ngx_cache_purge-2.3.tar.gz</a>
+$ tar -zxvf ngx_cache_purge-2.3.tar.gz
+$ mv ngx_cache_purge-2.3 ngx_cache_purge  # 解压改名即可
+$ cd /usr/local/src/nginx-1.15.8
+$ /usr/local/nginx/nginx -V 查看当前./confgure选项复制内容加上要加入的模块
+$ ./configure --sbin-path=/usr/local/nginx/nginx \
+--conf-path=/usr/local/nginx/nginx.conf \
+--pid-path=/usr/local/nginx/nginx.pid \
+--with-http_ssl_module \
+--with-pcre=/usr/local/src/pcre-8.42 \
+--with-zlib=/usr/local/src/zlib-1.2.11 \
+--with-openssl=/usr/local/src/openssl-1.1.1a \
+--add-module=/usr/local/src/nginx-upstream-fair \
+--add-module=/usr/local/src/ngx_cache_purge
+$ make  # 不要install，会覆盖原安装文件
+$ /usr/local/nginx/nginx -s stop
+$ cp objs/nginx /usr/local/nginx/objs/nginx  # 复制生成的nginx文件
+$ /usr/local/nginx/nginx
+配置缓存清理功能
+Web缓存服务器配置，nginx.conf
+server{...
+location ~ /purge(/.*) {
+    allow 192.168.1.100;  # 指定ip使用该命令
+    deny all;
+    proxy_cache_purge cache_one <span><span class="MathJax_Preview">host</span><script type="math/tex">host</script></span>1<span><span class="MathJax_Preview">is_args</span><script type="math/tex">is_args</script></span>args
+}
+其中
+proxy_cache 缓存区名称cache_one，<span><span class="MathJax_Preview">...Key值组成</span><script type="math/tex">...Key值组成</script></span>1相当于$uri</p>
+<h2 id="_9">邮件服务<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<p>mail模块包含以下模块
+ngx_mail_core_module Nginx邮件服务的核心功能
+ngx_mail_auth_http_module 用于用户认证
+ngx_mail_proxy_module 用与邮件代理
+ngx_mail_smtp_module 用于SMTP邮件传输协议的相关设置
+ngx_mail_pop3_module 用于POP邮件传输协议的相关设置
+ngx_mail_imap_module 用于IMAP邮件传输协议的相关设置
+ngx_mail_ssl_module 支持基于SSL/TLS协议功能，要求OpenSSL库的支持
+重新编译要增加的指令
+$ ./configure \
+--prefix=/usr/local/nginx  
+--with-http_ssl_module  
+--with-mail 
+--with-mail_ssl_module
+$ make  # 要是增加功能不要install
+Nginx邮件代理服务器配置nginx.conf
+mail {
+    # 邮件认证服务器的访问url
+    auth_http  192.168.1.101:8009/auth.php;
+    #每个请求所使用的内存缓冲区大小
+    proxy_buffer 4k;
+    #添加对POP3的支持
+    server {
+         listen 110;
+         protocol pop3;
+         proxy on;
+    }
+    #添加对IMAP的支持
+    server {
+         listen 143;
+         protocol IMAP;
+         #设置接收初始客户端请求缓冲区大小
+         imap_client_buffer 4k;
+         proxy on;
+    }
+    #添加对SMTP的支持
+    server {
+         listen 25;
+         protocol smtp;
+         #设置接收初始客户端请求缓冲区大小
+         smtp_client_buffer 4k;
+         xclient off;
+    }
+}
+邮件服务配置指令
+listen 邮件服务器监听的IP地址和端口
+server_name 为每个server块构成的虚拟主机配置的域名
+protocol 当前虚拟主机支持的协议
+so_keepalive 后端代理服务器是否启用TCP keepalive模式来处理 Nginx邮件服务器转发的客户端连接
+pop3_auth 用于配置POP3认证用户的方式
+pop3_capabilities 用于配置POP3协议的扩展功能
+imap_auth 用于配置IMAP认证用户的方式
+imap_capabilities 用于配置IMAP协议的扩展功能
+imap_client_buffer 用于配置IMAP协议数据缓存的大小
+smtp_auth 用于配置SMTP认证用户的方式
+smtp_capabilities 用于配置SMTP协议的扩展功能
+auth_http_header Nginx服务器向HTTP认证服务器发起的认证请求时，添加指定的请求头
+auth_http_timeout 配置Nginx服务器向HTTP认证服务器发起认证请求后，等待响应的超时时间
+proxy_pass_error_message 用来配置是否将后端服务器上邮件服务认证过程中产生的错误信息发送给客户端
+proxy_ timeout 设置客户端与代理服务器之间的超时时间
+xclient 可以开启或者关闭命令XCLIENT的SMTP后端连接，使得后端可以强制通过 IP、HELO或LOGIN限定客户端</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../02-Web服务器搭建/" title="Web服务器搭建" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  后退
+                </span>
+                Web服务器搭建
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../04-模块配置应用/" title="模块配置应用" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  前进
+                </span>
+                模块配置应用
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../../assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/jokerleu" class="md-footer-social__link fa fa-github"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/application.d9aa80ab.js"></script>
+      
+        
+        
+          
+          <script src="../../../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
+          
+            
+              
+                <script src="../../../assets/javascripts/lunr/tinyseg.js"></script>
+              
+              
+                <script src="../../../assets/javascripts/lunr/lunr.jp.js"></script>
+              
+            
+          
+          
+        
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../../.."}})</script>
+      
+        <script src="../../../js/extra.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+    
+  </body>
+</html>

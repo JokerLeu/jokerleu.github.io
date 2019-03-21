@@ -1,0 +1,2547 @@
+
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+        <meta name="author" content="jokerleu">
+      
+      
+        <meta name="lang:clipboard.copy" content="复制">
+      
+        <meta name="lang:clipboard.copied" content="已复制">
+      
+        <meta name="lang:search.language" content="jp">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="没有找到符合条件的结果">
+      
+        <meta name="lang:search.result.one" content="找到 1 个符合条件的结果">
+      
+        <meta name="lang:search.result.other" content="# 个符合条件的结果">
+      
+        <meta name="lang:search.tokenizer" content="[\uff0c\u3002]+">
+      
+      <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.2">
+    
+    
+      
+        <title>Web服务器搭建 - 知识与技能图景</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/application.982221ab.css">
+      
+        <link rel="stylesheet" href="../../../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="">
+      
+    
+    
+      <script src="../../../assets/javascripts/modernizr.1f0bcf2b.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../../assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="white" data-md-color-accent="blue">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#web" tabindex="1" class="md-skip">
+        跳转至
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../../.." title="知识与技能图景" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              知识与技能图景
+            </span>
+            <span class="md-header-nav__topic">
+              Web服务器搭建
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            键入以开始搜索
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/jokerleu/blog/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    jokerleu/blog
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../../.." title="知识与技能图景" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    知识与技能图景
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/jokerleu/blog/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    jokerleu/blog
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../.." title="首页" class="md-nav__link">
+      首页
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      计算机
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        计算机
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-1" type="checkbox" id="nav-2-1">
+    
+    <label class="md-nav__link" for="nav-2-1">
+      操作系统
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-1">
+        操作系统
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/测试页面/" title="测试页面" class="md-nav__link">
+      测试页面
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-2" type="checkbox" id="nav-2-2">
+    
+    <label class="md-nav__link" for="nav-2-2">
+      编程语言
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-2">
+        编程语言
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/测试页面/" title="测试页面" class="md-nav__link">
+      测试页面
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-3" type="checkbox" id="nav-2-3">
+    
+    <label class="md-nav__link" for="nav-2-3">
+      网络
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-3">
+        网络
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/测试页面/" title="测试页面" class="md-nav__link">
+      测试页面
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-4" type="checkbox" id="nav-2-4">
+    
+    <label class="md-nav__link" for="nav-2-4">
+      安全
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-4">
+        安全
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/测试页面/" title="测试页面" class="md-nav__link">
+      测试页面
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-5" type="checkbox" id="nav-2-5">
+    
+    <label class="md-nav__link" for="nav-2-5">
+      弱电
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-5">
+        弱电
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/测试页面/" title="测试页面" class="md-nav__link">
+      测试页面
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-6" type="checkbox" id="nav-2-6">
+    
+    <label class="md-nav__link" for="nav-2-6">
+      运维
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-6">
+        运维
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/测试页面/" title="测试页面" class="md-nav__link">
+      测试页面
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-7" type="checkbox" id="nav-2-7">
+    
+    <label class="md-nav__link" for="nav-2-7">
+      IoT物联网
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-7">
+        IoT物联网
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/测试页面/" title="测试页面" class="md-nav__link">
+      测试页面
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-8" type="checkbox" id="nav-2-8">
+    
+    <label class="md-nav__link" for="nav-2-8">
+      工作未分类
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-8">
+        工作未分类
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/测试页面/" title="测试页面" class="md-nav__link">
+      测试页面
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-9" type="checkbox" id="nav-2-9">
+    
+    <label class="md-nav__link" for="nav-2-9">
+      网站收藏
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-9">
+        网站收藏
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/测试页面/" title="测试页面" class="md-nav__link">
+      测试页面
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      IoT物联网
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        IoT物联网
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/IoT物联网/Domotize/" title="Domotize" class="md-nav__link">
+      Domotize
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/IoT物联网/Keil/" title="Keil" class="md-nav__link">
+      Keil
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/IoT物联网/stm32/" title="stm32" class="md-nav__link">
+      stm32
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/IoT物联网/机智云/" title="机智云" class="md-nav__link">
+      机智云
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/IoT物联网/树莓派/" title="树莓派" class="md-nav__link">
+      树莓派
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      ITIL
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        ITIL
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/ITIL/持续服务改进/" title="持续服务改进" class="md-nav__link">
+      持续服务改进
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/ITIL/服务战略/" title="服务战略" class="md-nav__link">
+      服务战略
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/ITIL/服务设计/" title="服务设计" class="md-nav__link">
+      服务设计
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/ITIL/服务转换/" title="服务转换" class="md-nav__link">
+      服务转换
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/ITIL/服务运营/" title="服务运营" class="md-nav__link">
+      服务运营
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      软件
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        软件
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/Ansible/" title="Ansible" class="md-nav__link">
+      Ansible
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/Apache/" title="Apache" class="md-nav__link">
+      Apache
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/ApacheTomcat/" title="ApacheTomcat" class="md-nav__link">
+      ApacheTomcat
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/ApacheZookeeper/" title="ApacheZookeeper" class="md-nav__link">
+      ApacheZookeeper
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/Cacti/" title="Cacti" class="md-nav__link">
+      Cacti
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/DHCP/" title="DHCP" class="md-nav__link">
+      DHCP
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/DNS/" title="DNS" class="md-nav__link">
+      DNS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/Dokcer/" title="Docker" class="md-nav__link">
+      Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/ELK/" title="ELK" class="md-nav__link">
+      ELK
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/ElasticSearch/" title="ElasticSearch" class="md-nav__link">
+      ElasticSearch
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/FTP/" title="FTP" class="md-nav__link">
+      FTP
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/Fabric/" title="Fabric" class="md-nav__link">
+      Fabric
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/Git/" title="Git" class="md-nav__link">
+      Git
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/Graylog/" title="Graylog" class="md-nav__link">
+      Graylog
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/HAProxy/" title="HAProxy" class="md-nav__link">
+      HAProxy
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/IIS/" title="IIS" class="md-nav__link">
+      IIS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/Jenkins/" title="Jenkins" class="md-nav__link">
+      Jenkins
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/Keepalived/" title="Keepalived" class="md-nav__link">
+      Keepalived
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/Kubernates(K8s)/" title="Kubernates(K8s)" class="md-nav__link">
+      Kubernates(K8s)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/LVS/" title="LVS" class="md-nav__link">
+      LVS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/ModSecurity/" title="ModSecurity" class="md-nav__link">
+      ModSecurity
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/MongoDB/" title="MongoDB" class="md-nav__link">
+      MongoDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/MySQL&MariaDB/" title="Mysql&MariaDB" class="md-nav__link">
+      Mysql&MariaDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/NTP/" title="NTP" class="md-nav__link">
+      NTP
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/Nagios/" title="Nagios" class="md-nav__link">
+      Nagios
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/Nginx/" title="Nginx" class="md-nav__link">
+      Nginx
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/Ngrok/" title="Ngrok" class="md-nav__link">
+      Ngrok
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/OpenResty/" title="OpenResty" class="md-nav__link">
+      OpenResty
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/Oracle/" title="Oracle" class="md-nav__link">
+      Oracle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/PostgreSQL/" title="PostgreSQL" class="md-nav__link">
+      PostgreSQL
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/Puppet/" title="Puppet" class="md-nav__link">
+      Puppet
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/Redis/" title="Redis" class="md-nav__link">
+      Redis
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/SAMBA/" title="SAMBA" class="md-nav__link">
+      SAMBA
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/SaltStack/" title="SaltStack" class="md-nav__link">
+      SaltStack
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/VirtualBox/" title="VirtualBox" class="md-nav__link">
+      VirtualBox
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/WebLogic/" title="WebLogic" class="md-nav__link">
+      WebLogic
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/Zabbix/" title="Zabbix" class="md-nav__link">
+      Zabbix
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/eMail/" title="eMail" class="md-nav__link">
+      eMail
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/grafana/" title="Grafana" class="md-nav__link">
+      Grafana
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/rsyslog/" title="Rsyslog" class="md-nav__link">
+      Rsyslog
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/软件/ssh&pssh&dsh/" title="Ssh&pssh&dsh" class="md-nav__link">
+      Ssh&pssh&dsh
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" checked>
+    
+    <label class="md-nav__link" for="nav-6">
+      读书笔记
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        读书笔记
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6-1" type="checkbox" id="nav-6-1" checked>
+    
+    <label class="md-nav__link" for="nav-6-1">
+      Nginx高性能Web服务器实战教程
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-1">
+        Nginx高性能Web服务器实战教程
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../01-Nginx基本配置/" title="Nginx基本配置" class="md-nav__link">
+      Nginx基本配置
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Web服务器搭建
+      </label>
+    
+    <a href="./" title="Web服务器搭建" class="md-nav__link md-nav__link--active">
+      Web服务器搭建
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#nginxphp" title="Nginx+PHP环境" class="md-nav__link">
+    Nginx+PHP环境
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#php" title="编译安装PHP" class="md-nav__link">
+    编译安装PHP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phpnginx" title="PHP与Nginx整合" class="md-nav__link">
+    PHP与Nginx整合
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#php-fpmconf" title="配置文件php-fpm.conf详解" class="md-nav__link">
+    配置文件php-fpm.conf详解
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phpini" title="php.ini详解" class="md-nav__link">
+    php.ini详解
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nginxfastcgiconf" title="nginx/fastcgi.conf详解" class="md-nav__link">
+    nginx/fastcgi.conf详解
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nginxapache" title="Nginx+Apache环境" class="md-nav__link">
+    Nginx+Apache环境
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nginxtomcat" title="Nginx+Tomcat环境" class="md-nav__link">
+    Nginx+Tomcat环境
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openresty" title="OpenResty环境" class="md-nav__link">
+    OpenResty环境
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../03-负载均衡与缓存/" title="负载均衡与缓存" class="md-nav__link">
+      负载均衡与缓存
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../04-模块配置应用/" title="模块配置应用" class="md-nav__link">
+      模块配置应用
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../05-高可用负载均衡集群/" title="高可用负载均衡集群" class="md-nav__link">
+      高可用负载均衡集群
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      未分类页面
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        未分类页面
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../未分类页面/软件收藏/" title="软件收藏" class="md-nav__link">
+      软件收藏
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/基础知识/" title="基础知识" class="md-nav__link">
+      基础知识
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../计算机/运维/面试试题/" title="面试试题" class="md-nav__link">
+      面试试题
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#nginxphp" title="Nginx+PHP环境" class="md-nav__link">
+    Nginx+PHP环境
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#php" title="编译安装PHP" class="md-nav__link">
+    编译安装PHP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phpnginx" title="PHP与Nginx整合" class="md-nav__link">
+    PHP与Nginx整合
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#php-fpmconf" title="配置文件php-fpm.conf详解" class="md-nav__link">
+    配置文件php-fpm.conf详解
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phpini" title="php.ini详解" class="md-nav__link">
+    php.ini详解
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nginxfastcgiconf" title="nginx/fastcgi.conf详解" class="md-nav__link">
+    nginx/fastcgi.conf详解
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nginxapache" title="Nginx+Apache环境" class="md-nav__link">
+    Nginx+Apache环境
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nginxtomcat" title="Nginx+Tomcat环境" class="md-nav__link">
+    Nginx+Tomcat环境
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openresty" title="OpenResty环境" class="md-nav__link">
+    OpenResty环境
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/jokerleu/blog/edit/master/docs/读书笔记/Nginx高性能Web服务器实战教程/02-Web服务器搭建.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="web">Web服务器搭建<a class="headerlink" href="#web" title="Permanent link">&para;</a></h1>
+<h2 id="nginxphp">Nginx+PHP环境<a class="headerlink" href="#nginxphp" title="Permanent link">&para;</a></h2>
+<h3 id="php">编译安装PHP<a class="headerlink" href="#php" title="Permanent link">&para;</a></h3>
+<p>安装依赖
+$ cd /usr/local/src
+$ yum -y install libxml2-devel openssl-devel curl-devel libjpeg-devel libpng-devel freetype-devel
+编译安装libmcrypt
+$ curl -O <a href="https://jaist.dl.sourceforge.net/project/mcrypt/Libmcrypt/2.5.8/libmcrypt-2.5.8.tar.gz">https://jaist.dl.sourceforge.net/project/mcrypt/Libmcrypt/2.5.8/libmcrypt-2.5.8.tar.gz</a>
+$ tar -zxvf libmcrypt-2.5.8.tar.gz
+$ cd libmcrypt-2.5.8
+$ ./configure 
+$ make &amp;&amp; make install
+编译安装cmake（libzip要求大于3.0版本，yum上的版本过低，源码安装）
+$ cd /usr/local/src
+$ wget <a href="https://github.com/Kitware/CMake/releases/download/v3.13.3/cmake-3.13.3.tar.gz">https://github.com/Kitware/CMake/releases/download/v3.13.3/cmake-3.13.3.tar.gz</a>
+$ tar -zxvf cmake-3.13.3.tar.gz
+$ cd cmake-3.13.3
+$ ./bootstrap
+$ gmake
+$ make install
+安装libzip（PHP要求大于0.11版本，yum上的版本过低，源码安装）
+$ cd /usr/local/src
+$ curl -O <a href="https://libzip.org/download/libzip-1.5.1.tar.gz">https://libzip.org/download/libzip-1.5.1.tar.gz</a>
+$ tar -zxvf libzip-1.5.1.tar.gz
+$ cd libzip-1.5.1
+$ ./configure 
+$ mkdir build &amp;&amp; cd build &amp;&amp; cmake .. &amp;&amp; make &amp;&amp; make install
+安装PHP
+$ cd /usr/local/src
+$ curl -O <a href="http://cn.php.net/distributions/php-7.3.1.tar.gz">http://cn.php.net/distributions/php-7.3.1.tar.gz</a>
+$ tar -zxvf php-7.3.1.tar.gz
+$ cd php-7.3.1
+$ ./configure --prefix=/usr/local/php --with-apxs2=/usr/local/apache2/bin/apxs --enable-fpm --with-zlib --enable-zip --enable-mbstring --with-mcrypt --with-mysql --with-mysqli --with-pdo-mysql --with-gd --with-jpeg-dir --with-png-dir --with-freetype-dir --with-curl --with-openssl --with-mhash --enable-bcmath --enable-opcache
+配置说明
+--prefix=/usr/local/php  # 安装目录
+--with-apxs2=/usr/local/apache2/bin/apxs  # Apache支持
+--enable-fpm  # FPM，FastCGI管理
+--with-zlib  # 支持数据压缩和解压
+--enable-zip  # ZIP
+--enable-mbstring  # 多字节字符串处理
+--with-mcrypt  # mcrypt加密（依赖libmcrypt）PHP7.2开始不再支持--with-mysql
+--with-mysql  # MySQL数据库访问支持，PHP7开始不再支持--with-mysql
+--with-mysqli  # 增强版MySQL数据库访问支持
+--with-pdo-mysql  # 基于PHP Data Object的MySQL数据库访问支持
+--with-gd  # GD库，用于PHP图像处理
+--with-jpeg-dir  # JPEG图像处理（依赖libjpeg-devel）
+--with-png-dir  # PNG图像处理（依赖libpng-devel）
+--with-freetype-dir  # FreeType字体图像处理库（依赖freetype-devel）
+--with-curl  # curl支持（依赖curl-devel）
+--with-openssl   # OpenSSL（依赖openssl-devel）
+--with-mhash  # mhash加密支持
+--enable-bcmath  # 开启精准计算功能
+--enable-opcache  # opencache，PHP代码优化器
+$ make &amp;&amp; make install</p>
+<p>ERROR
+编译php报错configure: error: off_t undefined; check your library configuration
+echo '/usr/local/lib64
+/usr/local/lib
+/usr/lib
+/usr/lib64'&gt;&gt;/etc/ld.so.conf&amp;&amp;ldconfig -v</p>
+<h3 id="phpnginx">PHP与Nginx整合<a class="headerlink" href="#phpnginx" title="Permanent link">&para;</a></h3>
+<h4 id="php-fpmconf">配置文件php-fpm.conf详解<a class="headerlink" href="#php-fpmconf" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="na">pid</span> <span class="o">=</span> <span class="s">/usr/local/var/run/php-fpm.pid</span>
+<span class="c1">#pid设置，一定要开启,上面是Mac平台的。默认在php安装目录中的var/run/php-fpm.pid。</span>
+<span class="c1">#比如centos的在: /usr/local/php/var/run/php-fpm.pid</span>
+
+<span class="na">error_log</span>  <span class="o">=</span> <span class="s">/usr/local/var/log/php-fpm.log</span>
+<span class="c1">#错误日志，上面是Mac平台的，默认在php安装目录中的var/log/php-fpm.log，</span>
+<span class="c1">#比如centos的在: /usr/local/php/var/log/php-fpm.log</span>
+
+<span class="na">log_level</span> <span class="o">=</span> <span class="s">notice</span>
+<span class="c1">#错误级别. 上面的php-fpm.log纪录的登记。可用级别为: alert（必须立即处理）,</span>
+<span class="c1"># error（错误情况）, warning（警告情况）, notice（一般重要信息）, debug（调试信息）. 默认: notice.</span>
+
+<span class="na">emergency_restart_threshold</span> <span class="o">=</span> <span class="s">60</span>
+<span class="na">emergency_restart_interval</span> <span class="o">=</span> <span class="s">60s</span>
+<span class="c1">#表示在emergency_restart_interval所设值内出现SIGSEGV</span>
+<span class="c1">#或者SIGBUS错误的php-cgi进程数如果超过 emergency_restart_threshold个，</span>
+<span class="c1">#php-fpm就会优雅重启。这两个选项一般保持默认值。0 表示 &#39;关闭该功能&#39;. 默认值: 0 (关闭).</span>
+
+<span class="na">process_control_timeout</span> <span class="o">=</span> <span class="s">0</span>
+<span class="c1">#设置子进程接受主进程复用信号的超时时间.</span>
+<span class="c1">#可用单位: s(秒), m(分), h(小时), 或者 d(天) 默认单位: s(秒). 默认值: 0.</span>
+
+<span class="na">daemonize</span> <span class="o">=</span> <span class="s">yes</span>
+<span class="c1">#后台执行fpm,默认值为yes，如果为了调试可以改为no。</span>
+<span class="c1">#在FPM中，可以使用不同的设置来运行多个进程池。 这些设置可以针对每个进程池单独设置。</span>
+
+<span class="na">listen</span> <span class="o">=</span> <span class="s">127.0.0.1:9000</span>
+<span class="c1">#fpm监听端口，即nginx中php处理的地址，一般默认值即可。</span>
+<span class="c1">#可用格式为: &#39;ip:port&#39;, &#39;port&#39;, &#39;/path/to/unix/socket&#39;. 每个进程池都需要设置。</span>
+<span class="c1">#如果nginx和php在不同的机器上，分布式处理，就设置ip这里就可以了。</span>
+
+<span class="na">listen.backlog</span> <span class="o">=</span> <span class="s">-1</span>
+<span class="c1">#backlog数，设置 listen 的半连接队列长度，-1表示无限制，</span>
+<span class="c1">#由操作系统决定，此行注释掉就行。backlog含义看: https://www.jianshu.com/p/fe2228a77429</span>
+
+
+<span class="na">listen.allowed_clients</span> <span class="o">=</span> <span class="s">127.0.0.1</span>
+<span class="c1">#允许访问FastCGI进程的IP白名单，设置any为不限制IP，</span>
+<span class="c1">#如果要设置其他主机的nginx也能访问这台FPM进程，</span>
+<span class="c1">#listen处要设置成本地可被访问的IP。默认值是any。</span>
+<span class="c1">#每个地址是用逗号分隔. 如果没有设置或者为空，则允许任何服务器请求连接。</span>
+
+<span class="na">listen.owner</span> <span class="o">=</span> <span class="s">www</span>
+<span class="na">listen.group</span> <span class="o">=</span> <span class="s">www</span>
+<span class="na">listen.mode</span> <span class="o">=</span> <span class="s">0666</span>
+<span class="c1">#unix socket设置选项，如果使用tcp方式访问，这里注释即可。</span>
+
+<span class="na">user</span> <span class="o">=</span> <span class="s">www</span>
+<span class="na">group</span> <span class="o">=</span> <span class="s">www</span>
+<span class="c1">#启动进程的用户和用户组，FPM 进程运行的Unix用户, 必须要设置。</span>
+<span class="c1">#用户组，如果没有设置，则默认用户的组被使用。</span>
+
+<span class="na">pm</span> <span class="o">=</span> <span class="s">dynamic </span>
+<span class="c1">#php-fpm进程启动模式，pm可以设置为static和dynamic和ondemand</span>
+<span class="c1">#如果选择static，则进程数就数固定的，由pm.max_children指定固定的子进程数。</span>
+
+<span class="c1">#如果选择dynamic，则进程数是动态变化的,由以下参数决定：</span>
+<span class="na">pm.max_children</span> <span class="o">=</span> <span class="s">50 #子进程最大数</span>
+<span class="na">pm.start_servers</span> <span class="o">=</span> <span class="s">2 #启动时的进程数，默认值为: min_spare_servers + (max_spare_servers - min_spare_servers) / 2</span>
+<span class="na">pm.min_spare_servers</span> <span class="o">=</span> <span class="s">1 #保证空闲进程数最小值，如果空闲进程小于此值，则创建新的子进程</span>
+<span class="na">pm.max_spare_servers</span> <span class="o">=</span> <span class="s">3 #，保证空闲进程数最大值，如果空闲进程大于此值，此进行清理</span>
+<span class="na">pm.max_requests</span> <span class="o">=</span> <span class="s">500   #设置每个子进程重生之前服务的请求数. 对于可能存在</span>
+<span class="s">    内存泄漏的第三方模块来说是非常有用的. 如果设置为 &#39;0&#39; 则一直接受请求. </span>
+<span class="s">    等同于 PHP_FCGI_MAX_REQUESTS 环境变量. 默认值: 0.</span>
+
+<span class="na">pm.status_path</span> <span class="o">=</span> <span class="s">/status</span>
+<span class="c1">#FPM状态页面的网址. 如果没有设置, 则无法访问状态页面. 默认值: none. munin监控会使用到</span>
+
+<span class="na">ping.path</span> <span class="o">=</span> <span class="s">/ping</span>
+<span class="c1">#FPM监控页面的ping网址. 如果没有设置, 则无法访问ping页面. </span>
+<span class="c1">#该页面用于外部检测FPM是否存活并且可以响应请求. 请注意必须以斜线开头 (/)。</span>
+
+<span class="na">ping.response</span> <span class="o">=</span> <span class="s">pong</span>
+<span class="c1">#用于定义ping请求的返回相应. 返回为 HTTP 200 的 text/plain 格式文本. 默认值: pong.</span>
+
+<span class="na">access.log</span> <span class="o">=</span> <span class="s">log/$pool.access.log</span>
+<span class="c1">#每一个请求的访问日志，默认是关闭的。</span>
+
+<span class="na">access.format</span> <span class="o">=</span> <span class="s">&quot;%R - %u %t \&quot;%m %r%Q%q\&quot; %s %f %{mili}d %{kilo}M %C%%&quot;</span>
+<span class="c1">#设定访问日志的格式。</span>
+
+<span class="na">slowlog</span> <span class="o">=</span> <span class="s">log/$pool.log.slow</span>
+<span class="c1">#慢请求的记录日志,配合request_slowlog_timeout使用，默认关闭</span>
+
+<span class="na">request_slowlog_timeout</span> <span class="o">=</span> <span class="s">10s</span>
+<span class="c1">#当一个请求该设置的超时时间后，就会将对应的PHP调用堆栈信息完整写入</span>
+<span class="c1">#到慢日志中. 设置为 &#39;0&#39; 表示 &#39;Off&#39;</span>
+
+<span class="na">request_terminate_timeout</span> <span class="o">=</span> <span class="s">0</span>
+<span class="c1">#设置单个请求的超时中止时间. 该选项可能会对php.ini设置中的&#39;max_execution_time&#39;</span>
+<span class="c1">#因为某些特殊原因没有中止运行的脚本有用. 设置为 &#39;0&#39; 表示 &#39;Off&#39;.</span>
+<span class="c1">#当经常出现502错误时可以尝试更改此选项。</span>
+
+<span class="na">rlimit_files</span> <span class="o">=</span> <span class="s">1024</span>
+<span class="c1">#设置文件打开描述符的rlimit限制. 默认值: 系统定义值默认可打开句柄是1024，</span>
+<span class="c1">#可使用 ulimit -n查看，ulimit -n 2048修改。</span>
+
+<span class="na">rlimit_core</span> <span class="o">=</span> <span class="s">0</span>
+<span class="c1">#设置核心rlimit最大限制值. 可用值: &#39;unlimited&#39; 、0或者正整数. 默认值: 系统定义值.</span>
+
+<span class="na">chroot</span> <span class="o">=</span>
+<span class="c1">#启动时的Chroot目录. 所定义的目录需要是绝对路径. 如果没有设置, 则chroot不被使用.</span>
+
+<span class="na">chdir</span> <span class="o">=</span>
+<span class="c1">#设置启动目录，启动时会自动Chdir到该目录. 所定义的目录需要是绝对路径.</span>
+<span class="c1">#默认值: 当前目录，或者/目录（chroot时）</span>
+
+<span class="na">catch_workers_output</span> <span class="o">=</span> <span class="s">yes</span>
+<span class="c1">#重定向运行过程中的stdout和stderr到主要的错误日志文件中. </span>
+<span class="c1">#如果没有设置, stdout 和 stderr 将会根据FastCGI的规则被重定向到 /dev/null . 默认值: 空.</span>
+</pre></div>
+
+<h4 id="phpini">php.ini详解<a class="headerlink" href="#phpini" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="na">[PHP] </span>
+<span class="c1">; PHP还是一个不断发展的工具，其功能还在不断地删减 </span>
+<span class="c1">; 而php.ini的设置更改可以反映出相当的变化， </span>
+<span class="c1">; 在使用新的PHP版本前，研究一下php.ini会有好处的</span>
+
+<span class="c1">;;;;;;;;;;;;;;;;;;; </span>
+<span class="c1">; 关于这个文件 ; </span>
+<span class="c1">;;;;;;;;;;;;;;;;;;;</span>
+
+<span class="c1">; 这个文件控制了PHP许多方面的观点。为了让PHP读取这个文件，它必须被命名为 </span>
+<span class="c1">; &#39;php.ini&#39;。PHP 将在这些地方依次查找该文件：当前工作目录；环境变量PHPRC </span>
+<span class="c1">; 指明的路径；编译时指定的路径。 </span>
+<span class="c1">; 在windows下，编译时的路径是Windows安装目录。 </span>
+<span class="c1">; 在命令行模式下，php.ini的查找路径可以用 -c 参数替代。</span>
+
+<span class="c1">; 该文件的语法非常简单。空白字符和用分号&#39;;&#39;开始的行被简单地忽略（就象你可能 </span>
+<span class="c1">; 猜到的一样）。 章节标题（例如 : [Foo]）也被简单地忽略，即使将来它们可能 </span>
+<span class="c1">; 有某种的意义。 </span>
+<span class="c1">; </span>
+<span class="c1">; 指示被指定使用如下语法： </span>
+<span class="c1">; 指示标识符 = 值 </span>
+<span class="c1">; directive = value </span>
+<span class="c1">; 指示标识符 是 *大小写敏感的* - foo=bar 不同于 FOO = bar。 </span>
+<span class="c1">; </span>
+<span class="c1">; 值可以是一个字符串，一个数字，一个 PHP 常量 (如： E_ALL or M_PI), INI 常量中的 </span>
+<span class="c1">; 一个 (On, Off, True, False, Yes, No and None) ，或是一个表达式 </span>
+<span class="c1">; (如: E_ALL &amp; ~E_NOTICE), 或是用引号括起来的字符串(&quot; foo&quot; ). </span>
+<span class="c1">; </span>
+<span class="c1">; INI 文件的表达式被限制于位运算符和括号。 </span>
+<span class="c1">; | bitwise OR </span>
+<span class="c1">; &amp; bitwise AND </span>
+<span class="c1">; ~ bitwise NOT </span>
+<span class="c1">; ! boolean NOT </span>
+<span class="c1">; </span>
+<span class="c1">; 布尔标志可用 1, On, True or Yes 这些值置于开的状态。 </span>
+<span class="c1">; 它们可用 0, Off, False or No 这些值置于关的状态。 </span>
+<span class="c1">; </span>
+<span class="c1">; 一个空字符串可以用在等号后不写任何东西表示，或者用 None 关键字: </span>
+<span class="c1">; </span>
+<span class="c1">; foo = ; 将foo置为空字符串 </span>
+<span class="c1">; foo = none ; 将foo置为空字符串 </span>
+<span class="c1">; foo = &quot; none&quot; ; 将foo置为字符串&#39;none&#39; </span>
+<span class="c1">; </span>
+<span class="c1">; 如果你值设置中使用常量，而这些常量属于动态调入的扩展库（不是 PHP 的扩展，就是 </span>
+<span class="c1">; Zend 的扩展），你仅可以调入这些扩展的行*之后*使用这些常量。 </span>
+<span class="c1">; </span>
+<span class="c1">; 所有在 php.ini-dist 文件里设定的值与内建的默认值相同（这是说，如果 php.ini </span>
+<span class="c1">; 没被使用或者你删掉了这些行，默认值与之相同）。</span>
+
+
+<span class="c1">;;;;;;;;;;;;;;;;;;;; </span>
+<span class="c1">; 语言选项 ; </span>
+<span class="c1">;;;;;;;;;;;;;;;;;;;;</span>
+
+<span class="na">engine</span> <span class="o">=</span> <span class="s">On </span>
+<span class="c1">; 使 PHP scripting language engine（PHP 脚本语言引擎）在 Apache下有效。 </span>
+<span class="na">short_open_tag</span> <span class="o">=</span> <span class="s">On </span>
+<span class="c1">; 允许 tags 将被识别。 </span>
+<span class="na">asp_tags</span> <span class="o">=</span> <span class="s">Off </span>
+<span class="c1">; 允许ASP-style tags </span>
+<span class="na">precision</span> <span class="o">=</span> <span class="s">14 </span>
+<span class="c1">; 浮点类型数显示时的有效位数</span>
+
+<span class="na">y2k_compliance</span> <span class="o">=</span> <span class="s">Off </span>
+<span class="c1">; 是否打开 2000年适应 (可能在非Y2K适应的浏览器中导致问题)</span>
+
+<span class="na">output_buffering</span> <span class="o">=</span> <span class="s">Off </span>
+<span class="c1">; 输出缓存允许你甚至在输出正文内容之后发送 header（标头，包括cookies）行 </span>
+<span class="c1">; 其代价是输出层减慢一点点速度。你可以使用输出缓存在运行时打开输出缓存， </span>
+<span class="c1">; 或者在这里将指示设为 On 而使得所有文件的输出缓存打开。 </span>
+<span class="na">output_handler</span> <span class="o">=</span> <span class="s">; 你可以重定向你的脚本的所有输出到一个函数， </span>
+<span class="c1">; 那样做可能对处理或以日志记录它有用。 </span>
+<span class="c1">; 例如若你将这个output_handler 设为&quot; ob_gzhandler&quot; , </span>
+<span class="c1">; 则输出会被透明地为支持gzip或deflate编码的浏览器压缩。 </span>
+<span class="c1">; 设一个输出处理器自动地打开输出缓冲。</span>
+
+<span class="na">implicit_flush</span> <span class="o">=</span> <span class="s">Off </span>
+<span class="c1">; 强制flush（刷新）让PHP 告诉输出层在每个输出块之后自动刷新自身数据。 </span>
+<span class="c1">; 这等效于在每个 print() 或 echo() 调用和每个 HTML 块后调用flush()函数。 </span>
+<span class="c1">; 打开这项设置会导致严重的运行时冲突，建议仅在debug过程中打开。</span>
+
+<span class="na">allow_call_time_pass_reference</span> <span class="o">=</span> <span class="s">On </span>
+<span class="c1">; 是否让强迫函数调用时按引用传递参数。这一方法遭到抗议， </span>
+<span class="c1">; 并可能在将来版本的PHP/Zend里不再支持。 </span>
+<span class="c1">; 受到鼓励的指定哪些参数按引用传递的方法是在函数声明里。 </span>
+<span class="c1">; 你被鼓励尝试关闭这一选项并确认你的脚本仍能正常工作，以保证在将来版本的语言里 </span>
+<span class="c1">; 它们仍能工作。（你将在每次使用该特点时得到一个警告，而参数将按值而不是按引用 </span>
+<span class="c1">; 传递）。</span>
+
+<span class="c1">; Safe Mode 安全模式 </span>
+<span class="na">safe_mode</span> <span class="o">=</span> <span class="s">Off </span>
+<span class="na">safe_mode_exec_dir</span> <span class="o">=</span> 
+<span class="na">safe_mode_allowed_env_vars</span> <span class="o">=</span> <span class="s">PHP_ </span>
+<span class="c1">; ？Setting certain environment variables </span>
+<span class="c1">; ？may be a potential security breach. </span>
+<span class="c1">; 该指示包含用逗号分隔的前缀列表。安全模式中，用户仅可以替换 </span>
+<span class="c1">; 以在此列出的前缀开头的环境变量的值。 </span>
+<span class="c1">; 默认地，用户将仅能 设定以PHP_开头的环境变量，（如: PHP_FOO=BAR）。 </span>
+<span class="c1">; 注意: 如果这一指示为空，PHP 将让用户更改任意环境变量!</span>
+
+<span class="na">safe_mode_protected_env_vars</span> <span class="o">=</span> <span class="s">LD_LIBRARY_PATH </span>
+<span class="c1">; 这条指示包含一个用逗号分隔的环境变量列表，那是最终用户将不能用putenv () 更改的。 </span>
+<span class="c1">; 这些变量甚至在safe_mode_allowed_env_vars 设置为允许的情况下得到保护。</span>
+
+<span class="na">disable_functions</span> <span class="o">=</span> 
+<span class="c1">; 这条指示让你可以为了安全的原因让特定函数失效。 </span>
+<span class="c1">; 它接受一个用逗号分隔的函数名列表。 </span>
+<span class="c1">; 这条指示 *不受* 安全模式是否打开的影响。</span>
+
+<span class="c1">; 语法高亮模式的色彩。 </span>
+<span class="c1">; 只要能被接受的东西就能工作。</span>
+
+<span class="na">highlight.string</span> <span class="o">=</span> <span class="s">#DD0000 </span>
+<span class="na">highlight.comment</span> <span class="o">=</span> <span class="s">#FF8000 </span>
+<span class="na">highlight.keyword</span> <span class="o">=</span> <span class="s">#007700 </span>
+<span class="na">highlight.bg</span> <span class="o">=</span> <span class="s">#FFFFFF </span>
+<span class="na">highlight.default</span> <span class="o">=</span> <span class="s">#0000BB </span>
+<span class="na">highlight.html</span> <span class="o">=</span> <span class="s">#000000</span>
+
+<span class="c1">; Misc 杂项 </span>
+<span class="na">expose_php</span> <span class="o">=</span> <span class="s">Off </span>
+<span class="c1">; 决定 PHP 是否标示它装在服务器上的事实（例如：加在它 — PHP— 给Web服务 </span>
+<span class="c1">; 发送的信号上）。 </span>
+<span class="c1">; （我个人的意见，在出现什么power-by的header的时候，把这关掉。） </span>
+<span class="c1">; 它不会有安全上的威胁, 但它使检查你的服务器上是否安装了PHP成为了可能。</span>
+
+
+<span class="c1">;;;;;;;;;;;;;;;;;;; </span>
+<span class="c1">; Resource Limits ; </span>
+<span class="c1">;;;;;;;;;;;;;;;;;;;</span>
+
+<span class="na">max_execution_time</span> <span class="o">=</span> <span class="s">30 ; 每个脚本的最大执行时间, 按秒计 </span>
+<span class="na">memory_limit</span> <span class="o">=</span> <span class="s">8388608 ; 一个脚本最大可使用的内存总量 (这里是8MB)</span>
+
+
+<span class="c1">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; </span>
+<span class="c1">; Error handling and logging ; </span>
+<span class="c1">; 出错控制和登记 ; </span>
+<span class="c1">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; </span>
+<span class="c1">; 错误报告是按位的。或者将数字加起来得到想要的错误报告等级。 </span>
+<span class="c1">; E_ALL - 所有的错误和警告 </span>
+<span class="c1">; E_ERROR - 致命性运行时错 </span>
+<span class="c1">; E_WARNING - 运行时警告（非致命性错） </span>
+<span class="c1">; E_PARSE - 编译时解析错误 </span>
+<span class="c1">; E_NOTICE - 运行时提醒(这些经常是是你的代码的bug引起的， </span>
+<span class="c1">;也可能是有意的行为造成的。(如：基于未初始化的变量自动初始化为一个 </span>
+<span class="c1">;空字符串的事实而使用一个未初始化的变量)</span>
+
+<span class="c1">; E_CORE_ERROR - 发生于PHP启动时初始化过程中的致命错误 </span>
+<span class="c1">; E_CORE_WARNING - 发生于PHP启动时初始化过程中的警告(非致命性错) </span>
+<span class="c1">; E_COMPILE_ERROR - 编译时致命性错 </span>
+<span class="c1">; E_COMPILE_WARNING - 编译时警告(非致命性错) </span>
+<span class="c1">; E_USER_ERROR - 用户产生的出错消息 </span>
+<span class="c1">; E_USER_WARNING - 用户产生的警告消息 </span>
+<span class="c1">; E_USER_NOTICE - 用户产生的提醒消息 </span>
+<span class="c1">; 例子: </span>
+<span class="c1">; error_reporting = E_ALL &amp; ~E_NOTICE ; 显示所有的错误，除了提醒 </span>
+<span class="c1">; error_reporting = E_COMPILE_ERROR|E_ERROR|E_CORE_ERROR ; 仅显示错误 </span>
+<span class="na">error_reporting</span> <span class="o">=</span> <span class="s">E_ALL &amp; ~E_NOTICE ; 显示所有的错误，除了提醒 </span>
+<span class="na">display_errors</span> <span class="o">=</span> <span class="s">On ; 显示出错误信息(作为输出的一部分) </span>
+<span class="c1">; 在最终发布的web站点上，强烈建议你关掉这个特性，并使用 </span>
+<span class="c1">; 错误日志代替（参看下面）。 </span>
+<span class="c1">; 在最终发布的web站点继续让 display_errors 有效可能 </span>
+<span class="c1">; 暴露一些有关安全的信息，例如你的web服务上的文件路径、 </span>
+<span class="c1">; 你的数据库规划或别的信息。 </span>
+<span class="na">display_startup_errors</span> <span class="o">=</span> <span class="s">Off ; 甚至当display_erroes打开了，发生于PHP的启动的步骤中 </span>
+<span class="c1">; 的错误也不会被显示。 </span>
+<span class="c1">; 强烈建议保持使 display_startup_errors 关闭， </span>
+<span class="c1">; 除了在改错过程中。 </span>
+<span class="na">log_errors</span> <span class="o">=</span> <span class="s">Off ; 在日志文件里记录错误（服务器指定的日志，stderr标准错误输出，或error_log(下面的）） </span>
+<span class="c1">; 正如上面说明的那样，强烈建议你在最终发布的web站点以日志记录错误 </span>
+<span class="c1">; 取代直接错误输出。</span>
+
+<span class="na">track_errors</span> <span class="o">=</span> <span class="s">Off ; 保存最近一个 错误/警告 消息于变量 $php_errormsg (boolean) </span>
+<span class="c1">;error_prepend_string = &quot; &quot; ; 于错误信息前输出的字符串 </span>
+<span class="c1">;error_append_string = &quot; &quot; ; 于错误信息后输出的字符串 </span>
+<span class="c1">;error_log = filename ; 记录错误日志于指定文件 </span>
+<span class="c1">;error_log = syslog ; 记录错误日志于系统日志 syslog (NT 下的事件日志, Windows 95下无效) </span>
+<span class="na">warn_plus_overloading</span> <span class="o">=</span> <span class="s">Off ; 当将‘ +’ 用于字符串时警告</span>
+
+
+<span class="c1">;;;;;;;;;;;;;;;;; </span>
+<span class="c1">; Data Handling ; </span>
+<span class="c1">;;;;;;;;;;;;;;;;; </span>
+<span class="na">variables_order</span> <span class="o">=</span> <span class="s">&quot; EGPCS&quot; ; 这条指示描述了PHP 记录 </span>
+<span class="c1">; GET, POST, Cookie, Environment and Built-in 这些变量的顺序。 </span>
+<span class="c1">; （以 G, P, C, E &amp; S 代表，通常以 EGPCS 或 GPC 的方式引用）。 </span>
+<span class="c1">; 按从左到右记录，新值取代旧值。</span>
+
+<span class="na">register_globals</span> <span class="o">=</span> <span class="s">On ; 是否将这些 EGPCS 变量注册为全局变量。 </span>
+<span class="c1">; 若你不想让用户数据不在全局范围内混乱的话，你可能想关闭它。 </span>
+<span class="c1">; 这和 track_vars 连起来用更有意义 — 这样你可以通过 </span>
+<span class="c1">; $HTTP_*_VARS[] 数组访问所有的GPC变量。</span>
+
+<span class="na">register_argc_argv</span> <span class="o">=</span> <span class="s">On ; 这条指示告诉 PHP 是否声明 argv和argc 变量 </span>
+<span class="c1">; （注：这里argv为数组,argc为变量数） </span>
+<span class="c1">; （其中包含用GET方法传来的数据）。 </span>
+<span class="c1">; 若你不想用这些变量，你应当关掉它以提高性能。</span>
+
+<span class="na">track_vars</span> <span class="o">=</span> <span class="s">On ; 使$HTTP_*_VARS[]数组有效，这里*在使用时用 </span>
+<span class="c1">; ENV, POST, GET, COOKIE or SERVER替换 </span>
+<span class="na">post_max_size</span> <span class="o">=</span> <span class="s">8M ; PHP将接受的POST数据最大大小。</span>
+
+
+<span class="na">gpc_order</span> <span class="o">=</span> <span class="s">&quot; GPC&quot; ; 这条指示被人反对。用 variables_order 代替。</span>
+
+<span class="c1">; Magic quotes </span>
+<span class="na">magic_quotes_gpc</span> <span class="o">=</span> <span class="s">On ; 在输入的GET/POST/Cookie数据里使用魔术引用 </span>
+<span class="c1">; （原文就这样，呵呵，所谓magic quotes 应该是指用转义符加在引用性的控制字符上，如 &#39;....） </span>
+<span class="na">magic_quotes_runtime</span><span class="o">=</span> <span class="s">Off ; 对运行时产生的数据使用魔术引用， </span>
+<span class="c1">; 例如：用SQL查询得到的数据，用exec()函数得到的数据，等等 </span>
+<span class="na">magic_quotes_sybase</span> <span class="o">=</span> <span class="s">Off ; 采用 Sybase形式的魔术引用（用 &#39;&#39; 脱出 &#39; 而不用 &#39;）</span>
+
+<span class="c1">; 自动在 PHP 文档之前和之后添加文件 </span>
+<span class="na">auto_prepend_file</span> <span class="o">=</span> 
+<span class="na">auto_append_file</span> <span class="o">=</span>
+
+<span class="c1">; 象4.04b4一样，PHP 默认地总是在 “ Content-type:” 头标输出一个字符的编码方式。 </span>
+<span class="c1">; 让输出字符集失效，只要设置为空。 </span>
+<span class="c1">; PHP 的内建默认值是 text/html </span>
+<span class="na">default_mimetype</span> <span class="o">=</span> <span class="s">&quot; text/html&quot; </span>
+<span class="c1">;default_charset = &quot; iso-8859-1&quot;</span>
+
+<span class="c1">;;;;;;;;;;;;;;;;;;;;;;;;; </span>
+<span class="c1">; Paths and Directories ; </span>
+<span class="c1">;;;;;;;;;;;;;;;;;;;;;;;;; </span>
+<span class="na">include_path</span> <span class="o">=</span> <span class="s">; include 路径设置，UNIX: &quot; /path1:/path2&quot; Windows: &quot; \path1;\path2&quot; </span>
+<span class="na">doc_root</span> <span class="o">=</span> <span class="s">; php 页面的根路径，仅在非空时有效 </span>
+<span class="na">user_dir</span> <span class="o">=</span> <span class="s">; 告知 php 在使用 /~username 打开脚本时到哪个目录下去找，仅在非空时有效 </span>
+<span class="c1">;upload_tmp_dir = ; 存放用HTTP协议上载的文件的临时目录（在没指定时使用系统默认的） </span>
+<span class="na">upload_max_filesize</span> <span class="o">=</span> <span class="s">2097152 ; 文件上载默认地限制为2 Meg </span>
+<span class="na">extension_dir</span> <span class="o">=</span> <span class="s">c:\php\ ; 存放可加载的扩充库（模块）的目录 </span>
+<span class="na">enable_dl</span> <span class="o">=</span> <span class="s">On ; 是否使dl()有效。 </span>
+<span class="c1">; 在多线程的服务器上 dl()函数*不能*很好地工作， </span>
+<span class="c1">; 例如IIS or Zeus，并在其上默认为禁止</span>
+
+
+<span class="c1">;;;;;;;;;;;;;;;; </span>
+<span class="c1">; File Uploads ; </span>
+<span class="c1">;;;;;;;;;;;;;;;; </span>
+<span class="na">file_uploads</span> <span class="o">=</span> <span class="s">On ; 是否允许HTTP方式文件上载 </span>
+<span class="c1">;upload_tmp_dir = ; 用于HTTP上载的文件的临时目录（未指定则使用系统默认） </span>
+<span class="na">upload_max_filesize</span> <span class="o">=</span> <span class="s">2M ; 上载文件的最大许可大小</span>
+
+<span class="c1">; Fopen wrappers ; </span>
+<span class="c1">;;;;;;;;;;;;;;;;;; </span>
+<span class="na">allow_url_fopen</span> <span class="o">=</span> <span class="s">On ; 是否允许把URLs当作http:.. 或把文件当作ftp:...</span>
+
+
+<span class="c1">;;;;;;;;;;;;;;;;;;;;;; </span>
+<span class="c1">; 动态扩展 ; </span>
+<span class="c1">; Dynamic Extensions ; </span>
+<span class="c1">;;;;;;;;;;;;;;;;;;;;;; </span>
+<span class="c1">; 若你希望一个扩展库自动加载，用下面的语法： </span>
+<span class="c1">; extension=modulename.extension </span>
+<span class="c1">; 例如，在windows上， </span>
+<span class="c1">; extension=msql.dll </span>
+<span class="c1">; or 在UNIX下, </span>
+<span class="c1">; extension=msql.so </span>
+<span class="c1">; 注意，这只应当是模块的名字，不需要目录信息放在里面。 </span>
+<span class="c1">; 用上面的 extension_dir 指示指定扩展库的位置。</span>
+
+
+<span class="c1">;Windows 扩展 </span>
+<span class="c1">;extension=php_nsmail.dll </span>
+<span class="na">extension</span><span class="o">=</span><span class="s">php_calendar.dll </span>
+<span class="c1">;extension=php_dbase.dll </span>
+<span class="c1">;extension=php_filepro.dll </span>
+<span class="na">extension</span><span class="o">=</span><span class="s">php_gd.dll </span>
+<span class="c1">;extension=php_dbm.dll </span>
+<span class="c1">;extension=php_mssql.dll </span>
+<span class="c1">;extension=php_zlib.dll </span>
+<span class="c1">;extension=php_filepro.dll </span>
+<span class="c1">;extension=php_imap4r2.dll </span>
+<span class="c1">;extension=php_ldap.dll </span>
+<span class="c1">;extension=php_crypt.dll </span>
+<span class="c1">;extension=php_msql2.dll </span>
+<span class="c1">;extension=php_odbc.dll </span>
+<span class="c1">; 注意， MySQL的支持现在是内建的，因此，不需要用它的dll</span>
+
+
+<span class="c1">;;;;;;;;;;;;;;;;;;; </span>
+<span class="c1">; 模块设定 ; </span>
+<span class="c1">; Module Settings ; </span>
+<span class="c1">;;;;;;;;;;;;;;;;;;;</span>
+
+<span class="na">[Syslog] </span>
+<span class="na">define_syslog_variables</span> <span class="o">=</span> <span class="s">Off ; 是否定义各种的系统日志变量 </span>
+<span class="c1">; 如：$LOG_PID, $LOG_CRON, 等等。 </span>
+<span class="c1">; 关掉它是个提高效率的好主意。 </span>
+<span class="c1">; 运行时，你可以调用函数define_syslog_variables()，来定义这些变量</span>
+
+
+<span class="na">[mail function] </span>
+<span class="na">SMTP</span> <span class="o">=</span> <span class="s">localhost ;仅用于win32系统 </span>
+<span class="na">sendmail_from</span> <span class="o">=</span> <span class="s">me@localhost.com ;仅用于win32系统 </span>
+<span class="c1">;sendmail_path = ;仅用于unix, 也可支持参数（默认的是&#39;sendmail -t -i&#39;）</span>
+
+<span class="na">[Debugger] </span>
+<span class="na">debugger.host</span> <span class="o">=</span> <span class="s">localhost </span>
+<span class="na">debugger.port</span> <span class="o">=</span> <span class="s">7869 </span>
+<span class="na">debugger.enabled</span> <span class="o">=</span> <span class="s">False</span>
+
+<span class="na">[Logging] </span>
+<span class="c1">; 这些配置指示用于示例的日志记录机制。 </span>
+<span class="c1">; 看 examples/README.logging 以得到更多的解释 </span>
+<span class="c1">;logging.method = db </span>
+<span class="c1">;logging.directory = /path/to/log/directory</span>
+
+<span class="na">[Java] </span>
+<span class="c1">;java.class.path = .\php_java.jar </span>
+<span class="c1">;java.home = c:\jdk </span>
+<span class="c1">;java.library = c:\jdk\jre\bin\hotspot\jvm.dll </span>
+<span class="c1">;java.library.path = .\</span>
+
+<span class="na">[SQL] </span>
+<span class="na">sql.safe_mode</span> <span class="o">=</span> <span class="s">Off</span>
+
+<span class="na">[ODBC] </span>
+<span class="c1">;uodbc.default_db = Not yet implemented </span>
+<span class="c1">;uodbc.default_user = Not yet implemented </span>
+<span class="c1">;uodbc.default_pw = Not yet implemented </span>
+<span class="na">uodbc.allow_persistent</span> <span class="o">=</span> <span class="s">On ; 允许或禁止 持久连接 </span>
+<span class="na">uodbc.check_persistent</span> <span class="o">=</span> <span class="s">On ; 在重用前检查连接是否还可用 </span>
+<span class="na">uodbc.max_persistent</span> <span class="o">=</span> <span class="s">-1 ; 持久连接的最大数。-1 代表无限制 </span>
+<span class="na">uodbc.max_links</span> <span class="o">=</span> <span class="s">-1 ; 连接的最大数目（持久和非持久）。-1 代表无限制 </span>
+<span class="na">uodbc.defaultlrl</span> <span class="o">=</span> <span class="s">4096 ; 控制 LONG 类型的字段。返回变量的字节数，0 代表通过（？）0 means passthru </span>
+<span class="na">uodbc.defaultbinmode</span> <span class="o">=</span> <span class="s">1 ; 控制 二进制数据。0 代表?????Handling of binary data. 0 means passthru, 1 return as is, 2 convert to char </span>
+<span class="c1">; 见有关 odbc_binmode 和 odbc_longreadlen 的文档以得到 uodbc.defaultlrl 和 uodbc.defaultbinmode 的解释。</span>
+
+<span class="na">[MySQL] </span>
+<span class="na">mysql.allow_persistent</span> <span class="o">=</span> <span class="s">On ; 允许或禁止 持久连接 </span>
+<span class="na">mysql.max_persistent</span> <span class="o">=</span> <span class="s">-1 ; 持久连接的最大数。-1 代表无限制 </span>
+<span class="na">mysql.max_links</span> <span class="o">=</span> <span class="s">-1 ; 连接的最大数目（持久和非持久）。-1 代表无限制 </span>
+<span class="na">mysql.default_port</span> <span class="o">=</span> <span class="s">; mysql_connect() 使用的默认端口，如不设置，mysql_connect() </span>
+<span class="c1">; 将使用变量 $MYSQL_TCP_PORT，或在/etc/services 下的mysql-tcp 条目(unix)， </span>
+<span class="c1">; 或在编译是定义的 MYSQL_PORT(按这样的顺序) </span>
+<span class="c1">; Win32环境，将仅检查MYSQL_PORT。 </span>
+<span class="na">mysql.default_socket</span> <span class="o">=</span> <span class="s">; 用于本地 MySql 连接的默认的套接字名。为空，使用 MYSQL 内建值</span>
+
+<span class="na">mysql.default_host</span> <span class="o">=</span> <span class="s">; mysql_connect() 默认使用的主机（安全模式下无效） </span>
+<span class="na">mysql.default_user</span> <span class="o">=</span> <span class="s">; mysql_connect() 默认使用的用户名（安全模式下无效） </span>
+<span class="na">mysql.default_password</span> <span class="o">=</span> <span class="s">; mysql_connect() 默认使用的密码（安全模式下无效） </span>
+<span class="c1">; 注意，在这个文件下保存密码通常是一个*坏*主意 </span>
+<span class="c1">; *任何*可以使用PHP访问的用户可以运行 </span>
+<span class="c1">; &#39;echo cfg_get_var(&quot; mysql.default_password&quot; )&#39;来显示那个密码! </span>
+<span class="c1">; 而且当然地，任何有读该文件权力的用户也能看到那个密码。</span>
+
+<span class="na">[mSQL] </span>
+<span class="na">msql.allow_persistent</span> <span class="o">=</span> <span class="s">On ; 允许或禁止 持久连接 </span>
+<span class="na">msql.max_persistent</span> <span class="o">=</span> <span class="s">-1 ; 持久连接的最大数。-1 代表无限制 </span>
+<span class="na">msql.max_links</span> <span class="o">=</span> <span class="s">-1 ; 连接的最大数目（持久和非持久）。-1 代表无限制</span>
+
+<span class="na">[PostgresSQL] </span>
+<span class="na">pgsql.allow_persistent</span> <span class="o">=</span> <span class="s">On ; 允许或禁止 持久连接 </span>
+<span class="na">pgsql.max_persistent</span> <span class="o">=</span> <span class="s">-1 ; 持久连接的最大数。-1 代表无限制 </span>
+<span class="na">pgsql.max_links</span> <span class="o">=</span> <span class="s">-1 ; 连接的最大数目（持久和非持久）。-1 代表无限制</span>
+
+<span class="na">[Sybase] </span>
+<span class="na">sybase.allow_persistent</span> <span class="o">=</span> <span class="s">On ; 允许或禁止 持久连接 </span>
+<span class="na">sybase.max_persistent</span> <span class="o">=</span> <span class="s">-1 ; 持久连接的最大数。-1 代表无限制 </span>
+<span class="na">sybase.max_links</span> <span class="o">=</span> <span class="s">-1 ; 连接的最大数目（持久和非持久）。-1 代表无限制 </span>
+<span class="c1">;sybase.interface_file = &quot; /usr/sybase/interfaces&quot; </span>
+<span class="na">sybase.min_error_severity</span> <span class="o">=</span> <span class="s">10 ; 显示的错误的最低严重性 </span>
+<span class="na">sybase.min_message_severity</span> <span class="o">=</span> <span class="s">10 ; 显示的消息的最低重要性 </span>
+<span class="na">sybase.compatability_mode</span> <span class="o">=</span> <span class="s">Off ; 与旧版的PHP 3.0 兼容的模式。若打开，这将导致 PHP 自动地 </span>
+<span class="c1">; 把根据结果的 Sybase 类型赋予它们， </span>
+<span class="c1">; 而不是把它们全当成字符串。 </span>
+<span class="c1">; 这个兼容模式不会永远留着， </span>
+<span class="c1">; 因此，将你的代码进行需要的修改， </span>
+<span class="c1">; 并将该项关闭。</span>
+
+<span class="na">[Sybase-CT] </span>
+<span class="na">sybct.allow_persistent</span> <span class="o">=</span> <span class="s">On ; 允许或禁止 持久连接 </span>
+<span class="na">sybct.max_persistent</span> <span class="o">=</span> <span class="s">-1 ; 持久连接的最大数。-1 代表无限制 </span>
+<span class="na">sybct.max_links</span> <span class="o">=</span> <span class="s">-1 ; 连接的最大数目（持久和非持久）。-1 代表无限制 </span>
+<span class="na">sybct.min_server_severity</span> <span class="o">=</span> <span class="s">10 ; 显示的错误的最低严重性 </span>
+<span class="na">sybct.min_client_severity</span> <span class="o">=</span> <span class="s">10 ; 显示的消息的最低重要性</span>
+
+<span class="na">[bcmath] </span>
+<span class="na">bcmath.scale</span> <span class="o">=</span> <span class="s">0 ; 用于所有bcmath函数的10十进制数数字的个数number of decimal digits for all bcmath functions</span>
+
+<span class="na">[browscap] </span>
+<span class="c1">;browscap = extra/browscap.ini </span>
+<span class="na">browscap</span> <span class="o">=</span> <span class="s">C:\WIN\SYSTEM\inetsrv\browscap.ini </span>
+<span class="na">[Informix] </span>
+<span class="na">ifx.default_host</span> <span class="o">=</span> <span class="s">; ifx_connect() 默认使用的主机（安全模式下无效） </span>
+<span class="na">ifx.default_user</span> <span class="o">=</span> <span class="s">; ifx_connect() 默认使用的用户名（安全模式下无效） </span>
+<span class="na">ifx.default_password</span> <span class="o">=</span> <span class="s">; ifx_connect() 默认使用的密码（安全模式下无效） </span>
+<span class="na">ifx.allow_persistent</span> <span class="o">=</span> <span class="s">On ; 允许或禁止 持久连接 </span>
+<span class="na">ifx.max_persistent</span> <span class="o">=</span> <span class="s">-1 ; 持久连接的最大数。-1 代表无限制 </span>
+<span class="na">ifx.max_links</span> <span class="o">=</span> <span class="s">-1 ; 连接的最大数目（持久和非持久）。-1 代表无限制 </span>
+<span class="na">ifx.textasvarchar</span> <span class="o">=</span> <span class="s">0 ; 若打开，select 状态符返回一个 ‘ text blob’ 字段的内容，而不是它的id </span>
+<span class="na">ifx.byteasvarchar</span> <span class="o">=</span> <span class="s">0 ; 若打开，select 状态符返回一个 ‘ byte blob’ 字段的内容，而不是它的id </span>
+<span class="na">ifx.charasvarchar</span> <span class="o">=</span> <span class="s">0 ; 追踪从固定长度的字符列里剥离的空格。 </span>
+<span class="c1">; 可能对 Informix SE 用户有效。 </span>
+<span class="na">ifx.blobinfile</span> <span class="o">=</span> <span class="s">0 ; 若打开，text和byte blobs 的内容被导出到一个文件 </span>
+<span class="c1">; 而不是保存到内存。 </span>
+<span class="na">ifx.nullformat</span> <span class="o">=</span> <span class="s">0 ; NULL（空）被作为空字段返回，除非，这里被设为1。 </span>
+<span class="c1">; 这种情况下（为1），NULL作为字串NULL返回。</span>
+
+<span class="na">[Session] </span>
+<span class="na">session.save_handler</span> <span class="o">=</span> <span class="s">files ; 用于保存/取回数据的控制方式 </span>
+<span class="na">session.save_path</span> <span class="o">=</span> <span class="s">C:\win\temp ; 在 save_handler 设为文件时传给控制器的参数， </span>
+<span class="c1">; 这是数据文件将保存的路径。 </span>
+<span class="na">session.use_cookies</span> <span class="o">=</span> <span class="s">1 ; 是否使用cookies </span>
+<span class="na">session.name</span> <span class="o">=</span> <span class="s">PHPSESSID </span>
+<span class="c1">; 用在cookie里的session的名字 </span>
+<span class="na">session.auto_start</span> <span class="o">=</span> <span class="s">0 ; 在请求启动时初始化session </span>
+<span class="na">session.cookie_lifetime</span> <span class="o">=</span> <span class="s">0 ; 为按秒记的cookie的保存时间， </span>
+<span class="c1">; 或为0时，直到浏览器被重启 </span>
+<span class="na">session.cookie_path</span> <span class="o">=</span> <span class="s">/ ; cookie的有效路径 </span>
+<span class="na">session.cookie_domain</span> <span class="o">=</span> <span class="s">; cookie的有效域 </span>
+<span class="na">session.serialize_handler</span> <span class="o">=</span> <span class="s">php ; 用于连接数据的控制器 </span>
+<span class="c1">; php是 PHP 的标准控制器。 </span>
+<span class="na">session.gc_probability</span> <span class="o">=</span> <span class="s">1 ; 按百分比的&#39;garbage collection（碎片整理）&#39;进程 </span>
+<span class="c1">; 在每次 session 初始化的时候开始的可能性。 </span>
+<span class="na">session.gc_maxlifetime</span> <span class="o">=</span> <span class="s">1440 ; 在这里数字所指的秒数后，保存的数据将被视为 </span>
+<span class="c1">; &#39;碎片(garbage)&#39;并由gc 进程清理掉。 </span>
+<span class="na">session.referer_check</span> <span class="o">=</span> <span class="s">; 检查 HTTP引用以使额外包含于URLs中的ids无效 </span>
+<span class="na">session.entropy_length</span> <span class="o">=</span> <span class="s">0 ; 从文件中读取多少字节 </span>
+<span class="na">session.entropy_file</span> <span class="o">=</span> <span class="s">; 指定这里建立 session id </span>
+<span class="c1">; session.entropy_length = 16 </span>
+<span class="c1">; session.entropy_file = /dev/urandom </span>
+<span class="na">session.cache_limiter</span> <span class="o">=</span> <span class="s">nocache ; 设为{nocache,private,public},以决定 HTTP 的 </span>
+<span class="c1">; 缓存问题 </span>
+<span class="na">session.cache_expire</span> <span class="o">=</span> <span class="s">180 ; 文档在 n 分钟后过时 </span>
+<span class="na">session.use_trans_sid</span> <span class="o">=</span> <span class="s">1 ; 使用过渡性的 sid 支持，若编译时许可了 </span>
+<span class="c1">; --enable-trans-sid </span>
+<span class="na">url_rewriter.tags</span> <span class="o">=</span> <span class="s">&quot; a=href,area=href,frame=src,input=src,form=fakeentry&quot;</span>
+
+<span class="na">[MSSQL] </span>
+<span class="c1">;extension=php_mssql.dll </span>
+<span class="na">mssql.allow_persistent</span> <span class="o">=</span> <span class="s">On ; 允许或禁止 持久连接 </span>
+<span class="na">mssql.max_persistent</span> <span class="o">=</span> <span class="s">-1 ; 持久连接的最大数。-1 代表无限制 </span>
+<span class="na">mssql.max_links</span> <span class="o">=</span> <span class="s">-1 ; 连接的最大数目（持久和非持久）。-1 代表无限制 </span>
+<span class="na">mssql.min_error_severity</span> <span class="o">=</span> <span class="s">10 ; 显示的错误的最低严重性 </span>
+<span class="na">mssql.min_message_severity</span> <span class="o">=</span> <span class="s">10 ; 显示的消息的最低重要性 </span>
+<span class="na">mssql.compatability_mode</span> <span class="o">=</span> <span class="s">Off ; 与旧版的PHP 3.0 兼容的模式。</span>
+
+<span class="na">[Assertion] </span>
+<span class="c1">; ？？？？？ </span>
+<span class="c1">;assert.active = On ; ？assert(expr); active by default </span>
+<span class="c1">;assert.warning = On ; issue a PHP warning for each failed assertion. </span>
+<span class="c1">;assert.bail = Off ; don&#39;t bail out by default. </span>
+<span class="c1">;assert.callback = 0 ; user-function to be called if an assertion fails. </span>
+<span class="c1">;assert.quiet_eval = 0 ; eval the expression with current error_reporting(). set to true if you want error_reporting(0) around the eval().</span>
+
+<span class="na">[Ingres II] </span>
+<span class="na">ii.allow_persistent</span> <span class="o">=</span> <span class="s">On ; 允许或禁止 持久连接 </span>
+<span class="na">ii.max_persistent</span> <span class="o">=</span> <span class="s">-1 ; 持久连接的最大数。-1 代表无限制 </span>
+<span class="na">ii.max_links</span> <span class="o">=</span> <span class="s">-1 ; 连接的最大数目（持久和非持久）。-1 代表无限制 </span>
+<span class="na">ii.default_database</span> <span class="o">=</span> <span class="s">; 默认 database (format : [node_id::]dbname[/srv_class] </span>
+<span class="na">ii.default_user</span> <span class="o">=</span> <span class="s">; 默认 user </span>
+<span class="na">ii.default_password</span> <span class="o">=</span> <span class="s">; 默认 password</span>
+
+<span class="na">[Verisign Payflow Pro] </span>
+<span class="na">pfpro.defaulthost</span> <span class="o">=</span> <span class="s">&quot; test.signio.com&quot; ; 默认的 Signio 服务器 </span>
+<span class="na">pfpro.defaultport</span> <span class="o">=</span> <span class="s">443 ; 连接的默认端口 </span>
+<span class="na">pfpro.defaulttimeout</span> <span class="o">=</span> <span class="s">30 ; 按秒计的默认超时时间</span>
+
+<span class="c1">; pfpro.proxyaddress = ; 默认的代理的 IP 地址（如果需要） </span>
+<span class="c1">; pfpro.proxyport = ; 默认的代理的端口 </span>
+<span class="c1">; pfpro.proxylogon = ; 默认的代理的登录（logon 用户名） </span>
+<span class="c1">; pfpro.proxypassword = ; 默认的代理的密码</span>
+
+<span class="na">[Sockets] </span>
+<span class="na">sockets.use_system_read</span> <span class="o">=</span> <span class="s">On ; 使用系统的read() 函数替代 php_read()封装 </span>
+<span class="c1">; Local Variables: （局部变量） </span>
+<span class="c1">; tab-width: 4 </span>
+<span class="c1">; End</span>
+</pre></div>
+
+<h4 id="nginxfastcgiconf">nginx/fastcgi.conf详解<a class="headerlink" href="#nginxfastcgiconf" title="Permanent link">&para;</a></h4>
+<p>保存factcgi的环境变量
+<div class="codehilite"><pre><span></span><span class="na">SCRIPT_FILENAME 脚本文件路径 如/ usr/local/nginx/html/index.php</span>
+<span class="na">QUERY_STRING ？后面的参数 如a</span><span class="o">=</span><span class="s">2&amp;b=2</span>
+<span class="na">REQUEST_METHOD 请求方式 如POST</span>
+<span class="na">CONTENT_TYPE 请求内容的类型 如application/x-www-form-urlencoded</span>
+<span class="na">CONTENT_LENGTH 请求内容的长度 如8</span>
+<span class="na">SCRIPT_NAME 脚本文件名 如/index.php</span>
+<span class="na">REQUEST_URI 请求URI 如/index. php?a</span><span class="o">=</span><span class="s">1&amp;b=1 </span>
+<span class="na">DOCUMENT_URI文档URI 如/index.php</span>
+<span class="na">DOCUMENT_ROOT 文档根目录 如/usr/local/nginx/html </span>
+<span class="na">SERVER_PROTOCOL HTTP协议版本 如HTTP/1.1</span>
+<span class="na">REQUEST_SCHEME  请求协议（http，https）如http </span>
+<span class="na">fastcgi_param  HTTPS              $https if_not_empty;</span>
+<span class="na">GATEWAY_INTERFACE 网关接口 如CGI/1.1</span>
+<span class="na">SERVER_SOFTWARE 服务器软件和版本 如nginx/1.10.1</span>
+<span class="na">REMOTE_ADDR 来源地址 如192.168.78.1</span>
+<span class="na">REMOTE_PORT 来源端口 如60100</span>
+<span class="na">SERVER_ADDR  服务器地址 如192.168.78.3 </span>
+<span class="na">SERVER_PORT  服务器端口 如80</span>
+<span class="na">SERVER_NAME 服务器名称 如ng.test</span>
+
+<span class="c1"># PHP only, required if PHP was built with --enable-force-cgi-redirect</span>
+<span class="na">fastcgi_param  REDIRECT_STATUS    200;</span>
+</pre></div></p>
+<h2 id="nginxapache">Nginx+Apache环境<a class="headerlink" href="#nginxapache" title="Permanent link">&para;</a></h2>
+<p>安装Apache</p>
+<p>Apache的基本配置</p>
+<p>Apache与PHP整合
+前提是PHP在编译时加入了--with-apxs2=/usr/local/apache2/bin/apxs  # Apache支持
+修改配置文件httpd.conf
+<FileMatch "\.php$">
+    setHandler application/x-httpd-php  # .php交给模块
+&lt;\FileMatch&gt;
+<IfModule dir_module>
+    DirectoryIndex index.html index.php  # 加入索引页
+&lt;\IfModule&gt;</p>
+<p>Nginx+Apache动静分离
+系统文件/etc/host加入以下条目
+127.0.0.1   local1.com
+配置文件httpd.conf
+Listen 81  # 修改监听端口
+配置文件httpd-vhosts.conf
+<VirtualHost *:81>
+    DocumentRoot "/var/www/apache2"
+    ServeraName local1.com
+</VirtualHost>
+<Directory "/srv/www">
+    Require all granted  # 配置访问权限，否则无权访问
+</Directory>
+配置文件nginx.conf
+server {
+    listen 80;
+    server_name  localhost;
+    root /var/www/apache2;
+    index index.html index.htm index.php
+    location ~ .php$ {
+        proxy_pass <a href="http://local1.com:81">http://local1.com:81</a>;  # 指向虚拟主机
+        proxy_set_header Host $host;
+    }
+}</p>
+<h2 id="nginxtomcat">Nginx+Tomcat环境<a class="headerlink" href="#nginxtomcat" title="Permanent link">&para;</a></h2>
+<p>安装Tomcat
+下载JRE（最好是JDK，daemon运行编译需要）和Tomcat,解压tar -zxvf后直接移动到/usr/local下</p>
+<p>Tomcat添加到系统服务
+tomcat
+1.以非root用户运行（这种方式只能以非daemon运行）
+$ export JAVA_HOME=/usr/local/jre
+$ sudo -E -u tomcat /usr/local/tomcat/bin/catalina.sh</p>
+<p>2.jsvc解决方案
+要将tomcat作为linux的daemon运行，需要commons-daemon工程的jsvc工具，tomcat的bin目录里已经自带了这个工具的源码。
+$ cd /usr/local/tomcat/bin/
+$  tar -zxvf commons-daemon-native.tar.gz
+$ cd  commons-daemon-1.1.0-native-src/unix/
+$ ./configure --with-java=/usr/local/jdk/
+$ make  # 生成jsvc可执行文件
+$ cp jsvc ../../
+$ cd /usr/local/tomcat/bin/
+$ cp daemon.sh /etc/init.d/tomcat  # 将文件复制到init.d
+修改tomcat
++# chkconfig: 2345 25 85    #添加到头部，这是服务配置信息
++# description: Tomcat daemon project
++JAVA_HOME=/opt/jdk          #配置环境变量
++CATALINA_HOME=/opt/tomcat
+    ...
+test ".$TOMCAT_USER" = . &amp;&amp; TOMCAT_USER=daemon    #将tomcat用户改为daemon
+更新systemctl表
+$ systemctl daemon-reload
+添加系统服务
+$ chkconfig --add tomcat</p>
+<p>配置Nginx+Tomcat动静分离
+nginx.conf中添加虚拟主机
+<div class="codehilite"><pre><span></span>server {
+    listen 80;
+    server_name www.xx.test;
+    root /usr/local/tomcat/webapps/ROOT;
+    index index.html index.htm index.jsp index.do;
+    location ~ / (WEB-INF|META-INF){
+         deny all
+    }
+    location ~ \.(jsp|do)${
+         proxy_pass http://127.0.0.1:8080;
+         proxy_set_header X-Real-IP $remote_addr;
+    }
+    location ~^/(docs|example)(/.*) * ${
+         root /usr/local/tomcat/webapps;
+    }
+}
+</pre></div></p>
+<h2 id="openresty">OpenResty环境<a class="headerlink" href="#openresty" title="Permanent link">&para;</a></h2>
+<p>安装OpenResty
+安装依赖
+$ yum -y install perl pcre_devel openssl-devel
+下载安装OpenResty
+$ cd /usr/local/src/
+$ curl -O <a href="https://openresty.org/download/openresty-1.13.6.2.tar.gz">https://openresty.org/download/openresty-1.13.6.2.tar.gz</a>
+$ tar -zxvf openresty-1.13.6.2.tar.gz
+$ cd cd openresty-1.13.6.2
+$ ./configure
+$ gmake &amp;&amp; gmake install
+安装目录中bin文件夹下openresty文件实际上是该软件整合后openrestyd项目中nginx文件的软连接，所以将原版nginx文件替换成openresty中的nginx的软连接即可
+$ mv /usr/local/nginx/nginx /usr/local/nginx/nginx.bak  # 备份nginx
+$ cd /usr/local/openresty/nginx/sbin<br />
+$ ln -s <code>pwd</code>/nginx /usr/local/nginx/nginx # 建立软连接</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../01-Nginx基本配置/" title="Nginx基本配置" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  后退
+                </span>
+                Nginx基本配置
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../03-负载均衡与缓存/" title="负载均衡与缓存" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  前进
+                </span>
+                负载均衡与缓存
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../../assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/jokerleu" class="md-footer-social__link fa fa-github"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/application.d9aa80ab.js"></script>
+      
+        
+        
+          
+          <script src="../../../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
+          
+            
+              
+                <script src="../../../assets/javascripts/lunr/tinyseg.js"></script>
+              
+              
+                <script src="../../../assets/javascripts/lunr/lunr.jp.js"></script>
+              
+            
+          
+          
+        
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../../.."}})</script>
+      
+        <script src="../../../js/extra.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+    
+  </body>
+</html>
