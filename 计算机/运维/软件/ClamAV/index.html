@@ -34,11 +34,11 @@
         <meta name="lang:search.tokenizer" content="[\uff0c\u3002]+">
       
       <link rel="shortcut icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.2">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.1.0">
     
     
       
-        <title>ClarmAV - 知识与技能图景</title>
+        <title>ClamAV - 知识与技能图景</title>
       
     
     
@@ -53,7 +53,7 @@
       
     
     
-      <script src="../../../../assets/javascripts/modernizr.1f0bcf2b.js"></script>
+      <script src="../../../../assets/javascripts/modernizr.01ccdecf.js"></script>
     
     
       
@@ -104,7 +104,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#clarmav" tabindex="1" class="md-skip">
+      <a href="#clamav" tabindex="1" class="md-skip">
         跳转至
       </a>
     
@@ -129,7 +129,7 @@
               知识与技能图景
             </span>
             <span class="md-header-nav__topic">
-              ClarmAV
+              ClamAV
             </span>
           
         </div>
@@ -856,8 +856,8 @@
       
     
     
-    <a href="./" title="ClarmAV" class="md-nav__link md-nav__link--active">
-      ClarmAV
+    <a href="./" title="ClamAV" class="md-nav__link md-nav__link--active">
+      ClamAV
     </a>
     
   </li>
@@ -1445,6 +1445,30 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../../未分类页面/软件安装/" title="软件安装" class="md-nav__link">
+      软件安装
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../未分类页面/未归档页面/" title="未归档页面" class="md-nav__link">
+      未归档页面
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../基础知识/" title="基础知识" class="md-nav__link">
       基础知识
     </a>
@@ -1495,10 +1519,23 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/jokerleu/blog/edit/master/docs/计算机/运维/软件/ClarmAV.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/jokerleu/blog/edit/master/docs/计算机/运维/软件/ClamAV.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="clarmav">ClarmAV<a class="headerlink" href="#clarmav" title="Permanent link">&para;</a></h1>
+                <h1 id="clamav">ClamAV<a class="headerlink" href="#clamav" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>ClamAV是一个在命令行下查毒软件,因为它不将杀毒作为主要功能,默认只能查出您计算机内的病毒,但是无法清除,至多删除文件。</p>
+</blockquote>
+<p>二进制安装</p>
+<div class="codehilite"><pre><span></span>sudo apt-get install clamav
+</pre></div>
+
+<p>常用命令</p>
+<div class="codehilite"><pre><span></span>freshclam  <span class="c1"># 更新病毒库</span>
+clamscan -r /home  <span class="c1"># 扫描所有用户的主目录</span>
+clamscan -r /  <span class="c1"># 扫描所有目录并显示所有文件的扫描结果</span>
+clamscan -r --bell -i /  <span class="c1"># 扫描所有目录并显示有问题文件的扫描结果</span>
+</pre></div>
                 
                   
                 
@@ -1575,7 +1612,7 @@
       
     </div>
     
-      <script src="../../../../assets/javascripts/application.d9aa80ab.js"></script>
+      <script src="../../../../assets/javascripts/application.2ba8dec4.js"></script>
       
         
         
@@ -1584,10 +1621,6 @@
           
             
               
-                <script src="../../../../assets/javascripts/lunr/tinyseg.js"></script>
-              
-              
-                <script src="../../../../assets/javascripts/lunr/lunr.jp.js"></script>
               
             
           
